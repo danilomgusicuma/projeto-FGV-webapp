@@ -15,7 +15,7 @@ import Hidden from '@material-ui/core/Hidden';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { CardMedia } from '@material-ui/core';
-import video from './../../assets/video.mp4'
+import video from 'api.desafiosdegestao.com.br:3000/video.mp4'
 import { makeStyles } from '@material-ui/core/styles';
 import socket from '../../connection';
 import {register, login} from '../../serverCalls';
@@ -70,8 +70,8 @@ export default function Login(props) {
   })
 
   function onSimulationClick(){
-    const {cooperative, instance, password} = signInData
-    const creden = [cooperative, password, instance];
+    const {username, password} = signInData
+    const creden = {login:username, password};
     login(creden)
     props.history.push('/game/manual')
     setError(true);
@@ -114,12 +114,12 @@ export default function Login(props) {
               margin="normal"
               required
               fullWidth
-              id="cooperative"
-              label="Cooperativa"
-              name="cooperativa"
-              autoComplete="cooperativa"
+              id="login"
+              label="Login"
+              name="login"
+              autoComplete="login"
               autoFocus
-              onChange={e=>setSignInData({...signInData, cooperative:e.target.value})}
+              onChange={e=>setSignInData({...signInData, username:e.target.value})}
             />
             <TextField
               error={error}
@@ -135,7 +135,7 @@ export default function Login(props) {
               autoComplete="current-password"
               onChange={e=>setSignInData({...signInData, password:e.target.value})}
             />
-           <TextField
+           {/* <TextField
               error={error}
               helperText={error? "falha no login" : null}
               variant="outlined"
@@ -148,7 +148,7 @@ export default function Login(props) {
               autoComplete="instância"
               autoFocus
               onChange={e=>setSignInData({...signInData, instance:e.target.value})}
-            />
+            /> */}
             <Button
               //type="submit"
               fullWidth

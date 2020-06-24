@@ -6,15 +6,11 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import SaveIcon from '@material-ui/icons/Save';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import MenuIcon from '@material-ui/icons/Menu';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
@@ -27,12 +23,10 @@ import logo from '../../assets/logo.png';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import SelectRound from '../SelectRound/SelectRound';
-import SelectReport from '../SelectReport/SelectReport';
 import ServicesContainer from '../ServicesContainer/ServicesContainer';
 import Manual from '../Manual/Manual';
 
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, useHistory, useLocation } from 'react-router-dom'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
@@ -93,7 +87,38 @@ function Game(props) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
+  const [game, setGame] = useState([])
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [downloadModal, setDownloadModal] = useState(false);
+  const [round, setRound] = useState();
+
+  const history = useHistory();
+  const location = useLocation();
+
+  useEffect(()=>{
+    socket.emit('puxar-state');
+    socket.on('final-turno',()=>{
+      console.log("final-turno")
+      socket.emit('puxar-state');
+
+    })
+    socket.on('update', state => {
+      setGame(state)
+    return ()=>{
+      socket.off('update');
+      socket.off('final-turno');
+    }});
+  },[])
+
+  function generateRounds(){
+    const currentRound = game[30] ? game[30] : 0;
+    let rounds = []
+    let i;
+    for(i=1; i<currentRound; i++){
+      rounds.push({value:i, label:i});
+    }
+    return rounds
+  }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -178,6 +203,26 @@ function Game(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <Dialog open={downloadModal} aria-labelledby="simple-dialog-title" onClose={()=>setDownloadModal(prevState=>!prevState)}>
+        <DialogTitle>
+          Selecione um turno
+        </DialogTitle>
+        <DialogContent className={classes.dialog}>
+          <Select
+            defaultValue={game[30] ? game[30]-1 : 0}
+            options={generateRounds()}
+            onChange={event=>{
+              setRound(event.value)
+            }}
+          />
+          <Button
+            onClick={round ? history.push(`/reports/${round}`) : null}
+          >
+            Ver Demonstrativos
+          </Button>
+          
+        </DialogContent>
+      </Dialog>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
@@ -192,6 +237,15 @@ function Game(props) {
           <Typography variant="h6" noWrap>
             Desafiosdegestao 
           </Typography>
+          {location.pathname.includes('admin') ? <></> : <Button
+            variant="contained"
+            color="primary"
+            className={classes.menuButton}
+            onClick={()=>{setDownloadModal(true)}}> 
+            
+            Demonstrativos
+          
+          </Button>}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">

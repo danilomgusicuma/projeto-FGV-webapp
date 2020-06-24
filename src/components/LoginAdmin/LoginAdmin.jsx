@@ -59,15 +59,12 @@ export default function Login(props) {
   const classes = useStyles();
   const [error, setError] = useState(false);
   const [signInData, setSignInData] = useState({
-    cooperative:null,
-    instance:null,
+    login:null,
     password:null,
   })
 
   function onClick(){
-    const {login, password} = signInData
-    const creden = [login, password];
-    socket.emit('login-adm', creden);
+    socket.emit('login-adm', signInData);
     history.push('/admin/panel')
     setError(true);
   }

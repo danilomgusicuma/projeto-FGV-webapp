@@ -53,23 +53,10 @@ export default function ServicesContainer() {
 
   const classes = useStyles();
   const [game, setGame] = useState([])
-  const [downloadModal, setDownloadModal] = useState(false);
   const [serviceModal, setServiceModal] = useState(false);
   const [selectedService, setSelectedService] = useState(false);
   const [downloadInfo, setDownloadInfo] = useState({frango:true})  
-  const [round, setRound] = useState();
 
-  const history = useHistory();
-
-  function generateRounds(){
-    const currentRound = game[30] ? game[30] : 0;
-    let rounds = []
-    let i;
-    for(i=1; i<currentRound; i++){
-      rounds.push({value:i, label:i});
-    }
-    return rounds
-  }
 
   useEffect(()=>{
     socket.emit('puxar-state');
@@ -125,26 +112,6 @@ export default function ServicesContainer() {
           </Button>
         </DialogContent>
       </Dialog>
-      <Dialog open={downloadModal} aria-labelledby="simple-dialog-title" onClose={()=>setDownloadModal(prevState=>!prevState)}>
-        <DialogTitle>
-          Selecione um turno
-        </DialogTitle>
-        <DialogContent className={classes.dialog}>
-          <Select
-            defaultValue={game[30] ? game[30]-1 : 0}
-            options={generateRounds()}
-            onChange={event=>{
-              setRound(event.value)
-            }}
-          />
-          <Button
-            onClick={round ? history.push(`/reports/${round}`) : null}
-          >
-            Ver Demonstrativos
-          </Button>
-          
-        </DialogContent>
-      </Dialog>
       <Grid container justify="center" spacing={2}>
         <Grid item sm={12}>
           <GeneralInformation isAdmin={false} gameData={game}/>
@@ -158,9 +125,6 @@ export default function ServicesContainer() {
         <Grid item xs={12} sm={12}>
           <Button variant="contained" color="primary" className={classes.button} onClick={()=>setServiceModal(true)}> 
             Novo Serviço
-          </Button>
-          <Button variant="contained" color="primary" className={classes.button} onClick={()=>{setDownloadModal(true)}}> 
-            Balanço
           </Button>
           <Button variant="contained" color="primary" className={classes.button} onClick={()=>{socket.emit('salvar')}}> 
             Salvar

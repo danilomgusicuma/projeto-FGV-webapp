@@ -72,16 +72,18 @@ const useStyles = makeStyles(theme => ({
 export default function Register(props) {
   const classes = useStyles();
   const [signUpData, setSignUpData] = useState({
-    cooperative:null,
-    instance:null,
-    password:null,
+    cpf: null,
+    nome: null,
+    senha: null,
+    login: null,
+    telefone: null,
+    email: null,
   });
 
   function register(){
-    let {cooperative, instance, password, instancePassword} = signUpData
-    if(cooperative && instance && password){
-      let creden = [cooperative, password, instance, instancePassword]
-      socket.emit('register-client', creden )
+    let {cpf, nome, senha, login, telefone, email} = signUpData
+    if(cpf && nome && senha && login && telefone && email){
+      socket.emit('register-client', signUpData )
     }
     
   }
@@ -119,12 +121,12 @@ export default function Register(props) {
               margin="normal"
               required
               fullWidth
-              id="cooperative"
-              label="Cooperativa"
-              name="cooperativa"
-              autoComplete="cooperativa"
+              id="nome"
+              label="Nome"
+              name="nome"
+              autoComplete="nome"
               autoFocus
-              onChange={e=>setSignUpData({...signUpData, cooperative:e.target.value})}
+              onChange={e=>setSignUpData({...signUpData, nome:e.target.value})}
             />
 
             <TextField
@@ -132,39 +134,64 @@ export default function Register(props) {
               margin="normal"
               required
               fullWidth
-              name="password"
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={e=>setSignUpData({...signUpData, email:e.target.value})}
+            />
+
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="login"
+              label="Login"
+              name="login"
+              autoComplete="login"
+              autoFocus
+              onChange={e=>setSignUpData({...signUpData, login:e.target.value})}
+            />
+
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="senha"
               label="Senha"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={e=>setSignUpData({...signUpData, password:e.target.value})}
-            />
-
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="instance"
-              label="Instância"
-              name="instância"
-              autoComplete="instância"
+              name="senha"
+              autoComplete="senha"
               autoFocus
-              onChange={e=>setSignUpData({...signUpData, instance:e.target.value})}
+              onChange={e=>setSignUpData({...signUpData, senha:e.target.value})}
             />
-            
 
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Senha da instância"
-              type="password"
-              id="password"
+              id="cpf"
+              label="CPF"
+              name="cpf"
+              autoComplete="cpf"
+              autoFocus
+              onChange={e=>setSignUpData({...signUpData, cpf:e.target.value})}
+            />
+
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="telefone"
+              label="Telefone"
+              type="telefone"
+              id="telefone"
               autoComplete="current-password"
-              onChange={e=>setSignUpData({...signUpData, instancePassword:e.target.value})}
+              onChange={e=>setSignUpData({...signUpData, telefone:e.target.value})}
             />
            
             <Button
