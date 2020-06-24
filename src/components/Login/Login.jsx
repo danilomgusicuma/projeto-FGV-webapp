@@ -15,7 +15,6 @@ import Hidden from '@material-ui/core/Hidden';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { CardMedia } from '@material-ui/core';
-import video from 'api.desafiosdegestao.com.br:3000/video.mp4'
 import { makeStyles } from '@material-ui/core/styles';
 import socket from '../../connection';
 import {register, login} from '../../serverCalls';
@@ -64,16 +63,15 @@ export default function Login(props) {
   const classes = useStyles();
   const [error, setError] = useState(false);
   const [signInData, setSignInData] = useState({
-    cooperative:null,
-    instance:null,
-    password:null,
+    login:null,
+    senha:null
   })
 
   function onSimulationClick(){
-    const {username, password} = signInData
-    const creden = {login:username, password};
+    const {username, senha} = signInData
+    const creden = {login:username, senha};
+    console.log(creden)
     login(creden)
-    props.history.push('/game/manual')
     setError(true);
   }
 
@@ -93,7 +91,7 @@ export default function Login(props) {
       <Hidden xsDown>
         <Grid item xs={false} sm={12} md={7} className={classes.image}>
           <video width="551" height="310" controls className={classes.video}>
-            <source src={video} type="video/mp4">
+            <source src='http://api.desafiosdegestao.com.br:3000/assets/video.mp4' type="video/mp4">
             </source>
           </video>
         </Grid>
@@ -133,7 +131,7 @@ export default function Login(props) {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={e=>setSignInData({...signInData, password:e.target.value})}
+              onChange={e=>setSignInData({...signInData, senha:e.target.value})}
             />
            {/* <TextField
               error={error}

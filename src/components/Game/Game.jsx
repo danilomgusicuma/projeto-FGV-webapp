@@ -48,6 +48,10 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
 
+  dialog:{
+    height:'400px',
+  },
+
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -71,6 +75,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
+  },
+  toolbarButton:{
+    marginLeft: 'auto',
   },
   navbarButton:{
     color: 'white',
@@ -240,10 +247,10 @@ function Game(props) {
           <Typography variant="h6" noWrap>
             Desafiosdegestao 
           </Typography>
-          {location.pathname.includes('admin') ? <></> : <Button
-            variant="contained"
-            color="primary"
-            className={classes.menuButton}
+          {location.pathname.includes('admin') ? <>oiiiii</> : <Button
+            //variant="contained"
+            color="inherit"
+            className={classes.toolbarButton}
             onClick={()=>{setDownloadModal(true)}}> 
             
             Demonstrativos
