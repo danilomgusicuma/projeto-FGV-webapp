@@ -94,8 +94,8 @@ function SimSelect(props){
             >
               CBG - Cooperative Business Game
             </Button>
-            <p style={{fontSize:'10px', bottom:'0', marginRight:'50px', position:'absolute'}}>TODOS OS DIREITOS Reservados. Nenhum dos jogos ou desafios simulados podem ser utilizados sem a devida permissão da QUES - Qualidade e Excelência em Serviços, detentora dos direitos legais de uso.</p>
-            <img src={ques} style={{width:'40px', marginLeft:'auto', position:'absolute', bottom:'5px', right:'5px'}}/>
+            <p style={{fontSize:'10px'}}>TODOS OS DIREITOS Reservados. Nenhum dos jogos ou desafios simulados podem ser utilizados sem a devida permissão da QUES - Qualidade e Excelência em Serviços, detentora dos direitos legais de uso.</p>
+            <img src={ques} style={{width:'40px', marginLeft:'auto'}}/>
           </div>
           </div>
         </Grid>

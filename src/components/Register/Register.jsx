@@ -51,6 +51,11 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
     marginTop: '64px',
   },
+  image:{
+    objectFit:'cover',
+    height:'100%',
+    width:'100%'
+  },
   paper: {
     margin: theme.spacing(8, 4),
     display: 'flex',
@@ -104,8 +109,8 @@ export default function Register(props) {
     <>
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image}>
-        <img src={type==='hsg' ? healthImg : cooperativeImg}/>
+      <Grid item xs={false} sm={4} md={7}>
+        <img src={type==='hsg' ? healthImg : cooperativeImg} className={classes.image}/>
       </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
@@ -208,7 +213,7 @@ export default function Register(props) {
               <Grid item xs>
               </Grid>
               <Grid item>
-                <Link to='/login' variant="body2">
+                <Link to='login' variant="body2">
                   {"Já tem uma conta? Faça login"}
                 </Link>
               </Grid>

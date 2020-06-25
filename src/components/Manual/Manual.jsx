@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import { useParams, useLocation } from 'react-router-dom';
 
 
 //import socket from '../../connection';
@@ -25,6 +26,7 @@ export default function Manual() {
   //TODO: Move lists to here
 
   const classes = useStyles();
+  const location = useLocation();
 
   function generateListItems(itensArray) {
     return itensArray.map(item=>(
@@ -34,13 +36,12 @@ export default function Manual() {
         />
       </ListItem>
     ))
-
   }
 
   return(
     <div style={{margin:'0 80px'}}>
     <Paper className={classes.paper}>
-    <Typography variant="h4" className={classes.title}>Cooperative Business Game</Typography>
+    <Typography variant="h4" className={classes.title}>{location.pathname.includes(`hsg`) ? `Health Service Game` : `Cooperative Business Game`}</Typography>
     <br/>
     <br/>
     <br/>
