@@ -31,7 +31,7 @@ import SelectReport from '../SelectReport/SelectReport';
 import Manual from '../Manual/Manual';
 import AdminOptions from '../AdminOptions/AdminOptions';
 
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, useParams } from 'react-router-dom'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
@@ -92,6 +92,7 @@ function PanelAdmin(props) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
+  const {type} = useParams();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -102,31 +103,31 @@ function PanelAdmin(props) {
 
   const sidebarComponents = [
     {
-      path:'/game/manual',
+      path:`/${type}/game/manual`,
       label:'Manual do Jogo',
       component: Manual,
       icon: <LibraryBooksIcon/>,
     },
     {
-      path:'/game/schedule',
+      path:`/${type}/game/schedule`,
       label:'Cronograma',
       component: Manual,
       icon: <EventNoteIcon/>,
     },
     {
-      path:'/game/decisions',
+      path:`/${type}/game/decisions`,
       label:'Síntese de Decisões',
       component: Manual,
       icon: <DescriptionIcon/>,
     },
     {
-      path:'/game/step-by-step',
+      path:`/${type}/game/step-by-step`,
       label:'Passo a Passo',
       component: Manual,
       icon: <ListIcon/>,
     },
     {
-      path:'/game/seasonality',
+      path:`/${type}/game/seasonality`,
       label:'Sazonalidade',
       component: Manual,
       icon: <CachedIcon/>,
@@ -220,7 +221,7 @@ function PanelAdmin(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Route path='/admin/panel' component={AdminOptions}/>
+        <Route path=':type/admin/panel' component={AdminOptions}/>
         {returnSidebarComponents(sidebarComponents)}
       </main>
     </div>

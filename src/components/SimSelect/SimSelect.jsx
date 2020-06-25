@@ -10,10 +10,10 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import video from './../../assets/video.mp4'
 import { makeStyles } from '@material-ui/core/styles';
 import socket from '../../connection';
 import Image from '../../assets/business.jpg';
+import ques from '../../assets/ques.png';
 
 
 const useStyles = makeStyles(theme => ({
@@ -21,6 +21,12 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
   },
   container:{
+    marginRight: 'auto',
+    marginLeft: 'auto',
+  },
+  video:{
+    width:'70%',
+    display:'block',
     marginRight: 'auto',
     marginLeft: 'auto',
   },
@@ -34,6 +40,12 @@ const useStyles = makeStyles(theme => ({
   },
   grid:{
     marginTop:'10%'
+  },
+  texts:{
+    display:'block',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    width:'90%'
   }
 }))
 
@@ -49,19 +61,24 @@ function SimSelect(props){
         </Grid>
         <Grid item xs={false} sm={12} md={6} className={classes.grid}>
           <div className = {classes.container}>
-          <Typography component="h1" variant="h5" className={classes.button}>
-            Bem vindo ao Desafio de Gestão!
-          </Typography>
-          <Typography component="p" variant="body1" className={classes.button}>
-            Aqui esperamos que você apreenda se divertindo. 
-            E dessa forma possa entender de forma dinâmica como os vários elementos 
-            da administração interferem no processo de gestão.
-          </Typography>
+          <video controls className={classes.video}>
+            <source src='http://api.desafiosdegestao.com.br:3000/assets/video.mp4' type="video/mp4">
+            </source>
+          </video>
+          <div className={classes.texts}>
+            <Typography component="h1" variant="h5" className={classes.button}>
+              Bem vindo ao Desafio de Gestão!
+            </Typography>
+            <Typography component="p" variant="body1" className={classes.button}>
+              Aqui esperamos que você apreenda se divertindo. 
+              E dessa forma possa entender de forma dinâmica como os vários elementos 
+              da administração interferem no processo de gestão.
+            </Typography>
             <Button
               variant="contained"
               color="primary"
               onClick={()=>{
-                history.push('/login');
+                history.push('/hsg/login');
               }}
               className={classes.button}
             >
@@ -71,12 +88,15 @@ function SimSelect(props){
               variant="contained"
               color="primary"
               onClick={()=>{
-                history.push('/login');
+                history.push('/cbg/login');
               }}
               className={classes.button}
             >
               CBG - Cooperative Business Game
             </Button>
+            <p style={{fontSize:'10px', bottom:'0', marginRight:'50px', position:'absolute'}}>TODOS OS DIREITOS Reservados. Nenhum dos jogos ou desafios simulados podem ser utilizados sem a devida permissão da QUES - Qualidade e Excelência em Serviços, detentora dos direitos legais de uso.</p>
+            <img src={ques} style={{width:'40px', marginLeft:'auto', position:'absolute', bottom:'5px', right:'5px'}}/>
+          </div>
           </div>
         </Grid>
       </Grid>

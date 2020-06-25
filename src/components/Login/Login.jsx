@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Paper from '@material-ui/core/Paper';
@@ -18,6 +18,8 @@ import { CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import socket from '../../connection';
 import {register, login} from '../../serverCalls';
+import healthImg from '../../assets/health.png';
+import cooperative from '../../assets/cooperative.jpg';
 
 socket.emit('teste', 'teste01')
 
@@ -26,12 +28,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
   },
-  image: {
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.primary[50] : theme.palette.primary[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+  image:{
+    objectFit:'cover',
+    height:'100%',
+    width:'100%'
   },
   video: {
     display:'block',
@@ -66,6 +66,7 @@ export default function Login(props) {
     login:null,
     senha:null
   })
+  const {type} = useParams();
 
   function onSimulationClick(){
     const {username, senha} = signInData
@@ -77,7 +78,7 @@ export default function Login(props) {
 
   useEffect(()=>{
     socket.on('login-client-aprovado',creden=>{
-      props.history.push('/game/manual')
+      props.history.push(`/${type}/game/manual`)
     })
     return(()=>{
       socket.off('login-aprovado')
@@ -89,11 +90,8 @@ export default function Login(props) {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Hidden xsDown>
-        <Grid item xs={false} sm={12} md={7} className={classes.image}>
-          <video width="551" height="310" controls className={classes.video}>
-            <source src='http://api.desafiosdegestao.com.br:3000/assets/video.mp4' type="video/mp4">
-            </source>
-          </video>
+        <Grid item xs={false} sm={12} md={7}>
+          <img src={type==='hsg' ? healthImg : cooperative} className={classes.image}/>
         </Grid>
       </Hidden>
       <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>

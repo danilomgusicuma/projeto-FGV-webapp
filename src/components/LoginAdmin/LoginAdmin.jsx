@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,9 +10,10 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import video from './../../assets/video.mp4'
 import { makeStyles } from '@material-ui/core/styles';
 import socket from '../../connection';
+import healthImg from '../../assets/health.png';
+import cooperativeImg from '../../assets/cooperative.jpg';
 
 socket.emit('teste', 'teste01')
 
@@ -55,6 +56,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Login(props) {
+  const {type} = useParams();
   const history = useHistory();
   const classes = useStyles();
   const [error, setError] = useState(false);
@@ -65,13 +67,13 @@ export default function Login(props) {
 
   function onClick(){
     socket.emit('login-adm', signInData);
-    history.push('/admin/panel')
+    history.push(`/${type}/admin/panel`)
     setError(true);
   }
 
   useEffect(()=>{
     socket.on('login-client-aprovado',creden=>{
-      props.history.push('/game/inputs')
+      history.push(`/${type}/game/inputs`)
     })
     return(()=>{
       socket.off('login-aprovado')
@@ -84,10 +86,7 @@ export default function Login(props) {
       <CssBaseline />
       <Hidden xsDown>
         <Grid item xs={false} sm={12} md={7} className={classes.image}>
-          <video width="551" height="310" controls className={classes.video}>
-            <source src={video} type="video/mp4">
-            </source>
-          </video>
+          <img src={type === 'hsg' ? healthImg : cooperativeImg}/>
         </Grid>
       </Hidden>
       <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>

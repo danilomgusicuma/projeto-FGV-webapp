@@ -39,20 +39,10 @@ function App() {
         closeButton: false,
       }
       if(feedback[0]==="danger" && feedback[1].includes('login negado para')){
-        if(history.location.pathname.includes('admin')){
-          history.push('/admin/login');
-        }
-        else{
-          history.push('/login');
-        }
+        history.push('/select');
       }
       if(feedback[0]==="danger" && feedback[1]==="voce precisa estar logado para puxar o state atual da simulação"){
-        if(history.location.pathname.includes('admin')){
-          history.push('/admin/login');
-        }
-        else{
-          history.push('/login');
-        }
+        history.push('/select');
       }
       notificationAlert.current.notificationAlert(options);
     })
@@ -67,15 +57,15 @@ function App() {
               <Redirect to="/select"/>
             </Route>
             <Route path="/select" component={SimSelect}/>
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/game" component={Game} />
+            <Route path="/:type/login" component={Login} />
+            <Route path="/:type/register" component={Register} />
+            <Route path="/:type/game" component={Game} />
             <Route path="/reports/:round" component={Reports}/>
-            <Route path="/admin">
-              <Route path="/admin/login">
+            <Route path="/:type/admin">
+              <Route path="/:type/admin/login">
                 <LoginAdmin/>
               </Route>
-              <Route path="/admin/panel">
+              <Route path="/:type/admin/panel">
                 <PanelAdmin/>
               </Route>
             </Route>

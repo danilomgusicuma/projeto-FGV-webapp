@@ -29,7 +29,7 @@ import Button from '@material-ui/core/Button';
 import ServicesContainer from '../ServicesContainer/ServicesContainer';
 import Manual from '../Manual/Manual';
 
-import { Route, Link, useHistory, useLocation } from 'react-router-dom'
+import { Route, Link, useHistory, useLocation, useParams } from 'react-router-dom'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
@@ -104,6 +104,7 @@ function Game(props) {
 
   const history = useHistory();
   const location = useLocation();
+  const {type} = useParams();
 
   useEffect(()=>{
     socket.emit('puxar-state');
@@ -138,31 +139,31 @@ function Game(props) {
 
   const sidebarComponents = [
     {
-      path:'/game/manual',
+      path:`/${type}/game/manual`,
       label:'Manual do Jogo',
       component: Manual,
       icon: <LibraryBooksIcon/>,
     },
     {
-      path:'/game/schedule',
+      path:`/${type}/game/schedule`,
       label:'Cronograma',
       component: Manual,
       icon: <EventNoteIcon/>,
     },
     {
-      path:'/game/decisions',
+      path:`/${type}/game/decisions`,
       label:'Síntese de Decisões',
       component: Manual,
       icon: <DescriptionIcon/>,
     },
     {
-      path:'/game/step-by-step',
+      path:`/${type}/game/step-by-step`,
       label:'Passo a Passo',
       component: Manual,
       icon: <ListIcon/>,
     },
     {
-      path:'/game/seasonality',
+      path:`/${type}/game/seasonality`,
       label:'Sazonalidade',
       component: Manual,
       icon: <CachedIcon/>,
@@ -175,7 +176,7 @@ function Game(props) {
       </div>
       <Divider />
       <List>
-          <Link to='/game/inputs'>
+          <Link to={`/${type}/game/inputs`}>
             <ListItem button>
               <ListItemIcon><PlayCircleOutlineIcon/></ListItemIcon>
               <ListItemText primary={"Simulação"} />
@@ -291,7 +292,7 @@ function Game(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Route path='/game/inputs' component={ServicesContainer}/>
+        <Route path='/:type/game/inputs' component={ServicesContainer}/>
         {returnSidebarComponents(sidebarComponents)}
       </main>
     </div>

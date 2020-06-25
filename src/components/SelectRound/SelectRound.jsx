@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   navbarButton: {
@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function SelectRound() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const classes = useStyles()
+  const classes = useStyles();
+  const {type} = useParams();
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -26,7 +27,7 @@ export default function SelectRound() {
   const generateRounds = rounds =>{
     return rounds.map((round, index)=>{
       return(
-        <Link key={index} to={`/game/inputs?round=${round.identifier}`}>
+        <Link key={index} to={`/${type}/game/inputs?round=${round.identifier}`}>
           <MenuItem onClick={handleClose}>{round.label}</MenuItem>
         </Link>
       )
