@@ -37,19 +37,19 @@ function Dre(props){
 
   function update(d) {
     let table = document.getElementById("myTable");
-    if(d.servicos.length == 1){
-    table.rows[0].cells[6].innerHTML = 'Serviços: ' + d.servicos[0][0] + ' e ' + d.servicos[1][0]
+    if(Number(d.servicos[2]) !== 0){
+    table.rows[0].cells[6].innerHTML = 'Serviços: ' + d.servicos[0] + ' e ' + d.servicos[2]
     }
     else{
-    table.rows[0].cells[6].innerHTML = 'Serviço ' + d.servicos[0][0]
+    table.rows[0].cells[6].innerHTML = 'Serviço ' + d.servicos[0]
     }
     table.rows[1].cells[3].innerHTML = d.receita
     table.rows[2].cells[7].innerHTML = d.atendimentos
-    table.rows[3].cells[6].innerHTML = 'Custo ' + d.servicos[0][0]
-    table.rows[3].cells[7].innerHTML = d.servicos[0][1]
-    if(d.servicos.length == 2){
-        table.rows[4].cells[6].innerHTML = 'Custo ' + d.servicos[1][0]
-        table.rows[4].cells[7].innerHTML = d.servicos[1][1]
+    table.rows[3].cells[6].innerHTML = 'Custo ' + d.servicos[0]
+    table.rows[3].cells[7].innerHTML = d.servicos[1]
+    if(Number(d.servicos[2]) !== 0){
+        table.rows[4].cells[6].innerHTML = 'Custo ' + d.servicos[2]
+        table.rows[4].cells[7].innerHTML = d.servicos[3]
     }
     table.rows[5].cells[2].innerHTML = d.estoque_inicial
     table.rows[5].cells[7].innerHTML = d.estoque_inicial

@@ -66,6 +66,7 @@ export default function Login(props) {
   })
 
   function onClick(){
+    console.log(signInData)
     socket.emit('login-adm', signInData);
     history.push(`/${type}/admin/panel`)
     setError(true);
