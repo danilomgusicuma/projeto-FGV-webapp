@@ -3,21 +3,14 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import {Link, useHistory, useParams} from 'react-router-dom';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle'
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import socket from '../../connection';
-import healthImg from '../../assets/health.png';
-import cooperativeImg from '../../assets/cooperative.jpg';
 
 
 function Copyright() {
@@ -44,17 +37,15 @@ const useStyles = makeStyles(theme => ({
       theme.palette.type === 'light' ? theme.palette.primary[50] : theme.palette.primary[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    objectFit:'cover',
+    height:'100%',
+    width:'100%'
   },
   video: {
     display:'block',
     marginRight: 'auto',
     marginLeft: 'auto',
     marginTop: '64px',
-  },
-  image:{
-    objectFit:'cover',
-    height:'100%',
-    width:'100%'
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -87,6 +78,9 @@ export default function Register(props) {
     telefone: null,
     email: null,
   });
+  const healthImg = 'http://api.desafiosdegestao.com.br:3000/assets/health.png';
+  const cooperativeImg = 'http://api.desafiosdegestao.com.br:3000/assets/cooperative.jpg';
+
 
   function register(){
     let {cpf, nome, senha, login, telefone, email} = signUpData
@@ -110,7 +104,7 @@ export default function Register(props) {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7}>
-        <img src={type==='hsg' ? healthImg : cooperativeImg} className={classes.image}/>
+        <img src={type==='hsg' ? healthImg : cooperativeImg} alt="illustration" className={classes.image}/>
       </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>

@@ -7,14 +7,10 @@ import Service from '../Service/Service';
 import GeneralInformation from '../GeneralInformation/GeneralInformation';
 import Research from '../Research/Research';
 import socket from '../../connection';
-import { stat } from 'fs';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
-import CsvDownload from 'react-json-to-csv';
 import Select from 'react-select';
-import { height } from '@material-ui/system';
-import {useHistory} from 'react-router-dom';
 
 
 const useStyles = makeStyles(theme => ({

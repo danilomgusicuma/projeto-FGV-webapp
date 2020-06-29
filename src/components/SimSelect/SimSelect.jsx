@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import {Link} from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import socket from '../../connection';
-import Image from '../../assets/business.jpg';
-import ques from '../../assets/ques.png';
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     width:'100%'
   },
   grid:{
-    marginTop:'10%'
+    marginTop:'5%'
   },
   texts:{
     display:'block',
@@ -57,7 +47,7 @@ function SimSelect(props){
       <CssBaseline />
       <Grid container component="main" className={classes.root}>
         <Grid item xs={false} sm={12} md={6}>
-          <img src={Image} alt="business" className={classes.image}/>
+          <img src={'http://api.desafiosdegestao.com.br:3000/assets/business.jpg'} alt="business" className={classes.image}/>
         </Grid>
         <Grid item xs={false} sm={12} md={6} className={classes.grid}>
           <div className = {classes.container}>
@@ -102,7 +92,7 @@ function SimSelect(props){
           <div><br></br></div>
            <div>
             <p style={{fontSize:'10px'}}>TODOS OS DIREITOS Reservados. Nenhum dos jogos ou desafios simulados podem ser utilizados sem a devida permissão da QUES - Qualidade e Excelência em Serviços, detentora dos direitos legais de uso.</p>
-            <img src={ques} style={{width:'40px', marginLeft:'auto'}}/>
+            <img alt="ques" src={'http://api.desafiosdegestao.com.br:3000/assets/ques.png'} style={{width:'40px', marginLeft:'auto'}}/>
             </div>
           </div>
           

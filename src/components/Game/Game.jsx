@@ -18,7 +18,6 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import DescriptionIcon from '@material-ui/icons/Description';
 import ListIcon from '@material-ui/icons/List';
 import CachedIcon from '@material-ui/icons/Cached';
-import logo from '../../assets/logo.png';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { DialogContent } from '@material-ui/core';
@@ -38,7 +37,6 @@ import socket from '../../connection';
 
 
 socket.emit('teste', 'vitoria')
-
 
 
 const drawerWidth = 240;
@@ -135,8 +133,6 @@ function Game(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const sidebarIcons = [<LibraryBooksIcon/>,<EventNoteIcon/>,<DescriptionIcon/>,<ListIcon/>,<CachedIcon/>]
-
   const sidebarComponents = [
     {
       path:`/${type}/game/manual`,
@@ -172,7 +168,7 @@ function Game(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar}>
-        <h1 className={classes.h1}><img style={{width:'60px', height:'60px'}} src={logo} alt="Desafios de Gestão"/></h1>
+        <h1 className={classes.h1}><img style={{width:'60px', height:'60px'}} src='http://api.desafiosdegestao.com.br:3000/assets/logo.png' alt="Desafios de Gestão"/></h1>
       </div>
       <Divider />
       <List>

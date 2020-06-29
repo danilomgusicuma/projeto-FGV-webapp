@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Form, Input} from 'reactstrap';
+import {Form} from 'reactstrap';
 import Button from '@material-ui/core/Button';
 import Select from 'react-select';
 import socket from '../../connection';

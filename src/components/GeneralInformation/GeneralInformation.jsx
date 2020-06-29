@@ -25,41 +25,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const gameState = [
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  325,
-  333,
-  32,
-  14,
-  32,
-  45,
-  46,
-  34,
-  87,
-  2
-]
-
-
 function GeneralInformation(props){
 
   const classes = useStyles();

@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 //import socket from '../../connection';
@@ -28,15 +28,15 @@ export default function Manual() {
   const classes = useStyles();
   const location = useLocation();
 
-  function generateListItems(itensArray) {
-    return itensArray.map(item=>(
-      <ListItem>
-        <ListItemText
-          primary={item}
-        />
-      </ListItem>
-    ))
-  }
+  // function generateListItems(itensArray) {
+  //   return itensArray.map(item=>(
+  //     <ListItem>
+  //       <ListItemText
+  //         primary={item}
+  //       />
+  //     </ListItem>
+  //   ))
+  // }
 
   return(
     <div style={{margin:'0 80px'}}>

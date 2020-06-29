@@ -4,7 +4,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import {Link} from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -12,8 +11,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import socket from '../../connection';
-import healthImg from '../../assets/health.png';
-import cooperativeImg from '../../assets/cooperative.jpg';
 
 socket.emit('teste', 'teste01')
 
@@ -63,6 +60,10 @@ export default function Login(props) {
     password:null,
   })
 
+  const healthImg = 'http://api.desafiosdegestao.com.br:3000/assets/health.png';
+  const cooperativeImg = 'http://api.desafiosdegestao.com.br:3000/assets/cooperative.jpg';
+
+
   function onClick(){
     console.log(signInData)
     socket.emit('login-adm', signInData);
@@ -77,7 +78,7 @@ export default function Login(props) {
     return(()=>{
       socket.off('login-aprovado')
     })
-  }, [])
+  }, [history, type])
 
   return (
     <>
@@ -85,7 +86,7 @@ export default function Login(props) {
       <CssBaseline />
       <Hidden xsDown>
         <Grid item xs={false} sm={12} md={7} className={classes.image}>
-          <img src={type === 'hsg' ? healthImg : cooperativeImg}/>
+          <img alt="illustration" src={type === 'hsg' ? healthImg : cooperativeImg}/>
         </Grid>
       </Hidden>
       <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6} square>

@@ -14,7 +14,6 @@ import './alerts.css';
 
 
 import socket from './connection.js';
-import { Button } from '@material-ui/core';
 import PanelAdmin from './components/PanelAdmin/PanelAdmin';
 
 function App() {
@@ -46,7 +45,7 @@ function App() {
       }
       notificationAlert.current.notificationAlert(options);
     })
-  },[])
+  },[history])
 
   return (
       <>

@@ -18,9 +18,10 @@ const useStyles = makeStyles(theme => ({
 function Reports (props){
 
   const {round} = useParams();
+  const classes = useStyles();
 
   return(
-    <div>
+    <div className={classes.container}>
       <Grid container component="main">
       <Grid item xs={false} sm={12} md={7}>
         <Balanco round={round}/>
