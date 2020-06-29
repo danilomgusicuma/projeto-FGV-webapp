@@ -78,6 +78,7 @@ const Service = (props) => {
     <h3>Serviço {props.service[8]}</h3>
     <h4>Insumos: {Math.round(props.service[0])}</h4>
     <h4>Custo Unitário: {Math.round(props.service[2])}</h4>
+    <h4>Investimento em propaganda: {Math.round(props.service[9])}</h4>
     <Form className={classes.form}>
       <label className={classes.label}>Comprar Insumos</label>
       <Input
@@ -100,7 +101,7 @@ const Service = (props) => {
       <Input
         onChange={(event)=>{setRoundData({...roundData, unitaryAdsInvestiment:event.target.value})}}
         placeholder='Investimento'
-        onBlur={()=>{socket.emit('propaganda-unitaria', [roundData.unitaryAdsInvestiment])}}
+        onBlur={()=>{socket.emit('propaganda-unitaria', [props.service[8],roundData.unitaryAdsInvestiment])}}
       />
       <label className={classes.label}>Alterar Volume</label>
       <Input
