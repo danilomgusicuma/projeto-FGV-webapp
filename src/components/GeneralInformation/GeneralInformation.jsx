@@ -197,12 +197,6 @@ function GeneralInformation(props){
           }}>
             Quitar
           </Button>
-          <Button onClick={()=>{
-            socket.emit('emprestimo', newDebt);
-            setDebtModal(false);
-          }}>
-            Fazer Empréstimo
-          </Button>
         </DialogContent>
       </Dialog>
       <Dialog open={pasModal} aria-labelledby="simple-dialog-title" onClose={()=>setPasModal(prevState=>!prevState)}>

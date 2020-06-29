@@ -61,16 +61,13 @@ function SimSelect(props){
         </Grid>
         <Grid item xs={false} sm={12} md={6} className={classes.grid}>
           <div className = {classes.container}>
-          <video controls className={classes.video}>
-            <source src='http://api.desafiosdegestao.com.br:3000/assets/video.mp4' type="video/mp4">
-            </source>
-          </video>
+          
           <div className={classes.texts}>
             <Typography component="h1" variant="h5" className={classes.button}>
               Bem vindo ao Desafio de Gestão!
             </Typography>
             <Typography component="p" variant="body1" className={classes.button}>
-              Aqui esperamos que você apreenda se divertindo. 
+              Aqui esperamos que você aprenda se divertindo. 
               E dessa forma possa entender de forma dinâmica como os vários elementos 
               da administração interferem no processo de gestão.
             </Typography>
@@ -94,10 +91,23 @@ function SimSelect(props){
             >
               CBG - Cooperative Business Game
             </Button>
+            <div><br></br></div>
+          </div>
+          
+          <video controls className={classes.video}>
+            <source src='http://api.desafiosdegestao.com.br:3000/assets/video.mp4' type="video/mp4">
+            </source>
+          </video>
+          <div className={classes.texts}>
+          <div><br></br></div>
+           <div>
             <p style={{fontSize:'10px'}}>TODOS OS DIREITOS Reservados. Nenhum dos jogos ou desafios simulados podem ser utilizados sem a devida permissão da QUES - Qualidade e Excelência em Serviços, detentora dos direitos legais de uso.</p>
             <img src={ques} style={{width:'40px', marginLeft:'auto'}}/>
+            </div>
           </div>
+          
           </div>
+          
         </Grid>
       </Grid>
     </>

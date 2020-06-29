@@ -21,7 +21,7 @@ import {register, login} from '../../serverCalls';
 import healthImg from '../../assets/health.png';
 import cooperative from '../../assets/cooperative.jpg';
 
-socket.emit('teste', 'teste01')
+//socket.emit('teste', 'teste01')
 
 
 const useStyles = makeStyles(theme => ({
