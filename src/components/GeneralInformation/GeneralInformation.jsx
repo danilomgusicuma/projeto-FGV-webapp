@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { DialogContent } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography'
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -17,6 +19,10 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
     height:'100%',
   },
+  typography: {
+    fontSize: '24px',
+    textAlign: 'center'
+  }
 }));
 
 const gameState = [
@@ -221,12 +227,76 @@ function GeneralInformation(props){
         </DialogContent>
       </Dialog>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={4} md={2}>
+        <Grid item xs={12} sm={12} md={12}>
           <Paper className={classes.paper}>
             <h3>Caixa</h3>
             <br/>
             <h4>{Math.round(props.gameData[21])}</h4>
           </Paper>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12}>
+          <Paper className={classes.paper}>
+            <h3>Propaganda Institucional</h3>
+            <br/>
+            <h4>{props.gameData[27]?props.gameData[27]:'-'}</h4>
+            <br/>
+            {props.isAdmin
+            ?null
+            :(<Button
+                variant="contained" color="primary"
+                onClick={()=>setAdsModal(true)}
+              >Alterar</Button>)}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12}>
+          <Typography className={classes.typography}>Vendas</Typography>
+        </Grid>
+        <Grid item xs={12} sm={4} md={4}>
+          <Paper className={classes.paper}>
+            <h3>Comissão</h3>
+            <br/>
+            <h4>{props.gameData[24]?props.gameData[24]:'-'}</h4>
+            <br/>
+            {props.isAdmin
+            ?null
+            :(<Button
+                variant="contained" color="primary"
+                onClick={()=>setComissionModal(true)}
+              >Alterar</Button>)}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={4} md={4}>
+          <Paper className={classes.paper}>
+            <h3>Distribuidores</h3>
+            <br/>
+            <h4>{props.gameData[25]?props.gameData[25]:'-'}</h4>
+            <br/>
+            {props.isAdmin
+            ?null
+            :(<Button
+                variant="contained" color="primary"
+                onClick={()=>setDistributorsModal(true)}
+              >Alterar</Button>)}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={4} md={4}>
+          <Paper className={classes.paper}>
+            <h3>Promotores</h3>
+            <br/>
+            <h4>{props.gameData[23]?props.gameData[23]:'-'}</h4>
+            <br/>
+            {props.isAdmin
+            ?null
+            :(<Button
+                variant="contained" color="primary"
+                onClick={()=>setPromotersModal(true)}
+              >Alterar</Button>)}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12}>
+          <Typography className={classes.typography}>
+            Informações Gerais
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={4} md={2}>
           <Paper className={classes.paper}>
@@ -244,51 +314,9 @@ function GeneralInformation(props){
         </Grid>
         <Grid item xs={12} sm={4} md={2}>
           <Paper className={classes.paper}>
-            <h3>Promotores</h3>
-            <br/>
-            <h4>{props.gameData[23]?props.gameData[23]:'-'}</h4>
-            <br/>
-            {props.isAdmin
-            ?null
-            :(<Button
-                variant="contained" color="primary"
-                onClick={()=>setPromotersModal(true)}
-              >Alterar</Button>)}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={8} md={4}>
-          <Paper className={classes.paper}>
-            <h3>Propaganda Institucional</h3>
-            <br/>
-            <h4>{props.gameData[27]?props.gameData[27]:'-'}</h4>
-            <br/>
-            {props.isAdmin
-            ?null
-            :(<Button
-                variant="contained" color="primary"
-                onClick={()=>setAdsModal(true)}
-              >Alterar</Button>)}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={4} md={2}>
-          <Paper className={classes.paper}>
             <h3>Faturamento Esperado</h3>
             <br/>
             <h4>{Math.round(calcRevenue())}</h4>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={4} md={2}>
-          <Paper className={classes.paper}>
-            <h3>Comissão</h3>
-            <br/>
-            <h4>{props.gameData[24]?props.gameData[24]:'-'}</h4>
-            <br/>
-            {props.isAdmin
-            ?null
-            :(<Button
-                variant="contained" color="primary"
-                onClick={()=>setComissionModal(true)}
-              >Alterar</Button>)}
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4} md={2}>
@@ -302,20 +330,6 @@ function GeneralInformation(props){
             :(<Button
                 variant="contained" color="primary"
                 onClick={()=>setPasModal(true)}
-              >Alterar</Button>)}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={4} md={2}>
-          <Paper className={classes.paper}>
-            <h3>Distribuidores</h3>
-            <br/>
-            <h4>{props.gameData[25]?props.gameData[25]:'-'}</h4>
-            <br/>
-            {props.isAdmin
-            ?null
-            :(<Button
-                variant="contained" color="primary"
-                onClick={()=>setDistributorsModal(true)}
               >Alterar</Button>)}
           </Paper>
         </Grid>

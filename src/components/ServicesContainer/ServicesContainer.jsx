@@ -113,16 +113,8 @@ export default function ServicesContainer() {
         </DialogContent>
       </Dialog>
       <Grid container justify="center" spacing={2}>
+      {generateServices(game.slice(0,21))}
         <Grid item sm={12}>
-          <GeneralInformation isAdmin={false} gameData={game}/>
-        </Grid>
-        <Grid item xs={12} sm={12}>
-          <Paper className={classes.paper}>
-            <Research gameData={game} />
-          </Paper>
-        </Grid>
-        {generateServices(game.slice(0,21))}
-        <Grid item xs={12} sm={12}>
           <Button variant="contained" color="primary" className={classes.button} onClick={()=>setServiceModal(true)}> 
             Novo Serviço
           </Button>
@@ -132,6 +124,14 @@ export default function ServicesContainer() {
           <Button className={classes.button} onClick={()=>{socket.emit('resetar')}}> 
             Resetar Jogada
           </Button>
+        </Grid>
+        <Grid item xs={12} sm={12}>
+          <GeneralInformation isAdmin={false} gameData={game}/>
+        </Grid>
+        <Grid item xs={12} sm={12}>
+          <Paper className={classes.paper}>
+            <Research gameData={game} />
+          </Paper>
         </Grid>
       </Grid>
     </div>
