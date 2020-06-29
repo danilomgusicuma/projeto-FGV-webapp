@@ -252,7 +252,7 @@ function Game(props) {
             //variant="contained"
             color="inherit"
             className={classes.toolbarButton}
-            onClick={()=>{setDownloadModal(true)}}> 
+            onClick={()=>{setDownloadModal(true)}}>
             
             Demonstrativos
           
