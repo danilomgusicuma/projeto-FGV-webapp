@@ -22,12 +22,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
   },
-  image: {
-    backgroundRepeat: 'no-repeat',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.primary[50] : theme.palette.primary[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+  image:{
+    objectFit:'cover',
+    height:'100%',
+    width:'100%'
   },
   video: {
     display:'block',

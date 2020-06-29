@@ -62,10 +62,10 @@ function App() {
             <Route path="/:type/game" component={Game} />
             <Route path="/reports/:round" component={Reports}/>
             <Route path="/:type/admin">
-              <Route path="/:type/admin/login">
+              <Route path="/admin/login">
                 <LoginAdmin/>
               </Route>
-              <Route path="/:type/admin/panel">
+              <Route path="/admin/panel">
                 <PanelAdmin/>
               </Route>
             </Route>
