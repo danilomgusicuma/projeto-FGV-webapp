@@ -248,10 +248,15 @@ function Game(props) {
           <Typography variant="h6" noWrap>
             Desafiosdegestao 
           </Typography>
-          {location.pathname.includes('admin') ? <>oiiiii</> : <Button
+          <Button onClick={()=>{socket.emit('salvar')}} color="inherit" className={classes.toolbarButton}> 
+            Salvar
+          </Button>
+          <Button color="inherit" onClick={()=>{socket.emit('resetar')}}> 
+            Resetar Jogada
+          </Button>
+          {location.pathname.includes('admin') ? <></> : <Button
             //variant="contained"
             color="inherit"
-            className={classes.toolbarButton}
             onClick={()=>{setDownloadModal(true)}}>
             
             Demonstrativos

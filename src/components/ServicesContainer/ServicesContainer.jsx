@@ -118,12 +118,6 @@ export default function ServicesContainer() {
           <Button variant="contained" color="primary" className={classes.button} onClick={()=>setServiceModal(true)}> 
             Novo Serviço
           </Button>
-          <Button variant="contained" color="primary" className={classes.button} onClick={()=>{socket.emit('salvar')}}> 
-            Salvar
-          </Button>
-          <Button className={classes.button} onClick={()=>{socket.emit('resetar')}}> 
-            Resetar Jogada
-          </Button>
         </Grid>
         <Grid item xs={12} sm={12}>
           <GeneralInformation isAdmin={false} gameData={game}/>
