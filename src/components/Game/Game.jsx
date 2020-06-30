@@ -21,6 +21,8 @@ import CachedIcon from '@material-ui/icons/Cached';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { DialogContent } from '@material-ui/core';
+import HistoryIcon from '@material-ui/icons/History';
+import PieChartIcon from '@material-ui/icons/PieChart';
 
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -188,14 +190,16 @@ function Game(props) {
         ))}
       </List>
       <Divider />
-      {/* <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
+      <List>
+        <ListItem button>
+          <ListItemIcon><HistoryIcon/></ListItemIcon>
+          <ListItemText primary="Decisões" />
+        </ListItem>
+        <ListItem onClick={()=>{setDownloadModal(true)}} button>
+          <ListItemIcon><PieChartIcon/></ListItemIcon>
+          <ListItemText primary="Demonstrativos" />
+        </ListItem>
+      </List>
     </div>
   );
 
@@ -250,14 +254,6 @@ function Game(props) {
           <Button color="inherit" onClick={()=>{socket.emit('resetar')}}> 
             Resetar Jogada
           </Button>
-          {location.pathname.includes('admin') ? <></> : <Button
-            //variant="contained"
-            color="inherit"
-            onClick={()=>{setDownloadModal(true)}}>
-            
-            Demonstrativos
-          
-          </Button>}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
