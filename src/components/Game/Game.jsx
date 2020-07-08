@@ -125,7 +125,7 @@ function Game(props) {
     const currentRound = game[30] ? game[30] : 0;
     let rounds = []
     let i;
-    for(i=1; i<currentRound; i++){
+    for(i=1; i<=currentRound; i++){
       rounds.push({value:i, label:i});
     }
     return rounds
