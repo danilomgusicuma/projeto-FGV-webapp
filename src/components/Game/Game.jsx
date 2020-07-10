@@ -28,6 +28,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ServicesContainer from '../ServicesContainer/ServicesContainer';
+import Deci from '../Reports/Decisions'
 import Manual from '../Manual/Manual';
 
 import { Route, Link, useHistory, useLocation, useParams } from 'react-router-dom'
@@ -149,12 +150,6 @@ function Game(props) {
       icon: <EventNoteIcon/>,
     },
     {
-      path:`/${type}/game/decisions`,
-      label:'Síntese de Decisões',
-      component: Manual,
-      icon: <DescriptionIcon/>,
-    },
-    {
       path:`/${type}/game/step-by-step`,
       label:'Passo a Passo',
       component: Manual,
@@ -192,10 +187,12 @@ function Game(props) {
       </List>
       <Divider />
       <List>
+      <Link to={`/${type}/game/decisions`}>
         <ListItem button>
           <ListItemIcon><HistoryIcon/></ListItemIcon>
           <ListItemText primary="Decisões" />
         </ListItem>
+        </Link>
         <ListItem onClick={()=>{setDownloadModal(true)}} button>
           <ListItemIcon><PieChartIcon/></ListItemIcon>
           <ListItemText primary="Demonstrativos" />
@@ -291,6 +288,7 @@ function Game(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Route path='/:type/game/inputs' component={ServicesContainer}/>
+        <Route path='/:type/game/decisions' component={Deci}/>
         {returnSidebarComponents(sidebarComponents)}
       </main>
     </div>
