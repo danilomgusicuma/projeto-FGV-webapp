@@ -196,7 +196,7 @@ function Game(props) {
           <ListItemText primary="Demonstrativos" />
         </ListItem>
         <a target="_blank" href="http://api.desafiosdegestao.com.br:3000/assets/sazonalidade.xlsx">
-          <ListItem onClick={()=>{setDownloadModal(true)}} button>
+          <ListItem button>
             <ListItemIcon><CachedIcon/></ListItemIcon>
             <ListItemText primary="Sazonalidade" />
           </ListItem>
