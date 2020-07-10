@@ -82,8 +82,20 @@ const Service = (props) => {
       <label className={classes.label}>Comprar Insumos</label>
       <Input
         onChange={(event)=>{setRoundData({...roundData, resourcesAmount:event.target.value})}}
-        placeholder='Quantidade de Insumos'
+        placeholder='Quantidade de insumos a serem comprados'
         onBlur={()=>{socket.emit('comprar-servico',[props.service[8], roundData.resourcesAmount])}}
+      />
+      <label className={classes.label}>Alterar Preço</label>
+      <Input
+        onChange={(event)=>{setRoundData({...roundData, price:event.target.value})}}
+        placeholder='Novo preço de venda'
+        onBlur={()=>{socket.emit('alterar-preco',[props.service[8],roundData.price])}}
+      />
+      <label className={classes.label}>Alterar Volume Planejado de vendas</label>
+      <Input
+        onChange={(event)=>{setRoundData({...roundData, volume:event.target.value})}}
+        placeholder='Volume planejado'
+        onBlur={()=>{socket.emit('alterar-volume',[props.service[8],roundData.volume])}}
       />
       <label className={classes.label}>Transferir insumos para outro serviço</label>
       <Select
@@ -96,23 +108,13 @@ const Service = (props) => {
         placeholder='Quantidade de Insumos'
         onBlur={()=>{socket.emit('trocar-servico',[props.service[8],roundData.serviceToTranfer, roundData.resourcesAmountToTransfer])}}
       />
+      
+      
       <label className={classes.label}>Investimento em propaganda para este serviço</label>
       <Input
         onChange={(event)=>{setRoundData({...roundData, unitaryAdsInvestiment:event.target.value})}}
         placeholder='Investimento'
         onBlur={()=>{socket.emit('propaganda-unitaria', [props.service[8],roundData.unitaryAdsInvestiment])}}
-      />
-      <label className={classes.label}>Alterar Volume</label>
-      <Input
-        onChange={(event)=>{setRoundData({...roundData, volume:event.target.value})}}
-        placeholder='Volume'
-        onBlur={()=>{socket.emit('alterar-volume',[props.service[8],roundData.volume])}}
-      />
-      <label className={classes.label}>Alterar Preço</label>
-      <Input
-        onChange={(event)=>{setRoundData({...roundData, price:event.target.value})}}
-        placeholder='Preço'
-        onBlur={()=>{socket.emit('alterar-preco',[props.service[8],roundData.price])}}
       />
       <Button onClick={()=>setChangeServiceModal(true)}>
         Substituir Serviço

@@ -164,7 +164,8 @@ function Game(props) {
       path:`/${type}/game/seasonality`,
       label:'Sazonalidade',
       component: Manual,
-      icon: <CachedIcon/>,
+      icon: <CachedIcon/>
+     
     }
   ]
   const drawer = (
@@ -216,7 +217,7 @@ function Game(props) {
       <CssBaseline />
       <Dialog open={downloadModal} aria-labelledby="simple-dialog-title" onClose={()=>setDownloadModal(prevState=>!prevState)}>
         <DialogTitle>
-          Selecione um turno
+          Selecione um bimestre
         </DialogTitle>
         <DialogContent className={classes.dialog}>
           <Select

@@ -1,8 +1,15 @@
-import React, { useEffect } from 'react';
-
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+  import { makeStyles } from '@material-ui/core/styles';
+  import Table from '@material-ui/core/Table';
+  import TableBody from '@material-ui/core/TableBody';
+  import TableCell from '@material-ui/core/TableCell';
+  import TableContainer from '@material-ui/core/TableContainer';
+  import TableHead from '@material-ui/core/TableHead';
+  import TableRow from '@material-ui/core/TableRow';
+  import Paper from '@material-ui/core/Paper';
 
 import socket from '../../connection';
+import { useEffect } from 'react';
 
 
 
@@ -28,281 +35,298 @@ function Dre(props){
     socket.on('balancos', balanco => {
       console.log("fluxo", balanco.fluxo)
       if(balanco.fluxo){
-        update(balanco.fluxo)
+        let f = balanco.fluxo
+        let linhas = document.getElementById('balancof').querySelector('tbody').querySelectorAll('tr')
+        
+        console.log(linhas)
+        
+        for(let i = 0; i < linhas.length; i++){
+          let valores = linhas[i].querySelectorAll('td')
+          for(let ii = 0; ii < valores.length; ii++){
+            //valores[ii].innerText = valores[ii].innerText + ' (' + i + ', ' + ii + ')'
+            if(i == 0 && ii == 1){
+                valores[ii].innerText = Math.round(f.saldo_anterior)
+            }
+            if(i == 1 && ii == 1){
+                valores[ii].innerText = Math.round(f.emprestimos_contratados)
+            }
+            if(i == 2 && ii == 1){
+                valores[ii].innerText = Math.round(f.faturamento)
+            }
+            if(i == 3 && ii == 1){
+                valores[ii].innerText = Math.round(f.veiculos_vendidos)
+            }
+            if(i == 4 && ii == 1){
+                valores[ii].innerText = Math.round(f.depreciacao_de_veiculos)
+            }
+            if(i == 5 && ii == 1){
+                valores[ii].innerText = Math.round(f.depreciacao_de_maquinas)
+            }
+            if(i == 7 && ii == 2){
+                valores[ii].innerText = Math.round(f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos)
+            }
+            if(i == 9 && ii == 1){
+                valores[ii].innerText = Math.round(f.custo_de_servico_prestado)
+            }
+            if(i == 10 && ii == 1){
+                valores[ii].innerText = Math.round(f.veiculos_comprados)
+            }
+            if(i == 11 && ii == 1){
+                valores[ii].innerText = Math.round(f.maquinas)
+            }
+            if(i == 12 && ii == 1){
+                valores[ii].innerText = Math.round(f.tributos)
+            }
+            if(i == 14 && ii == 1){
+                valores[ii].innerText = Math.round(f.promotores)
+            }
+            if(i == 15 && ii == 1){
+                valores[ii].innerText = Math.round(f.propaganda)
+            }
+            if(i == 16 && ii == 1){
+                valores[ii].innerText = Math.round(f.depreciacao_de_maquinas)
+            }
+            if(i == 17 && ii == 1){
+                valores[ii].innerText = Math.round(f.pesquisas)
+            }
+            if(i == 18 && ii == 1){
+                valores[ii].innerText = Math.round(f.pas)
+            }
+            if(i == 19 && ii == 1){
+                valores[ii].innerText = Math.round(f.uso_frota)
+            }
+            if(i == 20 && ii == 1){
+                valores[ii].innerText = Math.round(f.despesas_operacionais_n_planejadas)
+            }
+            if(i == 21 && ii == 1){
+                valores[ii].innerText = Math.round(f.despesas_administrativas)
+            }
+            if(i == 22 && ii == 1){
+                valores[ii].innerText = Math.round(f.encargos_financiamento)
+            }
+            if(i == 24 && ii == 1){
+                valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento)
+            }
+            if(i == 25 && ii == 2){
+                valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos)            
+            }
+            if(i == 26 && ii == 1){
+                valores[ii].innerText = Math.round(f.financiamento)
+            }
+            if(i == 27 && ii == 3){
+                valores[ii].innerText = Math.round((f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos) - (f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos))
+            }
+            
+            }
+        }
+        
       }
     });
   },[])
 
   const classes = useStyles();
 
-  function update(f) {
-    let table = document.getElementById("myTable");
-    table.rows[1].cells[3].innerHTML = f.saldo_anterior
-    table.rows[2].cells[3].innerHTML = f.emprestimos_contratados
-    table.rows[3].cells[2].innerHTML = f.faturamento
-    table.rows[4].cells[2].innerHTML = f.veiculos_vendidos
-    table.rows[5].cells[2].innerHTML = f.depreciacao_de_veiculos
-    table.rows[6].cells[2].innerHTML = f.depreciacao_de_maquinas
-    table.rows[6].cells[3].innerHTML = f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos
-    table.rows[7].cells[4].innerHTML = f.saldo_anterior + f.emprestimos_contratados + f.faturamento + f.veiculos_vendidos + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas //soma entradas
-    table.rows[9].cells[2].innerHTML = f.custo_de_servico_prestado
-    table.rows[10].cells[2].innerHTML = f.veiculos_comprados
-    table.rows[11].cells[2].innerHTML = f.maquinas
-    table.rows[12].cells[2].innerHTML = f.tributos
-    table.rows[14].cells[1].innerHTML = f.promotores
-    table.rows[15].cells[1].innerHTML = f.propaganda
-    table.rows[16].cells[1].innerHTML = f.depreciacao_de_maquinas
-    table.rows[17].cells[1].innerHTML = f.pesquisas
-    table.rows[18].cells[1].innerHTML = f.pas
-    table.rows[19].cells[1].innerHTML = f.uso_frota
-    table.rows[20].cells[1].innerHTML = f.despesas_operacionais_n_planejadas
-    table.rows[21].cells[1].innerHTML = f.despesas_administrativas
-    table.rows[22].cells[1].innerHTML = f.encargos_financiamento
-    table.rows[23].cells[2].innerHTML = f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento
-    table.rows[24].cells[4].innerHTML = f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos
-    table.rows[26].cells[4].innerHTML = f.financiamento + f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.veiculos_comprados + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + f.custo_de_servico_prestado  + f.maquinas + f.tributos + f.saldo_anterior + f.emprestimos_contratados + f.faturamento + f.uso_frota + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas
-    let totalF = f.financiamento + f.saldo_anterior + f.emprestimos_contratados + f.faturamento + f.uso_frota + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas
-    table.rows[14].cells[5].innerHTML = f.promotores/totalF*100 + '%'
-    table.rows[15].cells[5].innerHTML = f.propaganda/totalF*100 + '%'
-    table.rows[17].cells[5].innerHTML = f.pesquisas/totalF*100 + '%'
-    table.rows[18].cells[5].innerHTML = f.pas/totalF*100 + '%'
-    table.rows[19].cells[5].innerHTML = f.uso_frota/totalF*100 + '%'
-    table.rows[20].cells[5].innerHTML = f.despesas_operacionais_n_planejadas/totalF*100 + '%'
-    table.rows[21].cells[5].innerHTML = f.despesas_administrativas/totalF*100 + '%'
-    table.rows[22].cells[5].innerHTML = f.encargos_financiamento/totalF*100 + '%'
-    table.rows[25].cells[5].innerHTML = f.financiamento/totalF*100 + '%'
-    table.rows[25].cells[4].innerHTML = f.financiamento
-    table.rows[26].cells[5].innerHTML = '100%'
-    table.rows[0].cells[0].style.backgroundColor = "gray"
-    table.rows[8].cells[0].style.backgroundColor = "gray"
-    table.rows[13].cells[0].style.backgroundColor = "gray"
-    table.rows[26].cells[0].style.backgroundColor = "gray"
-  }
 
-  return(
-    <>
-      <table className={classes.class3} id="myTable">
-            <tr>
-                <th className={classes.class3}>(+) ENTRADAS</th>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>SALDO ANTERIOR ($)</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>18720000</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>EMPRÉSTIMOS CONTRATADOS ($)</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>288000</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr> 
-            <tr>
-                <td className={classes.class1}>FATURAMENTO ($)</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>32828091</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>VEÍCULOS VENDIDOS ($)</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>0</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
 
-            <tr>
-                <td className={classes.class1}>DEPRECIAÇÃO DE VEÍCULOS</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>144000</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>DEPRECIAÇÃO DE MÁQUINAS E <br/>EQUIPAMENTOS ($)</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>1152000</td>
-                <td className={classes.class1}>34124091</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>53132091</td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <th className={classes.class3}>(-) SAÍDAS</th>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>CUSTO DE PRESTAÇÃO DOS<br/> SERVIÇOS ($)</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>21502500</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>VEÍCULOS COMPRADOS ($)</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>576000</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>MÁQUINAS E EQUIPAMENTOS</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>17280000</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>PAGAMENTO DE PARCELA DE TRIBUTOS ($)</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>0</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>DESPESAS OPERACIONAIS</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>VENDEDORES / PROMOTORES DA <br/> COOPERATIVA ($)</td>
-                <td className={classes.class1}>2364270</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>18,68%</td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>PROPAGANDA E PROMOCAO ($)</td>
-                <td className={classes.class1}>1929600</td>  
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>15,25%</td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>DEPRECIAÇÃO DE MÁQUINAS ($)</td>
-                <td className={classes.class1}>1152000</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                
-            </tr>
-            <tr>
-                <td className={classes.class1}>PESQUISAS CONTRATADAS ($)</td>
-                <td className={classes.class1}>0</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>0,00%</td>
-                
-            </tr>
-            <tr>
-                <td className={classes.class1}>POSTOS AVANÇADOS DE SERVIÇO ($)</td>
-                <td className={classes.class1}>691200</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>5,46%</td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>FROTA DE VEÍCULOS ($)</td>
-                <td className={classes.class1}>792000</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>6,26%</td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>DESPESAS OPERACIONAIS NÃO PLANEJADAS ($)</td>
-                <td className={classes.class1}>1382400</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>10,92%</td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>DESPESAS ADMINISTRATIVAS ($)</td>
-                <td className={classes.class1}>4320000</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>34,14%</td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>ENCARGOS SOBRE FINANCIAMENTO DAS<br/> OPERAÇÕES ($)</td>
-                <td className={classes.class1}>23040</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>0,18%</td>
-            </tr>
-            <tr>
-                <td className={classes.class1} style={{textAlign:'right'}}>TOTAL</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>12654510</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>52013010</td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <td className={classes.class1}>FINANCIAMENTO / ADIANTAMENTO PARA<br/>OPERAÇÕES ($)</td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>0</td>
-                <td className={classes.class1}></td>
-            </tr>
-            <tr>
-                <th className={classes.class3}>SALDO ATUAL ($)</th>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}></td>
-                <td className={classes.class1}>1119081</td>
-                <td className={classes.class1}>100%</td>
-            </tr>
-          </table>
-    </>
+  return (
+    <TableContainer style={{ marginLeft: '0.8rem', marginTop: '0.8rem' }} component={Paper}>
+      <Table className={classes.table} size="small" aria-label="spanning table" id="balancof">
+        <TableHead>
+          <TableRow style={{
+          backgroundColor: '#3f51b5',
+          height: 5
+      }}>
+            <TableCell style={{fontSize: 32}} align="center" colSpan={3}>
+              Fluxo de Caixa
+            </TableCell>
+            <TableCell align="right">Bimestre: 3</TableCell>
+          </TableRow>
+          <TableRow style={{fontWeight: "bold",
+            backgroundColor: '#A8A8A8'}}>
+            <TableCell>(+) ENTRADAS</TableCell>
+            <TableCell align="right"></TableCell>
+            <TableCell align="right"></TableCell>
+            <TableCell align="right"></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          
+            <TableRow>
+              <TableCell>SALDO ANTERIOR ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+
+            
+            <TableRow>
+              <TableCell>EMPRÉSTIMOS CONTRATADOS ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell>FATURAMENTO ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>VEÍCULOS VENDIDOS ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>DEPRECIAÇÃO DE VEÍCULOS</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>DEPRECIAÇÃO DE MÁQUINAS E EQUIPAMENTOS</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell rowSpan={2} />
+              <TableCell colSpan={2}></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Total Entradas</TableCell>
+              <TableCell align="center">60794</TableCell>
+              <TableCell align="center"></TableCell>
+            </TableRow>
+
+
+
+            <TableRow style={{fontWeight: "bold",
+            backgroundColor: '#A8A8A8'}}>
+              <TableCell>(-) SAÍDAS</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>CUSTO DE PRESTAÇÃO DE SERVIÇOS ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>VEÍCULOS COMPRADOS ($)</TableCell> 
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>MAQUÍNAS E EQUIPAMENTOS</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>PAGAMENTO DA PARCELA DE TRIBUTOS ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell style={{fontWeight: "bold"}}>DESPESAS OPERACIONAIS</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>VENDEDORES / PROMOTORES ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>PROPAGANDA E PROMOÇÃO ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>DEPRECIAÇÃO DE MÁQUINAS ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>PESQUISAS CONTRATADAS ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>POSTOS AVANÇADOS DE SERVIÇO ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>FROTA DE VEÍCULOS ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>DESPESAS OPERACIONAIS NÃO PLANEJADAS ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>DESPESAS ADMINISTRATIVAS ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>ENCARGOS SOBRE FINANCIAMENTO DAS OPERAÇÕES ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell rowSpan={3} />
+              <TableCell colSpan={2}></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Total Despesas Operacionais</TableCell>
+              <TableCell align="center">60794</TableCell>
+              <TableCell align="center"></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Total Saídas</TableCell>
+              <TableCell align="center"></TableCell>
+              <TableCell align="center">54800</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>FINANCIAMENTO / ADIANTAMENTO PARA OPERAÇÕES ($)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            <TableRow style={{fontWeight: "bold",
+            backgroundColor: '#A8A8A8'}}>
+              <TableCell>SALDO ATUAL</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+            
+          
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
 

@@ -69,12 +69,6 @@ function GeneralInformation(props){
           }}>
             Investir
           </Button>
-          <Button onClick={()=>{
-            socket.emit('diminuir-propaganda', adsInvestment);
-            setAdsModal(false);
-          }}>
-            Diminuir Investimento
-          </Button>
         </DialogContent>
       </Dialog>
       <Dialog open={distributorsModal} aria-labelledby="simple-dialog-title" onClose={()=>setDistributorsModal(prevState=>!prevState)}>
@@ -162,12 +156,7 @@ function GeneralInformation(props){
             onChange={(event)=>{setNewDebt(event.target.value)}}
             placeholder='Valor'
           />
-          <Button onClick={()=>{
-            socket.emit('quitar-divida', newDebt);
-            setDebtModal(false);
-          }}>
-            Quitar
-          </Button>
+          
         </DialogContent>
       </Dialog>
       <Dialog open={pasModal} aria-labelledby="simple-dialog-title" onClose={()=>setPasModal(prevState=>!prevState)}>
@@ -210,7 +199,7 @@ function GeneralInformation(props){
             :(<Button
                 variant="contained" color="primary"
                 onClick={()=>setAdsModal(true)}
-              >Alterar</Button>)}
+              >Investir</Button>)}
           </Paper>
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
@@ -265,6 +254,25 @@ function GeneralInformation(props){
         </Grid>
         <Grid item xs={12} sm={4} md={2}>
           <Paper className={classes.paper}>
+            <h3>Faturamento Esperado</h3>
+            <br/>
+            <h4>{Math.round(calcRevenue())}</h4>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={8} md={4}>
+          <Paper className={classes.paper}>
+            <h3>Dívida / Empréstimo</h3>
+            <br/>
+            <h4>{props.gameData[29]?Math.round(props.gameData[29]):'-'}</h4>
+            <br/>
+            
+            
+          </Paper>
+        </Grid>
+        
+        
+        <Grid item xs={12} sm={4} md={2}>
+          <Paper className={classes.paper}>
             <h3>Frota</h3>
             <br/>
             <h4>{props.gameData[22]?props.gameData[22].reduce((a, b)=> a + b) : '-'}</h4>
@@ -275,13 +283,6 @@ function GeneralInformation(props){
                 variant="contained" color="primary"
                 onClick={()=>setFleetModal(true)}
               >Alterar</Button>)}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={4} md={2}>
-          <Paper className={classes.paper}>
-            <h3>Faturamento Esperado</h3>
-            <br/>
-            <h4>{Math.round(calcRevenue())}</h4>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4} md={2}>
@@ -298,23 +299,9 @@ function GeneralInformation(props){
               >Alterar</Button>)}
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={8} md={4}>
-          <Paper className={classes.paper}>
-            <h3>Dívida / Empréstimo</h3>
-            <br/>
-            <h4>{props.gameData[29]?Math.round(props.gameData[29]):'-'}</h4>
-            <br/>
-            {props.isAdmin
-            ?null
-            :(<Button
-                variant="contained" color="primary"
-                onClick={()=>setDebtModal(true)}
-              >Empréstimo</Button>)}
-          </Paper>
-        </Grid>
         <Grid item xs={12} sm={4} md={2}>
           <Paper className={classes.paper}>
-            <h3>Turno</h3>
+            <h3>Bimestre</h3>
             <br/>
             <h4>{props.gameData[30]?props.gameData[30]:'-'}</h4>
             <br/>

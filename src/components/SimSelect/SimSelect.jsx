@@ -83,12 +83,15 @@ function SimSelect(props){
             </Button>
             <div><br></br></div>
           </div>
-          
+          <div><br></br></div>
           <video controls className={classes.video}>
             <source src='http://api.desafiosdegestao.com.br:3000/assets/video.mp4' type="video/mp4">
             </source>
           </video>
           <div className={classes.texts}>
+          
+          <div><br></br></div>
+          <div><br></br></div>
           <div><br></br></div>
            <div>
             <p style={{fontSize:'10px'}}>TODOS OS DIREITOS Reservados. Nenhum dos jogos ou desafios simulados podem ser utilizados sem a devida permissão da QUES - Qualidade e Excelência em Serviços, detentora dos direitos legais de uso.</p>
