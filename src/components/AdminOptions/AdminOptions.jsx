@@ -111,7 +111,7 @@ function AdminOptions(){
             }}
           />
           <Button onClick={()=>{
-            history.push(`/reports/${round}`)
+            history.push(`/admin/game/reports/${round}`);
           }}>
             Ver Balanços
           </Button>
