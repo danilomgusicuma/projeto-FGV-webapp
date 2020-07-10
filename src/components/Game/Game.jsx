@@ -29,7 +29,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ServicesContainer from '../ServicesContainer/ServicesContainer';
 import Deci from '../Reports/Decisions'
+import Crono from '../Reports/Crono';
 import Manual from '../Manual/Manual';
+import Reports from '../Reports/Reports';
 
 import { Route, Link, useHistory, useLocation, useParams } from 'react-router-dom'
 
@@ -144,9 +146,9 @@ function Game(props) {
       icon: <LibraryBooksIcon/>,
     },
     {
-      path:`/${type}/game/schedule`,
+      path:`/${type}/game/crono`,
       label:'Cronograma',
-      component: Manual,
+      component: Crono,
       icon: <EventNoteIcon/>,
     },
     {
@@ -154,13 +156,6 @@ function Game(props) {
       label:'Passo a Passo',
       component: Manual,
       icon: <ListIcon/>,
-    },
-    {
-      path:`/${type}/game/seasonality`,
-      label:'Sazonalidade',
-      component: Manual,
-      icon: <CachedIcon/>
-     
     }
   ]
   const drawer = (
@@ -197,6 +192,12 @@ function Game(props) {
           <ListItemIcon><PieChartIcon/></ListItemIcon>
           <ListItemText primary="Demonstrativos" />
         </ListItem>
+        <a target="_blank" href="http://api.desafiosdegestao.com.br:3000/assets/sazonalidade.xlsx">
+        <ListItem button>
+            <ListItemIcon><CachedIcon/></ListItemIcon>
+            <ListItemText primary="Sazonalidade" />
+          </ListItem>
+        </a>
       </List>
     </div>
   );
@@ -225,7 +226,7 @@ function Game(props) {
             }}
           />
           <Button
-            onClick={round ? history.push(`/reports/${round}`) : null}
+            onClick={round ? ()=>{history.push(`/${type}/game/reports/${round}`); setDownloadModal(false)} : null}
           >
             Ver Demonstrativos
           </Button>
@@ -288,7 +289,9 @@ function Game(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Route path='/:type/game/inputs' component={ServicesContainer}/>
+        <Route path="/:type/game/reports/:round" component={Reports}/>
         <Route path='/:type/game/decisions' component={Deci}/>
+        
         {returnSidebarComponents(sidebarComponents)}
       </main>
     </div>

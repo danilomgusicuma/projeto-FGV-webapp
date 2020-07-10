@@ -171,7 +171,7 @@ efetuada) e a outra metade no próximo bimestre.
     </Typography>
     <Typography variant="body1">
     Caso seja encontrados bugs, ou dúvidas não esclarecidas por este manual ou afins, favor
-reportar para e-mail@gmail.com
+reportar para suporte@desafiosdegestao.com.br
     </Typography>
     </Paper>
     </div>

@@ -159,10 +159,10 @@ function Dre(props){
           backgroundColor: '#3f51b5',
           height: 5
       }}>
-            <TableCell style={{fontSize: 32}} align="center" colSpan={3}>
+            <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={3}>
               Demonstração de Resultado
             </TableCell>
-            <TableCell align="right">Bimestre: 3</TableCell>
+            <TableCell align="right" style={{color: 'White'}}>Bimestre: 1</TableCell>
           </TableRow>
           <TableRow>
             <TableCell></TableCell>

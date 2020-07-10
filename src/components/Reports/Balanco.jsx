@@ -170,10 +170,10 @@ useEffect(()=>{
             backgroundColor: '#3f51b5',
             height: 5
         }}>
-              <TableCell style={{fontSize: 32}} align="center" colSpan={3}>
+              <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={3}>
                 Balanço Patrimonial
               </TableCell>
-              <TableCell align="right">Bimestre: 3</TableCell>
+              <TableCell align="right" style={{color: 'White'}}>Bimestre 1</TableCell>
             </TableRow>
             <TableRow style={{
             backgroundColor: '#A8A8A8'

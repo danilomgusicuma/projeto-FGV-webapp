@@ -7,6 +7,7 @@ import Game from './components/Game/Game';
 import LoginAdmin from './components/LoginAdmin/LoginAdmin';
 import NotificationAlert from 'react-notification-alert';
 import SimSelect from './components/SimSelect/SimSelect';
+import Decisions from './components/Reports/Decisions'
 
 import './App.css';
 import "react-notification-alert/dist/animate.css";
@@ -59,6 +60,7 @@ function App() {
             <Route path="/:type/login" component={Login} />
             <Route path="/:type/register" component={Register} />
             <Route path="/:type/game" component={Game} />
+            <Route path="/decisions" component={Decisions}/>
             
             <Route path="/:type/admin">
               <Route path="/admin/login">

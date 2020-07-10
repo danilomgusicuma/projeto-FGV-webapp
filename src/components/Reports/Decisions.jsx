@@ -170,7 +170,7 @@ useEffect(()=>{
             backgroundColor: '#3f51b5',
             height: 5
         }}>
-              <TableCell style={{fontSize: 20}} align="center" colSpan={3}>
+              <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={3}>
                 Registro de Ações
               </TableCell>
              
