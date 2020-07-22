@@ -91,7 +91,7 @@ function Dre(props){
                 valores[ii].innerText = Math.round(d.estoque_inicial)
               }
               if(i == 4 && ii == 1){
-                valores[ii].innerText = Math.round(d.estoque_inicial)
+                valores[ii].innerText = Math.round(d.insumos_em_estoque)
               }
               if(i == 5 && ii == 1){
                 valores[ii].innerText = Math.round(d.custo_prestacao_servico)
