@@ -36,6 +36,7 @@ function Dre(props){
       console.log("fluxo", balanco.fluxo)
       if(balanco.fluxo){
         let f = balanco.fluxo
+        if(document.getElementById('balancof') !== null){
         let linhas = document.getElementById('balancof').querySelector('tbody').querySelectorAll('tr')
         
         console.log(linhas)
@@ -63,10 +64,10 @@ function Dre(props){
                 valores[ii].innerText = Math.round(f.depreciacao_de_maquinas)
             }
             if(i == 7 && ii == 2){
-                valores[ii].innerText = Math.round(f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos)
+                valores[ii].innerText = Math.round(f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos + f.emprestimos_contratados)
             }
             if(i == 9 && ii == 1){
-                valores[ii].innerText = Math.round(f.custo_de_servico_prestado)
+                valores[ii].innerText = Math.round((-1)*f.custo_de_servico_prestado)
             }
             if(i == 10 && ii == 1){
                 valores[ii].innerText = Math.round(f.veiculos_comprados)
@@ -108,20 +109,22 @@ function Dre(props){
                 valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento)
             }
             if(i == 25 && ii == 2){
-                valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos)            
+                valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + (-1)*f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos)            
             }
             if(i == 26 && ii == 1){
-                valores[ii].innerText = Math.round(f.financiamento)
+                valores[ii].innerText = Math.round(f.emprestimos_contratados)
             }
             if(i == 27 && ii == 3){
-                valores[ii].innerText = Math.round((f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos) - (f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos))
+                valores[ii].innerText = Math.round((f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos) - (f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + (-1)*f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos))
             }
             
             }
         }
+      }
         
       }
     });
+    return () => {socket.off('balancos')}
   },[])
 
   const classes = useStyles();
@@ -129,7 +132,7 @@ function Dre(props){
 
 
   return (
-    <TableContainer style={{ marginLeft: '0.8rem', marginTop: '0.8rem' }} component={Paper}>
+    <TableContainer style={{ marginLeft: '0.8rem', marginTop: '1rem' }} component={Paper}>
       <Table className={classes.table} size="small" aria-label="spanning table" id="balancof">
         <TableHead>
           <TableRow style={{
@@ -139,11 +142,11 @@ function Dre(props){
             <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={3}>
               Fluxo de Caixa
             </TableCell>
-            <TableCell align="right" style={{color: 'White'}}>Bimestre: 1</TableCell>
+            <TableCell align="right" style={{color: 'White'}}></TableCell>
           </TableRow>
           <TableRow style={{fontWeight: "bold",
             backgroundColor: '#A8A8A8'}}>
-            <TableCell>(+) ENTRADAS</TableCell>
+            <TableCell style={{fontWeight: "bold"}}>(+) ENTRADAS</TableCell>
             <TableCell align="right"></TableCell>
             <TableCell align="right"></TableCell>
             <TableCell align="right"></TableCell>
@@ -196,16 +199,16 @@ function Dre(props){
               <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Total Entradas</TableCell>
-              <TableCell align="center">60794</TableCell>
+              <TableCell style={{fontWeight: "bold"}}>Total Entradas</TableCell>
               <TableCell align="center"></TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}></TableCell>
             </TableRow>
 
 
 
             <TableRow style={{fontWeight: "bold",
             backgroundColor: '#A8A8A8'}}>
-              <TableCell>(-) SAÍDAS</TableCell>
+              <TableCell style={{fontWeight: "bold"}}>(-) SAÍDAS</TableCell>
               <TableCell></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
@@ -305,9 +308,9 @@ function Dre(props){
               <TableCell align="center"></TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Total Saídas</TableCell>
+              <TableCell style={{fontWeight: "bold"}}>Total Saídas</TableCell>
               <TableCell align="center"></TableCell>
-              <TableCell align="center">54800</TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}>54800</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>FINANCIAMENTO / ADIANTAMENTO PARA OPERAÇÕES ($)</TableCell>
@@ -317,10 +320,10 @@ function Dre(props){
             </TableRow>
             <TableRow style={{fontWeight: "bold",
             backgroundColor: '#A8A8A8'}}>
-              <TableCell>SALDO ATUAL</TableCell>
+              <TableCell style={{fontWeight: "bold"}}>SALDO ATUAL</TableCell>
               <TableCell></TableCell>
               <TableCell align="right"></TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align="right" style={{fontWeight: "bold"}}></TableCell>
             </TableRow>
             
           

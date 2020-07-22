@@ -183,13 +183,6 @@ function GeneralInformation(props){
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={12}>
           <Paper className={classes.paper}>
-            <h3>Caixa</h3>
-            <br/>
-            <h4>{Math.round(props.gameData[21])}</h4>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12}>
-          <Paper className={classes.paper}>
             <h3>Propaganda Institucional</h3>
             <br/>
             <h4>{props.gameData[27]?props.gameData[27]:'-'}</h4>
@@ -221,16 +214,9 @@ function GeneralInformation(props){
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
           <Paper className={classes.paper}>
-            <h3>Distribuidores</h3>
+            <h3>Faturamento Esperado</h3>
             <br/>
-            <h4>{props.gameData[25]?props.gameData[25]:'-'}</h4>
-            <br/>
-            {props.isAdmin
-            ?null
-            :(<Button
-                variant="contained" color="primary"
-                onClick={()=>setDistributorsModal(true)}
-              >Alterar</Button>)}
+            <h4>{Math.round(calcRevenue())}</h4>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
@@ -251,13 +237,6 @@ function GeneralInformation(props){
           <Typography className={classes.typography}>
             Informações Gerais
           </Typography>
-        </Grid>
-        <Grid item xs={12} sm={4} md={2}>
-          <Paper className={classes.paper}>
-            <h3>Faturamento Esperado</h3>
-            <br/>
-            <h4>{Math.round(calcRevenue())}</h4>
-          </Paper>
         </Grid>
         <Grid item xs={12} sm={8} md={4}>
           <Paper className={classes.paper}>
@@ -299,7 +278,7 @@ function GeneralInformation(props){
               >Alterar</Button>)}
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={4} md={2}>
+        <Grid item xs={12} sm={4} md={4}>
           <Paper className={classes.paper}>
             <h3>Bimestre</h3>
             <br/>

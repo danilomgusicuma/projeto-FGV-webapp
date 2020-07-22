@@ -23,11 +23,8 @@ useEffect(()=>{
       if(balanco.balanco_patrimonial){
         let b = balanco.balanco_patrimonial 
         //update(balanco.balanco_patrimonial)
-        
+        if(document.getElementById('balancop') !== null){
         let linhas = document.getElementById('balancop').querySelector('tbody').querySelectorAll('tr')
-        
-        
-        
         console.log(linhas)
         
         for(let i = 0; i < linhas.length; i++){
@@ -141,14 +138,10 @@ useEffect(()=>{
        
           
         }
-      
-        
-        //table.rows[2].cells[1].innerHTML = 'teste'
-        
-
-        
+        }
       }
     });
+    return () => {socket.off('balancos')}
   },[])
   
       
@@ -163,7 +156,7 @@ useEffect(()=>{
     const classes = useStyles();
   
     return (
-      <TableContainer style={{ marginLeft: '0.8rem', marginTop: '0.8rem' }} component={Paper}>
+      <TableContainer style={{ marginLeft: '0.8rem', marginTop: '1rem' }} component={Paper}>
         <Table className={classes.table} size="small" aria-label="spanning table" id="balancop">
           <TableHead>
             <TableRow style={{
@@ -173,7 +166,7 @@ useEffect(()=>{
               <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={3}>
                 Balanço Patrimonial
               </TableCell>
-              <TableCell align="right" style={{color: 'White'}}>Bimestre 1</TableCell>
+              <TableCell align="right" style={{color: 'White'}}></TableCell>
             </TableRow>
             <TableRow style={{
             backgroundColor: '#A8A8A8'
@@ -233,7 +226,7 @@ useEffect(()=>{
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>TOTAL (Ativo Circulante)</TableCell>
               <TableCell align="rigth"></TableCell>
-              <TableCell align="center">402000</TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}>402000</TableCell>
             </TableRow>
             <TableRow style={{
             backgroundColor: '#A8A8A8'
@@ -283,13 +276,13 @@ useEffect(()=>{
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>TOTAL (Ativo Permanente)</TableCell>
               <TableCell align="rigth"></TableCell>
-              <TableCell align="center">400035</TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}>400035</TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>Ativo Total</TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
-              <TableCell align="right">246969</TableCell>
+              <TableCell align="right" style={{fontWeight: "bold"}}>246969</TableCell>
             </TableRow>
             
             
@@ -327,7 +320,7 @@ useEffect(()=>{
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>TOTAL (Passivo Circulante)</TableCell>
               <TableCell align="rigth"></TableCell>
-              <TableCell align="center">28920270</TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}>28920270</TableCell>
             </TableRow>
             
             <TableRow style={{
@@ -373,13 +366,13 @@ useEffect(()=>{
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>TOTAL (Patrimônio Liquido)</TableCell>
               <TableCell align="rigth"></TableCell>
-              <TableCell align="center">230230920</TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}>230230920</TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>Passivo Total</TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
-              <TableCell align="right">246969</TableCell>
+              <TableCell align="right" style={{fontWeight: "bold"}}>246969</TableCell>
             </TableRow>
             
           </TableBody>

@@ -7,31 +7,23 @@ import React from 'react';
   import TableHead from '@material-ui/core/TableHead';
   import TableRow from '@material-ui/core/TableRow';
   import Paper from '@material-ui/core/Paper';
+  import {useParams} from 'react-router-dom';
 
 import socket from '../../connection';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function Balanco(props) {
     
    
-
-
+//const {round} = useParams();
+const [lista, setLista] = useState([{tipo: 'PAS', resultado: '42', bimestre: '2'}])
 useEffect(()=>{
-    socket.emit('puxar-balancos', props.round);
-    socket.on('balancos', balanco => {
-      console.log("balancos", balanco.balanco_patrimonial)
-      if(balanco.balanco_patrimonial){
-       
-       
-      
-        
-        //table.rows[2].cells[1].innerHTML = 'teste'
-        
-
-        
-      }
+    socket.emit('puxar-pesquisas');
+    socket.on('pesquisas', (pes) => {
+        console.log(props.round)
+        setLista(pes)
     });
-    return () => {socket.off('balancos')}
+    return () => {socket.off('pesquisas')}
   },[])
   
       
@@ -54,42 +46,36 @@ useEffect(()=>{
             height: 5
         }}>
               <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={3}>
-                Cronograma da Simulação
+                Registro de Pesquisas
               </TableCell>
-              
+             
             </TableRow>
             <TableRow style={{
             backgroundColor: '#A8A8A8'
         }}>
-              <TableCell>Ação Programada</TableCell>
-              <TableCell align="center">Data de Execução</TableCell>
-              
+              <TableCell>Pesquisa Realizada</TableCell>
+              <TableCell align="right">Resultado</TableCell>
+              <TableCell align="right">Bimestre Análisado</TableCell>
+           
             </TableRow>
           </TableHead>
           <TableBody>
+          {lista.map((linhas,num) => {
+          
+
+          return (
+            <TableRow>
+              <TableCell>{linhas.tipo}</TableCell>
+              <TableCell align="right">{linhas.resultado}</TableCell>
+              <TableCell align="right">{linhas.bimestre}</TableCell>
+            </TableRow>
+          )
+
+          
+          
+        })}
             
-              <TableRow>
-                <TableCell>Início do bimestre 1</TableCell>
-                <TableCell align="center">10/07/2020 14:00</TableCell>
-                
-                
-              </TableRow>
-              <TableRow>
-                <TableCell>Reunião entre as cooperativas</TableCell>
-                <TableCell align="center">10/07/2020 17:30</TableCell>
-                
-                
-              </TableRow>
-
-              
-              <TableRow>
-                <TableCell>Encerramento do bimestre 1</TableCell>
-                <TableCell align="center">10/07/2020 22:30</TableCell>
-                
-                
-              </TableRow>
-              
-
+             
               
           </TableBody>
         </Table>

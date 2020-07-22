@@ -45,7 +45,12 @@ const Service = (props) => {
 
   function generateOptions(){
     let options=[];
+    let g = 0
     props.game.slice(0,21).filter(service=>service[1]===1).forEach(activeService=>{
+      if(g == 0){
+        options.push({value:'ops', label:'Serviço Beneficiado'})
+        g = g + 1
+      }
       options.push({value:activeService[8], label:activeService[8]})
     });
     return options
@@ -91,7 +96,7 @@ const Service = (props) => {
         placeholder='Novo preço de venda'
         onBlur={()=>{socket.emit('alterar-preco',[props.service[8],roundData.price])}}
       />
-      <label className={classes.label}>Alterar Volume Planejado de vendas</label>
+      <label className={classes.label}>Alterar Volume Planejado de Serviços</label>
       <Input
         onChange={(event)=>{setRoundData({...roundData, volume:event.target.value})}}
         placeholder='Volume planejado'

@@ -30,11 +30,11 @@ function Research(props) {
 
   const options=[
     {value:'01', label:'Não realizar uma pesquisa'},
-    {value:'02', label:'Modelos de serviços oferecidos pela concorrência'},
-    {value:'03', label:'Intensidade de distribuidores da concorrência'},
-    {value:'04', label:'Quantidade de postos avançados de serviços (PAS)'},
-    {value:'05', label:'Participação da concorrência – serviço único'},
-    {value:'06', label:'Participação da concorrência – serviços múltiplos'},
+    {value:'02', label:'Modelos de serviços oferecidos pela concorrência -> $2160'},
+    //{value:'03', label:'Intensidade de distribuidores da concorrência'},
+    {value:'04', label:'Quantidade de postos avançados de serviços (PAS) -> $2160'},
+    {value:'05', label:'Participação da concorrência – serviço único -> $10800'},
+    {value:'06', label:'Participação da concorrência – serviços múltiplos -> $14400'},
   ]
 
   const [researchData, setResearchData] = useState({});
@@ -60,7 +60,7 @@ function Research(props) {
         break;
       case '03':
         socket.emit('pesquisar-distribuidores');
-        break;
+        break
       case '04':
         socket.emit('pesquisar-pas')
         break;
@@ -74,12 +74,6 @@ function Research(props) {
         return
     }
   }
-
-  useEffect(()=>{
-    socket.on('resposta-pesquisa', response => {
-      setResponse(response);
-    })
-  },[])
 
   return(
     <>

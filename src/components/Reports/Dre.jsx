@@ -37,9 +37,17 @@ function Dre(props){
       if(balanco.dre){
         console.log(balanco.dre)
         let d = balanco.dre
+        if(document.getElementById('balancod') !== null){ 
         let linhas = document.getElementById('balancod').querySelector('tbody').querySelectorAll('tr')
-        
+        let cel_servicos = document.getElementById('balancod').querySelector('thead').querySelectorAll('tr')[1].querySelectorAll('th')[3]
+        if(d.servicos[2] == 0 || d.servicos[2] == '0'){
+          cel_servicos.innerText = d.servicos[0]
+        }
+        else{
+          cel_servicos.innerText = d.servicos[0] + ' - ' + d.servicos[2]
+        }
         console.log(linhas)
+        
         
         for(let i = 0; i < linhas.length; i++){
           let valores = linhas[i].querySelectorAll('td')
@@ -47,6 +55,40 @@ function Dre(props){
             //valores[ii].innerText = valores[ii].innerText + ` (` + i + `, ` + ii + `)`
             if(i == 0 && ii == 1){
                 valores[ii].innerText = Math.round(d.receita)
+              }
+              if(i == 0 && ii == 3){
+                valores[ii].innerText = Math.round(d.preco_medio)
+              }
+              if(i == 1 && ii == 3){
+                valores[ii].innerText = Math.round(d.atendimentos)
+              }
+              if(i == 2 && ii == 2){
+                valores[ii].innerText = 'Custo por Unidade ' + d.servicos[0]
+              }
+              if(i == 2 && ii == 3){
+                valores[ii].innerText = d.servicos[1]
+              }
+              if(d.servicos[2] !== 0){
+                if(i == 3 && ii == 2){
+                  valores[ii].innerText = 'Custo por Unidade ' + d.servicos[2]
+                }
+                if(i == 3 && ii == 3){
+                  valores[ii].innerText = d.servicos[3]
+                }
+              }
+              else{
+                if(i == 3 && ii == 2){
+                  valores[ii].innerText = '-'
+                }
+                if(i == 3 && ii == 3){
+                  valores[ii].innerText = 0
+                }
+              }
+              if(i == 6 && ii == 3){
+                valores[ii].innerText = Math.round(balanco.total_n_utilizado)
+              }
+              if(i == 4 && ii == 3){
+                valores[ii].innerText = Math.round(d.estoque_inicial)
               }
               if(i == 4 && ii == 1){
                 valores[ii].innerText = Math.round(d.estoque_inicial)
@@ -58,7 +100,7 @@ function Dre(props){
                 valores[ii].innerText = Math.round(d.custo_estocagem)
               }
               if(i == 7 && ii == 1){
-                valores[ii].innerText = Math.round(d.custo_troca_insumo)
+                valores[ii].innerText = Math.round(d.custo_troca_insumos)
               }
               if(i == 8 && ii == 1){
                 valores[ii].innerText = Math.round(d.hora_extra)
@@ -90,8 +132,11 @@ function Dre(props){
               if(i == 18 && ii == 3){
                 valores[ii].innerText = d.comissao
               }
+              if(i == 19 && ii == 3){
+                valores[ii].innerText = 2160
+              }
               if(i == 19 && ii == 1){
-                valores[ii].innerText = Math.round(d.comissao*d.receita)
+                valores[ii].innerText = Math.round(d.comissao)
               }
               if(i == 21 && ii == 1){
                 valores[ii].innerText = Math.round(d.propaganda_institucional)
@@ -102,14 +147,23 @@ function Dre(props){
               if(i == 23 && ii == 1){
                 valores[ii].innerText = Math.round(d.depreciacao_de_maquinas)
               }
+              if(i == 23 && ii == 3){
+                valores[ii].innerText = 15
+              }
               if(i == 24 && ii == 1){
                 valores[ii].innerText = Math.round(d.encargos_financiamento)
+              }
+              if(i == 25 && ii == 3){
+                valores[ii].innerText = d.salario_frota/4800
               }
               if(i == 26 && ii == 1){
                 valores[ii].innerText = Math.round(d.salario_frota)
               }
               if(i == 27 && ii == 1){
                 valores[ii].innerText = Math.round(d.manutencao_frota)
+              }
+              if(i == 27 && ii == 3){
+                valores[ii].innerText = 6000
               }
               if(i == 28 && ii == 1){
                 valores[ii].innerText = Math.round(d.depreciacao_de_veiculos)
@@ -127,24 +181,32 @@ function Dre(props){
                 valores[ii].innerText = Math.round(d.pas/2160)
               }
               if(i == 32 && ii == 1){
-                valores[ii].innerText = Math.round(d.pesquisa)
+                valores[ii].innerText = Math.round(d.pesquisas)
               }
               if(i == 34 && ii == 2){
-                valores[ii].innerText = Math.round(d.despesas_administrativas + d.salario_promotores + d.comissao*d.receita + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas)
+                valores[ii].innerText = Math.round(d.despesas_administrativas + d.salario_promotores + d.comissao
+                   + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas)
               }
               if(i == 35 && ii == 1){
-                valores[ii].innerText = Math.round(d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao*d.receita + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))
+                valores[ii].innerText = Math.round(d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))
               }
               if(i == 36 && ii == 1){
-                valores[ii].innerText = Math.round((d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao*d.receita + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.05)
+                if((d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas)) > (d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.05){
+                  valores[ii].innerText = Math.round((d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.05)
+                }
+                else{
+                  valores[ii].innerText = 0
+                }
               }
               if(i == 37 && ii == 1){
-                valores[ii].innerText = Math.round((d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao*d.receita + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.95)
+                valores[ii].innerText = Math.round((d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.95)
               }
           }
         }
       }
+      }
     });
+    return () => {socket.off('balancos')}
   },[])
 
   const classes = useStyles();
@@ -152,7 +214,7 @@ function Dre(props){
 
 
   return (
-    <TableContainer style={{ marginLeft: '0.8rem', marginTop: '0.8rem' }} component={Paper}>
+    <TableContainer style={{ marginLeft: '0.8rem', marginTop: '1rem' }} component={Paper}>
       <Table className={classes.table} size="small" aria-label="spanning table" id="balancod">
         <TableHead>
           <TableRow style={{
@@ -162,7 +224,7 @@ function Dre(props){
             <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={3}>
               Demonstração de Resultado
             </TableCell>
-            <TableCell align="right" style={{color: 'White'}}>Bimestre: 1</TableCell>
+            <TableCell align="right" style={{color: 'White'}}></TableCell>
           </TableRow>
           <TableRow>
             <TableCell></TableCell>
@@ -175,7 +237,7 @@ function Dre(props){
           
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>REEMBOLSO TOTAL</TableCell>
-              <TableCell>96708</TableCell>
+              <TableCell style={{fontWeight: "bold"}}>96708</TableCell>
               <TableCell align="right">$ Preço Médio</TableCell>
               <TableCell align="right">609</TableCell>
             </TableRow>
@@ -247,13 +309,13 @@ function Dre(props){
         }}>
               <TableCell style={{fontWeight: "bold"}}>(-) CSP</TableCell>
               <TableCell></TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align="right" style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>MARGEM BRUTA</TableCell>
               <TableCell></TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align="right" style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
@@ -320,19 +382,19 @@ function Dre(props){
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>DEPRECIAÇÃO DE MÁQUINAS / EQUIPAMENTOS</TableCell>
-              <TableCell></TableCell>
+              <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right">Período depreciação máquinas (ANOS)</TableCell>
               <TableCell align="right">192000</TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>ENCARGOS SOBRE FINANCIAMENTOS</TableCell>
-              <TableCell></TableCell>
+              <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right">Taxa de Juros</TableCell>
               <TableCell align="right">8%</TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>TRANSPORTE</TableCell>
-              <TableCell></TableCell>
+              <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right"># Motoristas</TableCell>
               <TableCell align="right">10</TableCell>
             </TableRow>
@@ -362,19 +424,19 @@ function Dre(props){
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>DESPESAS NÃO PLANEJADOS</TableCell>
-              <TableCell></TableCell>
+              <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>POSTOS AVANÇADOS DE ATENDIMENTO</TableCell>
-              <TableCell></TableCell>
+              <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right"># Postos</TableCell>
               <TableCell align="right">30</TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>PESQUISA DE MERCADO</TableCell>
-              <TableCell></TableCell>
+              <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right">Custo Unitário</TableCell>
               <TableCell align="right">2160</TableCell>
             </TableRow>
@@ -387,7 +449,7 @@ function Dre(props){
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>TOTAL DESPESAS OPERACIONAIS</TableCell>
               <TableCell></TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align="right" style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>

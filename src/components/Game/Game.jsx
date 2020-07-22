@@ -32,6 +32,7 @@ import Deci from '../Reports/Decisions'
 import Crono from '../Reports/Crono';
 import Manual from '../Manual/Manual';
 import Reports from '../Reports/Reports';
+import Pes from '../Reports/Pesquisas'
 
 import { Route, Link, useHistory, useLocation, useParams } from 'react-router-dom'
 
@@ -187,7 +188,15 @@ function Game(props) {
           <ListItemIcon><HistoryIcon/></ListItemIcon>
           <ListItemText primary="Decisões" />
         </ListItem>
+
         </Link>
+        <Link to={`/${type}/game/pesquisas`}>
+        <ListItem button>
+          <ListItemIcon><HistoryIcon/></ListItemIcon>
+          <ListItemText primary="Pesquisas Contratadas" />
+        </ListItem>
+        </Link>
+
         <ListItem onClick={()=>{setDownloadModal(true)}} button>
           <ListItemIcon><PieChartIcon/></ListItemIcon>
           <ListItemText primary="Demonstrativos" />
@@ -222,11 +231,12 @@ function Game(props) {
             defaultValue={game[30] ? game[30]-1 : 0}
             options={generateRounds()}
             onChange={event=>{
+              
               setRound(event.value)
             }}
           />
           <Button
-            onClick={round ? ()=>{history.push(`/${type}/game/reports/${round}`); setDownloadModal(false)} : null}
+            onClick={round ? ()=>{history.push(`/${type}/game/reports/${round}`); setDownloadModal(false);socket.emit('puxar-balancos', round)} : null}
           >
             Ver Demonstrativos
           </Button>
@@ -291,6 +301,8 @@ function Game(props) {
         <Route path='/:type/game/inputs' component={ServicesContainer}/>
         <Route path="/:type/game/reports/:round" component={Reports}/>
         <Route path='/:type/game/decisions' component={Deci}/>
+        <Route path='/:type/game/pesquisas' component={Pes}/>
+
         
         {returnSidebarComponents(sidebarComponents)}
       </main>
