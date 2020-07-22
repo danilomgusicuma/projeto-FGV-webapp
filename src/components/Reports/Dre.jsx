@@ -37,6 +37,7 @@ function Dre(props){
       if(balanco.dre){
         console.log(balanco.dre)
         let d = balanco.dre
+        let b = balanco.balanco_patrimonial
         if(document.getElementById('balancod') !== null){ 
         let linhas = document.getElementById('balancod').querySelector('tbody').querySelectorAll('tr')
         let cel_servicos = document.getElementById('balancod').querySelector('thead').querySelectorAll('tr')[1].querySelectorAll('th')[3]
@@ -85,13 +86,13 @@ function Dre(props){
                 }
               }
               if(i == 6 && ii == 3){
-                valores[ii].innerText = Math.round(balanco.total_n_utilizado)
+                valores[ii].innerText = Math.round(d.capacidade_n_utilizada)
               }
               if(i == 4 && ii == 3){
-                valores[ii].innerText = Math.round(d.estoque_inicial)
+                valores[ii].innerText = Math.round(d.insumos_em_estoque)
               }
               if(i == 4 && ii == 1){
-                valores[ii].innerText = Math.round(d.insumos_em_estoque)
+                valores[ii].innerText = Math.round(d.estoque_inicial)
               }
               if(i == 5 && ii == 1){
                 valores[ii].innerText = Math.round(d.custo_prestacao_servico)
@@ -109,13 +110,13 @@ function Dre(props){
                 valores[ii].innerText = Math.round(d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem)
               }
               if(i == 10 && ii == 2){
-                valores[ii].innerText = Math.round(d.capacidade_n_utilizada)
+                valores[ii].innerText = Math.round(b.estoque) //tds as proximas utilizacoes do capacidade_n_utilizada estao errados pq represente apenas os insumos q sobraram mas tem q mostrar o estoque q sobrou
               }
               if(i == 11 && ii == 2){
-                valores[ii].innerText = Math.round(d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada)
+                valores[ii].innerText = Math.round(d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque)
               }
               if(i == 12 && ii == 2){
-                valores[ii].innerText = Math.round(d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada))
+                valores[ii].innerText = Math.round(d.receita - (d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque))
               }
               if(i == 13 && ii == 1){
                 valores[ii].innerText = Math.round(d.atendimentos)
@@ -188,18 +189,18 @@ function Dre(props){
                    + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas)
               }
               if(i == 35 && ii == 1){
-                valores[ii].innerText = Math.round(d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))
+                valores[ii].innerText = Math.round(d.receita - (d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))
               }
               if(i == 36 && ii == 1){
-                if((d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas)) > (d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.05){
-                  valores[ii].innerText = Math.round((d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.05)
+                if((d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas)) > (d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.05){
+                  valores[ii].innerText = Math.round((d.receita - (d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.05)
                 }
                 else{
                   valores[ii].innerText = 0
                 }
               }
               if(i == 37 && ii == 1){
-                valores[ii].innerText = Math.round((d.receita - (d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - d.capacidade_n_utilizada) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.95)
+                valores[ii].innerText = Math.round((d.receita - (d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.95)
               }
           }
         }
@@ -265,7 +266,7 @@ function Dre(props){
             <TableRow>
               <TableCell>CAPACIDADE INSTALADA INICIAL DE PRESTAÇÃO DE SERVIÇOS</TableCell>
               <TableCell></TableCell>
-              <TableCell align="right">Estoque Inicial</TableCell>
+              <TableCell align="right">Estoque de Insumos inicial</TableCell>
               <TableCell align="right">988</TableCell>
             </TableRow>
             <TableRow>
