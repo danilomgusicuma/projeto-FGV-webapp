@@ -118,19 +118,13 @@ function GeneralInformation(props){
         <DialogContent>
           <Input
             onChange={(event)=>{setNewPromoters(event.target.value)}}
-            placeholder='Novos Promotores'
+            placeholder='Definir quantidade de Promotores'
           />
           <Button onClick={()=>{
-            socket.emit('aumentar-promotores', newPromoters);
+            socket.emit('promotores', newPromoters);
             setPromotersModal(false);
           }}>
-            Investir
-          </Button>
-          <Button onClick={()=>{
-            socket.emit('diminuir-promotores', newPromoters);
-            setPromotersModal(false);
-          }}>
-            Diminuir Investimento
+            Alterar
           </Button>
         </DialogContent>
       </Dialog>
@@ -185,7 +179,7 @@ function GeneralInformation(props){
           <Paper className={classes.paper}>
             <h3>Propaganda Institucional</h3>
             <br/>
-            <h4>{props.gameData[27]?props.gameData[27]:'-'}</h4>
+            <h4>{props.gameData[27]?'$ '+props.gameData[27].toLocaleString('pt-BR'):'-'}</h4>
             <br/>
             {props.isAdmin
             ?null
@@ -196,9 +190,9 @@ function GeneralInformation(props){
           </Paper>
         </Grid>
         <Grid item xs={12} sm={12} md={12}>
-          <Typography className={classes.typography}>Vendas</Typography>
+          <Typography className={classes.typography}>Atendimentos</Typography>
         </Grid>
-        <Grid item xs={12} sm={4} md={4}>
+        <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
             <h3>Comissão</h3>
             <br/>
@@ -212,18 +206,12 @@ function GeneralInformation(props){
               >Alterar</Button>)}
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={4} md={4}>
-          <Paper className={classes.paper}>
-            <h3>Faturamento Esperado</h3>
-            <br/>
-            <h4>{Math.round(calcRevenue())}</h4>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={4} md={4}>
+        
+        <Grid item xs={12} sm={6} md={6}>
           <Paper className={classes.paper}>
             <h3>Promotores</h3>
             <br/>
-            <h4>{props.gameData[23]?props.gameData[23]:'-'}</h4>
+            <h4>{props.gameData[23]?'# '+props.gameData[23].toLocaleString('pt-BR'):'-'}</h4>
             <br/>
             {props.isAdmin
             ?null
@@ -238,23 +226,14 @@ function GeneralInformation(props){
             Informações Gerais
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={8} md={4}>
-          <Paper className={classes.paper}>
-            <h3>Dívida / Empréstimo</h3>
-            <br/>
-            <h4>{props.gameData[29]?Math.round(props.gameData[29]):'-'}</h4>
-            <br/>
-            
-            
-          </Paper>
-        </Grid>
         
         
-        <Grid item xs={12} sm={4} md={2}>
+        
+        <Grid item xs={12} sm={4} md={4}>
           <Paper className={classes.paper}>
             <h3>Frota</h3>
             <br/>
-            <h4>{props.gameData[22]?props.gameData[22].reduce((a, b)=> a + b) : '-'}</h4>
+            <h4>{props.gameData[22]?'# '+props.gameData[22].reduce((a, b)=> a + b) : '-'}</h4>
             <br/>
             {props.isAdmin
             ?null
@@ -264,11 +243,20 @@ function GeneralInformation(props){
               >Alterar</Button>)}
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={4} md={2}>
+        <Grid item xs={12} sm={4} md={4}>
+          <Paper className={classes.paper}>
+            <h3>Bimestre</h3>
+            <br/>
+            <h4>{props.gameData[30]?props.gameData[30]:'-'}</h4>
+            <br/>
+          </Paper>
+        </Grid>
+        
+        <Grid item xs={12} sm={4} md={4}>
           <Paper className={classes.paper}>
             <h3>PAS</h3>
             <br/>
-            <h4>{props.gameData[26]?props.gameData[26]:'-'}</h4>
+            <h4>{props.gameData[26]?'# '+props.gameData[26]:'-'}</h4>
             <br/>
             {props.isAdmin
             ?null
@@ -276,14 +264,6 @@ function GeneralInformation(props){
                 variant="contained" color="primary"
                 onClick={()=>setPasModal(true)}
               >Alterar</Button>)}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={4} md={4}>
-          <Paper className={classes.paper}>
-            <h3>Bimestre</h3>
-            <br/>
-            <h4>{props.gameData[30]?props.gameData[30]:'-'}</h4>
-            <br/>
           </Paper>
         </Grid>
         {props.children ? (props.children) : null}

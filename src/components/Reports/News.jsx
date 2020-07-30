@@ -16,12 +16,11 @@ function Balanco(props) {
 
 
 useEffect(()=>{
-    socket.emit('puxar-deci');
-    socket.on('deci', decisions => {
-    console.log("balancos", decisions)
+    socket.emit('puxar-news');
+    socket.on('news', decisions => {
     setRows(decisions)
     });
-    return () => {socket.off('deci')}
+    return () => {socket.off('news')}
   },[])
   
       
@@ -37,6 +36,7 @@ useEffect(()=>{
 
   
     return (
+      <div>
       <TableContainer style={{ marginLeft: '0.8rem', marginTop: '0.8rem' }} component={Paper}>
         <Table className={classes.table} size="small" aria-label="spanning table" id="decisions">
           <TableHead>
@@ -45,7 +45,7 @@ useEffect(()=>{
             height: 5
         }}>
               <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={3}>
-                Registro de Ações
+                HSG news
               </TableCell>
              
             </TableRow>
@@ -54,9 +54,9 @@ useEffect(()=>{
             <TableRow style={{
             backgroundColor: '#A8A8A8'
         }}>
-              <TableCell>Ação Realizada</TableCell>
-              <TableCell align="right">Autor da Ação</TableCell>
-              <TableCell align="right">Data de modificação</TableCell>
+              <TableCell>Manchete</TableCell>
+              <TableCell align="right">Informações</TableCell>
+              <TableCell align="right">Bimestre de publicação da notícia</TableCell>
            
             </TableRow>
             {}
@@ -65,26 +65,21 @@ useEffect(()=>{
 
           return (
             <TableRow>
-              <TableCell>{linhas.acao}</TableCell>
-              <TableCell align="right">{linhas.autor}</TableCell>
-              <TableCell align="right">{linhas.data}</TableCell>
+              <TableCell>{linhas.titulo}</TableCell>
+              <TableCell align="right">{linhas.info}</TableCell>
+              <TableCell align="right">{linhas.bimestre}</TableCell>
             </TableRow>
           )
 
           
           
         })}
-            
-         
-            
-              
 
-              
-              
-            
           </TableBody>
         </Table>
       </TableContainer>
+      
+      </div>
     );
       
 }

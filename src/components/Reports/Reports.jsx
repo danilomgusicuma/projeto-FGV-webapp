@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 
 function Reports (props){
 
-  const [tipo, setTipo] = useState(['b'])
+  const [tipo, setTipo] = useState(['f'])
   const {round} = useParams();
   const classes = useStyles();
   
@@ -27,7 +27,7 @@ function Reports (props){
   return(
     <div className={classes.container}>
     <Grid container component="main">
-      <Grid align="right" item xs={false} sm={12} md={8}>
+      <Grid  item xs={false} sm={12} md={7}>
         <ButtonGroup disableElevation variant="contained" color="primary">
           <Button onClick={() => setTipo(['b'])}>Balanço Patrimonial</Button>
           <Button onClick={() => setTipo(['d'])}>Demonstração de Resultado (DRE)</Button>
@@ -38,7 +38,7 @@ function Reports (props){
           if(ativo == 'b'){
 
           return (
-            <Grid item xs={false} sm={12} md={10}>
+            <Grid item xs={false} sm={12} md={8}>
               <Balanco round={round}/>
             </Grid>
           )
@@ -48,7 +48,7 @@ function Reports (props){
             
           
             return (
-              <Grid item xs={false} sm={12} md={10}>
+              <Grid item xs={false} sm={12} md={8}>
                 <Dre round={round}/>
               </Grid>
           
@@ -57,7 +57,7 @@ function Reports (props){
             else if(ativo == 'f'){
 
               return (
-                <Grid item xs={false} sm={12} md={10}>
+                <Grid m={10} item xs={false} sm={12} md={8}>
                   <Fluxo round={round}/>
                 </Grid>
             

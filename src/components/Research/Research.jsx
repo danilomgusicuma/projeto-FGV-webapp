@@ -33,8 +33,8 @@ function Research(props) {
     {value:'02', label:'Modelos de serviços oferecidos pela concorrência -> $2160'},
     //{value:'03', label:'Intensidade de distribuidores da concorrência'},
     {value:'04', label:'Quantidade de postos avançados de serviços (PAS) -> $2160'},
-    {value:'05', label:'Participação da concorrência – serviço único -> $10800'},
-    {value:'06', label:'Participação da concorrência – serviços múltiplos -> $14400'},
+    {value:'05', label:'Participação da concorrência -> $10800'},
+    {value:'06', label:'Teste entre dois tipos de Serviços -> $14400'},
   ]
 
   const [researchData, setResearchData] = useState({});
@@ -65,10 +65,10 @@ function Research(props) {
         socket.emit('pesquisar-pas')
         break;
       case '05':
-        socket.emit('pesquisar-participacao-servicos', [researchData.researchService1])
+        socket.emit('pesquisar-participacao-servicos')
         break;
       case '06':
-          socket.emit('pesquisar-participacao-servicos', [researchData.researchService1, researchData.researchService2])
+          socket.emit('pesquisar-teste-entre-2', [researchData.researchService1, researchData.researchService2])
         break;
       default:
         return
@@ -85,17 +85,6 @@ function Research(props) {
         onChange={event=>setResearchData({...researchData, researchType:event.value})}
         className={classes.select}
       />
-      {researchData.researchType==='05'
-      ?
-      <div>
-        <Select
-          defaultValue={''}
-          options={serviceOptions}
-          onChange={event=>setResearchData({...researchData, researchService1:event.value})}
-          className={classes.select}
-        />
-      </div>
-      :null}
 
       {researchData.researchType==='06'
       ?

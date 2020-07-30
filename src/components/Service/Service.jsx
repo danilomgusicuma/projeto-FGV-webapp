@@ -80,26 +80,28 @@ const Service = (props) => {
       </DialogContent>
     </Dialog>
     <h3>Serviço {props.service[8]}</h3>
-    <h4>Insumos: {Math.round(props.service[0])}</h4>
-    <h4>Custo Unitário: {Math.round(props.service[2])}</h4>
-    <h4>Investimento em propaganda: {Math.round(props.service[9])}</h4>
+    <h4>Insumos Iniciais: # {Math.round(props.service[10]).toLocaleString('pt-BR')}</h4>
+    <h4>Insumos após compra/transferência: # {Math.round(props.service[0]).toLocaleString('pt-BR')}</h4>
+    <h4>Custo Unitário: $ {Math.round(props.service[2]).toLocaleString('pt-BR')}</h4>
+    <h4>Investimento em propaganda: $ {Math.round(props.service[9]).toLocaleString('pt-BR')}</h4>
     <Form className={classes.form}>
       <label className={classes.label}>Comprar Insumos</label>
       <Input
         onChange={(event)=>{setRoundData({...roundData, resourcesAmount:event.target.value})}}
-        placeholder='Quantidade de insumos a serem comprados'
+        placeholder='# Quantidade de insumos a serem comprados'
         onBlur={()=>{socket.emit('comprar-servico',[props.service[8], roundData.resourcesAmount])}}
+        onFocus={()=>{socket.emit('comprar-servico',[props.service[8],0])}}
       />
-      <label className={classes.label}>Alterar Preço</label>
+      <label className={classes.label}>Alterar Valor do Serviço</label>
       <Input
         onChange={(event)=>{setRoundData({...roundData, price:event.target.value})}}
-        placeholder='Novo preço de venda'
+        placeholder='$ Novo preço do serviço'
         onBlur={()=>{socket.emit('alterar-preco',[props.service[8],roundData.price])}}
       />
       <label className={classes.label}>Alterar Volume Planejado de Serviços</label>
       <Input
         onChange={(event)=>{setRoundData({...roundData, volume:event.target.value})}}
-        placeholder='Volume planejado'
+        placeholder='# Volume planejado'
         onBlur={()=>{socket.emit('alterar-volume',[props.service[8],roundData.volume])}}
       />
       <label className={classes.label}>Transferir insumos para outro serviço</label>
@@ -110,7 +112,7 @@ const Service = (props) => {
       />
       <Input
         onChange={(event)=>{setRoundData({...roundData, resourcesAmountToTransfer:event.target.value})}}
-        placeholder='Quantidade de Insumos'
+        placeholder='# Quantidade de Insumos'
         onBlur={()=>{socket.emit('trocar-servico',[props.service[8],roundData.serviceToTranfer, roundData.resourcesAmountToTransfer])}}
       />
       
@@ -118,7 +120,7 @@ const Service = (props) => {
       <label className={classes.label}>Investimento em propaganda para este serviço</label>
       <Input
         onChange={(event)=>{setRoundData({...roundData, unitaryAdsInvestiment:event.target.value})}}
-        placeholder='Investimento'
+        placeholder='$ Investimento'
         onBlur={()=>{socket.emit('propaganda-unitaria', [props.service[8],roundData.unitaryAdsInvestiment])}}
       />
       <Button onClick={()=>setChangeServiceModal(true)}>

@@ -21,12 +21,15 @@ useEffect(()=>{
     socket.on('balancos', balanco => {
       console.log("balancos", balanco.balanco_patrimonial)
       if(balanco.balanco_patrimonial){
+        let cel_bimestre = document.getElementById('balancop').querySelector('thead').querySelectorAll('tr')[0].querySelectorAll('th')[1]
+        cel_bimestre.innerText = 'Bimestre: ' + balanco.turno
+        
         let b = balanco.balanco_patrimonial 
         //update(balanco.balanco_patrimonial)
         if(document.getElementById('balancop') !== null){
         let linhas = document.getElementById('balancop').querySelector('tbody').querySelectorAll('tr')
         console.log(linhas)
-        
+        let dive = 0
         for(let i = 0; i < linhas.length; i++){
           let valores = linhas[i].querySelectorAll('td')
           for(let ii = 0; ii < valores.length; ii++){
@@ -34,6 +37,10 @@ useEffect(()=>{
           
           if(i == 0 && ii == 1){
             valores[ii].innerText = Math.round(b.caixa)
+            if(Math.round(b.caixa) < 0){
+              valores[ii].innerText = 0
+              dive = dive + (-1)*Math.round(b.caixa)
+            }
           }
           if(i == 0 && ii == 3){
             valores[ii].innerText = Math.round(b.caixa)
@@ -99,13 +106,13 @@ useEffect(()=>{
             valores[ii].innerText = Math.round(b.tributos_a_pagar_atual)
           }
           if(i == 21 && ii == 1){
-            valores[ii].innerText = Math.round(b.emprestimos)
+            valores[ii].innerText = Math.round(b.emprestimos+ dive)
           }
           if(i == 21 && ii == 3){
-            valores[ii].innerText = Math.round(b.emprestimos)
+            valores[ii].innerText = Math.round(b.emprestimos + dive)
           }
           if(i == 23 && ii == 2){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual + b.tributos_a_pagar_anterior + b.emprestimos)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual + b.tributos_a_pagar_anterior + b.emprestimos + dive)
           }
           if(i == 25 && ii == 1){
             valores[ii].innerText = Math.round(b.capial)
@@ -129,7 +136,7 @@ useEffect(()=>{
             valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial)
           }
           if(i == 32 && ii == 3){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial + b.emprestimos + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual)
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual)
             }
 
            

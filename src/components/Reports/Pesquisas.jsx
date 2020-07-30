@@ -16,7 +16,7 @@ function Balanco(props) {
     
    
 //const {round} = useParams();
-const [lista, setLista] = useState([{tipo: 'PAS', resultado: '42', bimestre: '2'}])
+const [lista, setLista] = useState([])
 useEffect(()=>{
     socket.emit('puxar-pesquisas');
     socket.on('pesquisas', (pes) => {
@@ -39,7 +39,7 @@ useEffect(()=>{
   
     return (
       <TableContainer style={{ marginLeft: '0.8rem', marginTop: '0.8rem' }} component={Paper}>
-        <Table className={classes.table} size="small" aria-label="spanning table" id="balancop">
+        <Table className={classes.table} size="small" aria-label="spanning table" id="pesquisas">
           <TableHead>
             <TableRow style={{
             backgroundColor: '#3f51b5',

@@ -11,6 +11,9 @@ import Select from 'react-select';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+
+import DraftsIcon from '@material-ui/icons/Drafts';
+
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import MenuIcon from '@material-ui/icons/Menu';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
@@ -30,9 +33,11 @@ import Button from '@material-ui/core/Button';
 import ServicesContainer from '../ServicesContainer/ServicesContainer';
 import Deci from '../Reports/Decisions'
 import Crono from '../Reports/Crono';
+import News from '../Reports/News';
 import Manual from '../Manual/Manual';
 import Reports from '../Reports/Reports';
 import Pes from '../Reports/Pesquisas'
+import AnnouncementIcon from '@material-ui/icons/Announcement';
 
 import { Route, Link, useHistory, useLocation, useParams } from 'react-router-dom'
 
@@ -153,11 +158,12 @@ function Game(props) {
       icon: <EventNoteIcon/>,
     },
     {
-      path:`/${type}/game/step-by-step`,
-      label:'Passo a Passo',
-      component: Manual,
-      icon: <ListIcon/>,
+      path:`/${type}/game/news`,
+      label:'HSG news',
+      component: News,
+      icon: <AnnouncementIcon/>,
     }
+    
   ]
   const drawer = (
     <div>
@@ -192,7 +198,7 @@ function Game(props) {
         </Link>
         <Link to={`/${type}/game/pesquisas`}>
         <ListItem button>
-          <ListItemIcon><HistoryIcon/></ListItemIcon>
+          <ListItemIcon><DraftsIcon /></ListItemIcon>
           <ListItemText primary="Pesquisas Contratadas" />
         </ListItem>
         </Link>
@@ -204,9 +210,16 @@ function Game(props) {
         <a target="_blank" href="http://api.desafiosdegestao.com.br:3000/assets/sazonalidade.xlsx">
         <ListItem button>
             <ListItemIcon><CachedIcon/></ListItemIcon>
-            <ListItemText primary="Sazonalidade" />
+            <ListItemText primary="Sazonalidade (.xlsx)" />
           </ListItem>
         </a>
+        <a target="_blank" href="http://api.desafiosdegestao.com.br:3000/assets/passo.xlsx">
+        <ListItem button>
+            <ListItemIcon><ListIcon/></ListItemIcon>
+            <ListItemText primary="Passo a Passo (.xlsx)" />
+          </ListItem>
+        </a>
+        
       </List>
     </div>
   );

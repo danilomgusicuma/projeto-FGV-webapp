@@ -10,6 +10,7 @@ import React from 'react';
 
 import socket from '../../connection';
 import { useEffect } from 'react';
+import { Checkbox } from '@material-ui/core';
 
 
 
@@ -33,9 +34,41 @@ function Dre(props){
   useEffect(()=>{
     socket.emit('puxar-balancos', props.round);
     socket.on('balancos', balanco => {
+      console.log('Planejado: ' + balanco.planejado.distribuidores)
       console.log("fluxo", balanco.fluxo)
+      //console.log('servs: ' + balanco.servs['147'])
       if(balanco.fluxo){
+        let dive = 0
+        if(balanco.balanco_patrimonial.caixa < 0){
+          dive = Math.round(balanco.balanco_patrimonial.caixa*(-1))
+        }
+        let cel_bimestre = document.getElementById('balancof').querySelector('thead').querySelectorAll('tr')[0].querySelectorAll('th')[1]
+        cel_bimestre.innerText = 'Bimestre: ' + balanco.turno
+        
+        let idx = [
+          "147",
+          "148",
+          "149",
+          "157",
+          "158",
+          "159",
+          "257",
+          "258",
+          "259",
+          "267",
+          "268",
+          "269",
+          "347",
+          "348",
+          "349",
+          "357",
+          "358",
+          "359",
+          "367",
+          "368",
+          "369"]
         let f = balanco.fluxo
+        let p = balanco.planejado
         if(document.getElementById('balancof') !== null){
         let linhas = document.getElementById('balancof').querySelector('tbody').querySelectorAll('tr')
         
@@ -50,25 +83,60 @@ function Dre(props){
             }
             if(i == 1 && ii == 1){
                 valores[ii].innerText = Math.round(f.emprestimos_contratados)
+                if(p !== 0){
+                  valores[ii].innerText = Math.round(p.emprestimo + dive)
+                }
             }
             if(i == 2 && ii == 1){
                 valores[ii].innerText = Math.round(f.faturamento)
+                if(p !== 0){
+                  valores[ii].innerText = Math.round(p.volume1*p.preco1+p.volume2*p.preco2)
+                }
             }
             if(i == 3 && ii == 1){
                 valores[ii].innerText = Math.round(f.veiculos_vendidos)
             }
             if(i == 4 && ii == 1){
                 valores[ii].innerText = Math.round(f.depreciacao_de_veiculos)
-            }
+                if(p !== 0){
+                  valores[ii].innerText = Math.round(p.frota*2400)
+                }
+              }
             if(i == 5 && ii == 1){
                 valores[ii].innerText = Math.round(f.depreciacao_de_maquinas)
-            }
+                if(p !== 0){
+                  valores[ii].innerText = Math.round(2880)
+                }
+              }
             if(i == 7 && ii == 2){
                 valores[ii].innerText = Math.round(f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos + f.emprestimos_contratados)
-            }
+                if(p !== 0){
+                  valores[ii].innerText = Math.round(p.volume1*p.preco1+p.volume2*p.preco2 + p.frota*2400 + 2880 + f.veiculos_vendidos + p.emprestimo+ dive)
+                }
+              }
             if(i == 9 && ii == 1){
                 valores[ii].innerText = Math.round((-1)*f.custo_de_servico_prestado)
-            }
+                if(p !== 0){
+                  function checar(xx) {
+                    if(xx !== 0 && balanco.servs[xx]){
+                      console.log(p.volume2*balanco.servs[xx][2])
+                    return p.volume2*balanco.servs[xx][2]
+                    }
+                    else{
+                      return 0
+                    }
+                  }
+                  function checar1(xx) {
+                    if(xx !== 0 && balanco.servs[xx]){
+                    return p.volume1*balanco.servs[xx][2]
+                    }
+                    else{
+                      return 0
+                    }
+                  }
+                  valores[ii].innerText = Math.round(checar1(p.serv1)+checar(p.serv2))
+                }
+              }
             if(i == 10 && ii == 1){
                 valores[ii].innerText = Math.round(f.veiculos_comprados)
             }
@@ -78,45 +146,103 @@ function Dre(props){
             if(i == 12 && ii == 1){
                 valores[ii].innerText = Math.round(f.tributos)
             }
-            if(i == 14 && ii == 1){
+            if(i == 14 && ii == 2){
                 valores[ii].innerText = Math.round(f.promotores)
-            }
-            if(i == 15 && ii == 1){
+                if(p !== 0){
+                  valores[ii].innerText = Math.round(p.promotores*2160)
+                }
+              }
+            if(i == 15 && ii == 2){
                 valores[ii].innerText = Math.round(f.propaganda)
+                if(p!==0){
+                  valores[ii].innerText = Math.round(p.prop1+p.prop2+f.propaganda)
+                }
+              }
+            if(i == 16 && ii == 2){
+                valores[ii].innerText = Math.round(2880)
             }
-            if(i == 16 && ii == 1){
-                valores[ii].innerText = Math.round(f.depreciacao_de_maquinas)
-            }
-            if(i == 17 && ii == 1){
+            if(i == 17 && ii == 2){
                 valores[ii].innerText = Math.round(f.pesquisas)
             }
-            if(i == 18 && ii == 1){
+            if(i == 18 && ii == 2){
                 valores[ii].innerText = Math.round(f.pas)
-            }
-            if(i == 19 && ii == 1){
+              if(p!== 0){
+                valores[ii].innerText = Math.round(p.pas*2160)
+              }
+              }
+            if(i == 19 && ii == 2){
                 valores[ii].innerText = Math.round(f.uso_frota)
+                if(p!==0){
+                  valores[ii].innerText = Math.round(p.frota*10800)
+                }
             }
-            if(i == 20 && ii == 1){
+            if(i == 20 && ii == 2){
                 valores[ii].innerText = Math.round(f.despesas_operacionais_n_planejadas)
             }
-            if(i == 21 && ii == 1){
+            if(i == 21 && ii == 2){
                 valores[ii].innerText = Math.round(f.despesas_administrativas)
             }
-            if(i == 22 && ii == 1){
+            if(i == 22 && ii == 2){
                 valores[ii].innerText = Math.round(f.encargos_financiamento)
-            }
+              if(p!==0){
+                valores[ii].innerText = Math.round((p.emprestimo+ dive)*0.08)
+              }
+              }
             if(i == 24 && ii == 1){
                 valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento)
-            }
+              if(p!== 0){
+                valores[ii].innerText = Math.round((p.emprestimo*0.08+ dive)+ p.promotores*2160+2880+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800)
+              }
+              }
             if(i == 25 && ii == 2){
                 valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + (-1)*f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos)            
-            }
+                function checar(xx) {
+                  if(xx !== 0 && balanco.servs[xx]){
+                    console.log(p.volume2*balanco.servs[xx][2])
+                  return p.volume2*balanco.servs[xx][2]
+                  }
+                  else{
+                    return 0
+                  }
+                }
+                function checar1(xx) {
+                  if(xx !== 0 && balanco.servs[xx]){
+                  return p.volume1*balanco.servs[xx][2]
+                  }
+                  else{
+                    return 0
+                  }
+                }
+                if(p!== 0){
+                  valores[ii].innerText = Math.round((p.emprestimo+ dive)*0.08+p.promotores*2160+2880+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+ checar1(p.serv1)+checar(p.serv2)+f.veiculos_comprados)
+                }
+              }
             if(i == 26 && ii == 1){
                 valores[ii].innerText = Math.round(f.emprestimos_contratados)
             }
             if(i == 27 && ii == 3){
                 valores[ii].innerText = Math.round((f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos) - (f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + (-1)*f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos))
-            }
+                function checar(xx) {
+                  if(xx !== 0 && balanco.servs[xx]){
+                    console.log(p.volume2*balanco.servs[xx][2])
+                  return p.volume2*balanco.servs[xx][2]
+                  }
+                  else{
+                    return 0
+                  }
+                }
+                function checar1(xx) {
+                  if(xx !== 0 && balanco.servs[xx]){
+                  return p.volume1*balanco.servs[xx][2]
+                  }
+                  else{
+                    return 0
+                  }
+                }
+                if(p!==0){
+                valores[ii].innerText = Math.round((p.emprestimo+ dive+p.volume1*p.preco1+p.volume2*p.preco2 + p.frota*2400 + 2800 + f.veiculos_vendidos + f.emprestimos_contratados)+(-1)*(p.promotores*2160+2880+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+ checar1(p.serv1)+checar(p.serv2)+f.veiculos_comprados+(p.emprestimo+ dive)*0.08))
+              }
+              }
             
             }
         }
