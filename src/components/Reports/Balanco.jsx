@@ -17,8 +17,9 @@ function Balanco(props) {
 
 
 useEffect(()=>{
-    socket.emit('puxar-balancos', props.round);
-    socket.on('balancos', balanco => {
+    if(props.ativo !== 'sim'){
+      socket.emit('puxar-balancos', props.round);
+      socket.on('balancos', balanco => {
       console.log("balancos", balanco.balanco_patrimonial)
       if(balanco.balanco_patrimonial){
         let cel_bimestre = document.getElementById('balancop').querySelector('thead').querySelectorAll('tr')[0].querySelectorAll('th')[1]
@@ -147,7 +148,137 @@ useEffect(()=>{
         }
         }
       }
-    });
+      
+        
+      
+      
+      });
+    }
+    else{
+        let b = props.balanco        
+        //update(balanco.balanco_patrimonial)
+        if(document.getElementById('balancop') !== null){
+        let linhas = document.getElementById('balancop').querySelector('tbody').querySelectorAll('tr')
+        console.log(linhas)
+        let dive = 0
+        for(let i = 0; i < linhas.length; i++){
+          let valores = linhas[i].querySelectorAll('td')
+          for(let ii = 0; ii < valores.length; ii++){
+            //valores[ii].innerText = valores[ii].innerText + ` (` +i + ', ' + ii + `)`
+          
+          if(i == 0 && ii == 1){
+            valores[ii].innerText = Math.round(b.caixa)
+            if(Math.round(b.caixa) < 0){
+              valores[ii].innerText = 0
+              dive = dive + (-1)*Math.round(b.caixa)
+            }
+          }
+          if(i == 0 && ii == 3){
+            valores[ii].innerText = Math.round(b.caixa)
+          }
+          if(i == 1 && ii == 1){
+            valores[ii].innerText = Math.round(b.estoque)
+          }
+          if(i == 1 && ii == 3){
+            valores[ii].innerText = Math.round(b.estoque)
+          }
+          if(i == 2 && ii == 1){
+            valores[ii].innerText = Math.round(b.contas_a_receber60 + b.contas_a_receber120)
+          }
+          if(i == 3 && ii == 2){
+            valores[ii].innerText = Math.round(b.contas_a_receber60 + b.contas_a_receber120)
+          } 
+          if(i == 4 && ii == 1){
+            valores[ii].innerText = Math.round(b.contas_a_receber60)
+          }    
+          if(i == 5 && ii == 1){
+            valores[ii].innerText = Math.round(b.contas_a_receber120)
+          }
+          if(i == 7 && ii == 2){
+            valores[ii].innerText = Math.round(b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa)
+          }
+          if(i == 9 && ii == 1){
+            valores[ii].innerText = Math.round(b.maquinas)
+          }
+          if(i == 9 && ii == 3){
+            valores[ii].innerText = Math.round(b.maquinas)
+          }
+          if(i == 10 && ii == 2){
+            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas)
+          }
+          if(i == 11 && ii == 1){
+            valores[ii].innerText = Math.round(b.depreciacao_maquinas)
+          }
+          if(i == 12 && ii == 1){
+            valores[ii].innerText = Math.round(b.veiculos)
+          }
+          if(i == 13 && ii == 2){
+            valores[ii].innerText = Math.round(b.veiculos - b.depreciacao_veiculos)
+          }
+          if(i == 14 && ii == 1){
+            valores[ii].innerText = Math.round(b.depreciacao_veiculos)
+          }
+          if(i == 16 && ii == 2){
+            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos)
+          }
+          if(i == 17 && ii == 3){
+            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa)
+          }
+          if(i == 19 && ii == 1){
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior)
+          }
+          if(i == 19 && ii == 3){
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior)
+          }
+          if(i == 20 && ii == 1){
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual)
+          }
+          if(i == 20 && ii == 3){
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual)
+          }
+          if(i == 21 && ii == 1){
+            valores[ii].innerText = Math.round(b.emprestimos+ dive)
+          }
+          if(i == 21 && ii == 3){
+            valores[ii].innerText = Math.round(b.emprestimos + dive)
+          }
+          if(i == 23 && ii == 2){
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual + b.tributos_a_pagar_anterior + b.emprestimos + dive)
+          }
+          if(i == 25 && ii == 1){
+            valores[ii].innerText = Math.round(b.capial)
+          }
+          if(i == 25 && ii == 3){
+            valores[ii].innerText = Math.round(b.capial)
+          }
+          if(i == 27 && ii == 2){
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849)
+          }
+          if(i == 28 && ii == 1){
+            valores[ii].innerText = 2130849
+          }
+          if(i == 29 && ii == 1){
+            valores[ii].innerText = Math.round(b.lucros_acumulados)
+          }
+          if(i == 30 && ii == 1){
+            valores[ii].innerText = 0
+          }
+          if(i == 31 && ii == 2){
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial)
+          }
+          if(i == 32 && ii == 3){
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual)
+            }
+
+           
+          
+        }
+       
+          
+        }
+        }
+      
+    }
     return () => {socket.off('balancos')}
   },[])
   

@@ -46,6 +46,25 @@ function App() {
       }
       notificationAlert.current.notificationAlert(options);
     })
+    socket.on('disconnect', () => {
+      var options = {
+        place: 'tc' ,
+        message: (
+          <div>
+            <div className='alert-message'>
+              {'Voce foi desconetado do servidor.'}
+            </div>
+          </div>
+        ),
+        type: 'danger',
+        icon: 'fas fa-bell',
+        autoDismiss: 3,
+        closeButton: false,
+      }
+       history.push('/select');
+      
+      notificationAlert.current.notificationAlert(options);
+    })
   },[history])
 
   return (

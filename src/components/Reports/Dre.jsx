@@ -51,6 +51,7 @@ function Dre(props){
         else{
           cel_servicos.innerText = d.servicos[0] + ' - ' + d.servicos[2]
         }
+        if(p!==0){
         if(p.serv1 !== 0 && p.serv2 !== 0){
           cel_servicos.innerText = p.serv1 + ' - ' + p.serv2
         }
@@ -60,6 +61,7 @@ function Dre(props){
         if(p.serv1 == 0 && p.serv2 !== 0){
           cel_servicos.innerText = p.serv2
         }
+      }
         console.log(linhas) 
         
         
@@ -878,7 +880,9 @@ function Dre(props){
               <TableCell align="right">Custo Fixo</TableCell>
               <TableCell align="right">50400</TableCell>
             </TableRow>
-            <TableRow>
+            <TableRow style={{
+            backgroundColor: '#A8A8A8'
+        }}>
               <TableCell style={{fontWeight: "bold"}}>TOTAL DESPESAS OPERACIONAIS</TableCell>
               <TableCell></TableCell>
               <TableCell align="right" style={{fontWeight: "bold"}}></TableCell>

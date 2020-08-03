@@ -34,10 +34,12 @@ import ServicesContainer from '../ServicesContainer/ServicesContainer';
 import Deci from '../Reports/Decisions'
 import Crono from '../Reports/Crono';
 import News from '../Reports/News';
+import Bps from '../Reports/Bps';
 import Manual from '../Manual/Manual';
 import Reports from '../Reports/Reports';
 import Pes from '../Reports/Pesquisas'
 import AnnouncementIcon from '@material-ui/icons/Announcement';
+import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
 
 import { Route, Link, useHistory, useLocation, useParams } from 'react-router-dom'
 
@@ -162,6 +164,12 @@ function Game(props) {
       label:'HSG news',
       component: News,
       icon: <AnnouncementIcon/>,
+    },
+    {
+      path:`/${type}/game/bps`,
+      label:'Balanços do mercado',
+      component: Bps,
+      icon: <CollectionsBookmarkIcon/>,
     }
     
   ]
