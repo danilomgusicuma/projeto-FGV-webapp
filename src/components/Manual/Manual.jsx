@@ -49,7 +49,7 @@ export default function Manual() {
     <Typography variant="body1">
       O jogo é separado por turnos e cada turno representa 1 bimestre, encerrando ao se completar
     1 ano. Cabe ao jogador fazer as melhores escolhas/compras e previsão para se sobressair no
-    jogo.
+    jogo. Lembre-se sempre de salvar a jogada, no botão localizado no topo a direita, após ter certeza das decisões.
     </Typography>
     <br/>
     <br/>

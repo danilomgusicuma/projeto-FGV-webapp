@@ -61,9 +61,9 @@ function Reports (props){
           if(ativo !== 'vazio'){
 
           return (
-            <Grid item xs={false} sm={12} md={8}>
+            
               <Balanco ativo={'sim'} balanco={ativo} turnob={turno2}/>
-            </Grid>
+            
           )
 
           }

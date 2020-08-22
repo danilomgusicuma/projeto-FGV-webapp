@@ -27,9 +27,7 @@ const useStyles = makeStyles(theme => ({
     border: '1px solid black',
   },
 }))
-
 function Dre(props){
-
   useEffect(()=>{
     socket.emit('puxar-balancos', props.round);
     socket.on('balancos', balanco => {
@@ -70,21 +68,21 @@ function Dre(props){
           for(let ii = 0; ii < valores.length; ii++){
             //valores[ii].innerText = valores[ii].innerText + ` (` + i + `, ` + ii + `)`
             if(i == 0 && ii == 1){
-                valores[ii].innerText = Math.round(d.receita)
+                valores[ii].innerText = Math.round(d.receita).toLocaleString('pt-BR')
               if(p!==0){
-                valores[ii].innerText = Math.round(p.volume1*p.preco1+p.volume2*p.preco2)
+                valores[ii].innerText = Math.round(p.volume1*p.preco1+p.volume2*p.preco2).toLocaleString('pt-BR')
               }
               }
               if(i == 0 && ii == 3){
-                valores[ii].innerText = Math.round(d.preco_medio)
+                valores[ii].innerText = Math.round(d.preco_medio).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = Math.round((p.preco1*p.volume1+p.preco2*p.volume2)/(p.volume2+p.volume1))
+                  valores[ii].innerText = Math.round((p.preco1*p.volume1+p.preco2*p.volume2)/(p.volume2+p.volume1)).toLocaleString('pt-BR')
                 }
               }
               if(i == 1 && ii == 3){
-                valores[ii].innerText = Math.round(d.atendimentos)
+                valores[ii].innerText = Math.round(d.atendimentos).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = Math.round(p.volume1+p.volume2)
+                  valores[ii].innerText = Math.round(p.volume1+p.volume2).toLocaleString('pt-BR')
                 }
               }
               if(i == 2 && ii == 2){
@@ -127,19 +125,46 @@ function Dre(props){
                 }
               }
               if(i == 6 && ii == 3){
-                valores[ii].innerText = Math.round(d.capacidade_n_utilizada)
+                valores[ii].innerText = Math.round(d.capacidade_n_utilizada).toLocaleString('pt-BR')
+                if(p!==0){
+                  let estocagem = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
+                function g(g) {
+                  //console.log('g1: ' +g)
+                  if(g > 0 ){
+                    //console.log('g: ' +g)
+                    return Number(g)
+                  }
+                  else{
+                    return 0
+                  }
+                }
+                if(p!==0 && estocagem > 0){
+                  valores[ii].innerText = Math.round((estocagem)).toLocaleString('pt-BR')
+                }
+                else if(p!==0 && estocagem < 0){
+                  if(g(p.insu1)+g(p.insu1i) - g(p.volume1) > 0){
+                    valores[ii].innerText = Math.round((g(p.insu1)+g(p.insu1i) - g(p.volume1))).toLocaleString('pt-BR')
+                  }
+                  else if(g(p.insu2)+g(p.insu2i) - g(p.volume2) > 0){
+                    valores[ii].innerText = Math.round((g(p.insu2)+g(p.insu2i) - g(p.volume2))).toLocaleString('pt-BR')
+                  }
+                  else{
+                    valores[ii].innerText = 0
+                  }
+                }
+                }
               }
               if(i == 4 && ii == 3){
-                valores[ii].innerText = Math.round(d.insumos_em_estoque)
+                valores[ii].innerText = Math.round(d.insumos_em_estoque).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = Math.round(p.insu1i+p.insu2i)
+                  valores[ii].innerText = Math.round(p.insu1i+p.insu2i).toLocaleString('pt-BR')
                 }
               }
               if(i == 4 && ii == 1){
-                valores[ii].innerText = Math.round(d.estoque_inicial)
+                valores[ii].innerText = Math.round(d.estoque_inicial).toLocaleString('pt-BR')
               }
               if(i == 5 && ii == 1){
-                valores[ii].innerText = Math.round(d.custo_prestacao_servico)
+                valores[ii].innerText = Math.round(d.custo_prestacao_servico).toLocaleString('pt-BR')
                 if(p!==0){
                   function check1(param) {
                     if(param){
@@ -150,11 +175,11 @@ function Dre(props){
                     }
                   }
                   console.log('p.volume1: '+p.volume1+' check1(balanco.servs[p.serv1]): ' +check1(balanco.servs[p.serv1]))
-                  valores[ii].innerText = Math.round(p.volume1*check1(balanco.servs[p.serv1])+p.volume2*check1(balanco.servs[p.serv2]))
+                  valores[ii].innerText = Math.round(p.volume1*check1(balanco.servs[p.serv1])+p.volume2*check1(balanco.servs[p.serv2])).toLocaleString('pt-BR')
                 }
               }
               if(i == 6 && ii == 1){
-                valores[ii].innerText = Math.round(d.custo_estocagem)
+                valores[ii].innerText = Math.round(d.custo_estocagem).toLocaleString('pt-BR')
                 console.log('teste')
                 let estocagem = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
                 function g(g) {
@@ -168,14 +193,25 @@ function Dre(props){
                   }
                 }
                 if(p!==0 && estocagem > 0){
-                  valores[ii].innerText = Math.round((estocagem*30))
+                  valores[ii].innerText = Math.round((estocagem*36)).toLocaleString('pt-BR')
+                }
+                else if(p!==0 && estocagem < 0){
+                  if(g(p.insu1)+g(p.insu1i) - g(p.volume1) > 0){
+                    valores[ii].innerText = Math.round((g(p.insu1)+g(p.insu1i) - g(p.volume1))*36).toLocaleString('pt-BR')
+                  }
+                  else if(g(p.insu2)+g(p.insu2i) - g(p.volume2) > 0){
+                    valores[ii].innerText = Math.round((g(p.insu2)+g(p.insu2i) - g(p.volume2))*36).toLocaleString('pt-BR')
+                  }
+                  else{
+                    valores[ii].innerText = 0
+                  }
                 }
               }
               if(i == 7 && ii == 1){
-                valores[ii].innerText = Math.round(d.custo_troca_insumos)
+                valores[ii].innerText = Math.round(d.custo_troca_insumos).toLocaleString('pt-BR')
               }
               if(i == 8 && ii == 1){
-                valores[ii].innerText = Math.round(d.hora_extra)
+                valores[ii].innerText = Math.round(d.hora_extra).toLocaleString('pt-BR')
                 if(p!== 0){
 
                   function g(g) {
@@ -192,7 +228,8 @@ function Dre(props){
         
                   if(g(p.volume1) - (g(p.insu1)+g(p.insu1i)) > 0 || g(p.volume2) - (g(p.insu2)+g(p.insu2i) > 0)){
                     let par2 = 0
-                    let par1 = 0
+                    if(g(p.volume2) - g(p.insu2) - g(p.insu2i) > 0){
+                    
                     par2 = (g(p.volume2) - (g(p.insu2i) + g(p.insu2)))
                     if(par2 > 0 && p.serv2 !== 0){
                       par2 = par2*balanco.servs[p.serv2][2]*0.2 
@@ -200,6 +237,13 @@ function Dre(props){
                     else{
                       par2 = 0
                     }
+                    }
+                    let par1 = 0
+                    if(g(p.volume1) - g(p.insu1) - g(p.insu1i) > 0){
+                      let jes = g(p.insu1) + g(p.insu1i)
+                      console.log('p.insu1i: ' + p.insu1i)
+                    console.log('p.volume1: ' + p.volume1 + ' -- (g(p.insu1) + g(p.insu1i))' + jes) 
+                    
                     par1 = (g(p.volume1) - (g(p.insu1i) + g(p.insu1)))
                     console.log(par1)
                     if(par1 > 0 && p.serv1 !== 0){
@@ -208,19 +252,22 @@ function Dre(props){
                     else{
                       par1 = 0
                     }
+                  }
+                  console.log("p.insu1: " +p.insu1)
+                  console.log("p.insu1i: " +p.insu1i)
                     console.log("par2: " +par2)
                     console.log("par1: " +par1)
                     hora_e = Math.round(par1+par2)
                   }
-                  
-                  valores[ii].innerText = Math.round(hora_e)
+                  console.log("hora_e: " +hora_e)
+                  valores[ii].innerText = Math.round(hora_e).toLocaleString('pt-BR')
                 }
               }
               if(i == 9 && ii == 2){
-                valores[ii].innerText = Math.round(d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem)
+                valores[ii].innerText = Math.round(d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem).toLocaleString('pt-BR')
               }
               if(i == 10 && ii == 2){
-                valores[ii].innerText = Math.round(b.estoque) //tds as proximas utilizacoes do capacidade_n_utilizada estao errados pq represente apenas os insumos q sobraram mas tem q mostrar o estoque q sobrou
+                valores[ii].innerText = Math.round(b.estoque).toLocaleString('pt-BR') //tds as proximas utilizacoes do capacidade_n_utilizada estao errados pq represente apenas os insumos q sobraram mas tem q mostrar o estoque q sobrou
                 if(p!==0){
                   function check1(param) {
                     if(param){
@@ -232,7 +279,7 @@ function Dre(props){
                   }
                   if(Math.round( d.estoque_inicial  - (p.volume1*check1(balanco.servs[p.serv1])+p.volume2*check1(balanco.servs[p.serv2]))) > 0){
                     console.log('p.volume1: '+p.volume1+' check1(balanco.servs[p.serv1]): ' +check1(balanco.servs[p.serv1]))
-                    valores[ii].innerText = Math.round( d.estoque_inicial  - (p.volume1*check1(balanco.servs[p.serv1])+p.volume2*check1(balanco.servs[p.serv2])))
+                    valores[ii].innerText = Math.round( d.estoque_inicial  - (p.volume1*check1(balanco.servs[p.serv1])+p.volume2*check1(balanco.servs[p.serv2]))).toLocaleString('pt-BR')
                   }
                   else{
                     valores[ii].innerText = 0
@@ -240,9 +287,13 @@ function Dre(props){
                 }
               }
               if(i == 11 && ii == 2){
-                valores[ii].innerText = Math.round(d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque)
+                valores[ii].innerText = Math.round(d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque).toLocaleString('pt-BR')
                 if(p!==0){
-                  let estocagem = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
+                  let estocagemi = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
+                  let estocagem = 0
+                  if(estocagemi > 0){
+                    estocagem = estocagemi*36
+                  }
                 
                   function g(g) {
                   //console.log('g1: ' +g)
@@ -286,14 +337,17 @@ function Dre(props){
                       return 0
                     }
                   }
-                  valores[ii].innerText = Math.round((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos)
+                  valores[ii].innerText = Math.round((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos).toLocaleString('pt-BR')
                 }
               }
               if(i == 12 && ii == 2){
-                valores[ii].innerText = Math.round(d.receita - (d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque))
+                valores[ii].innerText = Math.round(d.receita - (d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque)).toLocaleString('pt-BR')
                 if(p!==0){
-                  let estocagem = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
-                
+                  let estocagemi = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
+                  let estocagem = 0
+                  if(estocagemi > 0){
+                    estocagem = estocagemi*36
+                  }
                   function g(g) {
                   //console.log('g1: ' +g)
                   if(g > 0 ){
@@ -336,29 +390,30 @@ function Dre(props){
                       return 0
                     }
                   }
-                  console.log('p.insu1i+p.insu2i '+p.insu1i+p.insu2i)
-                  valores[ii].innerText = Math.round(p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)-d.custo_troca_insumos)
+                  let jas = Number(p.insu1i)+Number(p.insu2i)
+                  console.log('p.insu1i+p.insu2i '+ jas)
+                  valores[ii].innerText = Math.round(p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)-d.custo_troca_insumos).toLocaleString('pt-BR')
                 }
               }
               if(i == 13 && ii == 1){
-                valores[ii].innerText = Math.round(d.atendimentos)
+                valores[ii].innerText = Math.round(d.atendimentos).toLocaleString('pt-BR')
               if(p!==0){
-                valores[ii].innerText = Math.round(p.volume1+p.volume2)
+                valores[ii].innerText = Math.round(p.volume1+p.volume2).toLocaleString('pt-BR')
               }
               }
               if(i == 16 && ii == 1){
                 valores[ii].innerText = Math.round(d.despesas_administrativas)
               }
               if(i == 17 && ii == 3){
-                valores[ii].innerText = Math.round(d.salario_promotores/2160)
+                valores[ii].innerText = Math.round(d.salario_promotores/2160).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = Math.round(p.promotores)
+                  valores[ii].innerText = Math.round(p.promotores).toLocaleString('pt-BR')
                 }
               }
               if(i == 18 && ii == 1){
-                valores[ii].innerText = Math.round(d.salario_promotores)
+                valores[ii].innerText = Math.round(d.salario_promotores).toLocaleString('pt-BR')
               if(p!==0){
-                valores[ii].innerText = Math.round(p.promotores*2160)
+                valores[ii].innerText = Math.round(p.promotores*2160).toLocaleString('pt-BR')
               }
               }
               if(i == 18 && ii == 3){
@@ -368,104 +423,107 @@ function Dre(props){
                 }
               }
               if(i == 19 && ii == 3){
-                valores[ii].innerText = 2160
+                valores[ii].innerText = (2160).toLocaleString('pt-BR')
               }
               if(i == 19 && ii == 1){
-                valores[ii].innerText = Math.round(d.comissao)
+                valores[ii].innerText = Math.round(d.comissao).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = Math.round((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))
+                  valores[ii].innerText = Math.round((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2)).toLocaleString('pt-BR')
                 }
               }
               if(i == 21 && ii == 1){
-                valores[ii].innerText = Math.round(d.propaganda_institucional)
+                valores[ii].innerText = Math.round(d.propaganda_institucional).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = Math.round(p.propagandai)
+                  valores[ii].innerText = Math.round(p.propagandai).toLocaleString('pt-BR')
                 }
               }
               if(i == 22 && ii == 1){
-                valores[ii].innerText = Math.round(d.propaganda_unitaria)
+                valores[ii].innerText = Math.round(d.propaganda_unitaria).toLocaleString('pt-BR')
                 if(p!== 0){
-                  valores[ii].innerText = Math.round(p.prop1+p.prop2)
+                  valores[ii].innerText = Math.round(p.prop1+p.prop2).toLocaleString('pt-BR')
                 }
               }
               if(i == 23 && ii == 1){
-                valores[ii].innerText = 2880
+                valores[ii].innerText = (2880).toLocaleString('pt-BR')
               }
               if(i == 23 && ii == 3){
                 valores[ii].innerText = 15
               }
               if(i == 24 && ii == 1){
-                valores[ii].innerText = Math.round(d.encargos_financiamento)
+                valores[ii].innerText = Math.round(d.encargos_financiamento).toLocaleString('pt-BR')
                 if(p!==0){
                   let dive = 0
                   if(b.caixa < 0){
                     dive = b.caixa*(-1)
                   }
-                  valores[ii].innerText = Math.round((dive+p.emprestimo)*0.08)
+                  valores[ii].innerText = Math.round((dive+p.emprestimo)*0.08).toLocaleString('pt-BR')
                 }
               }
               if(i == 25 && ii == 3){
-                valores[ii].innerText = d.salario_frota/4800
+                valores[ii].innerText = (d.salario_frota/4800).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = p.frota
+                  valores[ii].innerText = (p.frota).toLocaleString('pt-BR')
                 }
               }
               if(i == 26 && ii == 1){
-                valores[ii].innerText = Math.round(d.salario_frota)
+                valores[ii].innerText = Math.round(d.salario_frota).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = p.frota*4800
+                  valores[ii].innerText = (p.frota*4800).toLocaleString('pt-BR')
                 }
               }
               if(i == 27 && ii == 1){
-                valores[ii].innerText = Math.round(d.manutencao_frota)
+                valores[ii].innerText = Math.round(d.manutencao_frota).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = p.frota*6000
+                  valores[ii].innerText = (p.frota*6000).toLocaleString('pt-BR')
                 }
               }
               if(i == 27 && ii == 3){
-                valores[ii].innerText = 6000
+                valores[ii].innerText = (6000).toLocaleString('pt-BR')
               }
               if(i == 28 && ii == 1){
-                valores[ii].innerText = Math.round(d.depreciacao_de_veiculos)
+                valores[ii].innerText = Math.round(d.depreciacao_de_veiculos).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = p.frota*2400
+                  valores[ii].innerText = (p.frota*2400).toLocaleString('pt-BR')
                 }
               }
               if(i == 29 && ii == 1){
-                valores[ii].innerText = Math.round(d.frota_terceirizada)
+                valores[ii].innerText = Math.round(d.frota_terceirizada).toLocaleString('pt-BR')
               }
               if(i == 30 && ii == 1){
-                valores[ii].innerText = Math.round(d.despesas_operacionais_n_planejadas)
+                valores[ii].innerText = Math.round(d.despesas_operacionais_n_planejadas).toLocaleString('pt-BR')
               }
               if(i == 31 && ii == 1){
-                valores[ii].innerText = Math.round(d.pas)
+                valores[ii].innerText = Math.round(d.pas).toLocaleString('pt-BR')
                 if(p!==0){
                   valores[ii].innerText = p.pas*2160
                 }
               }
               if(i == 31 && ii == 3){
-                valores[ii].innerText = Math.round(d.pas/2160)
+                valores[ii].innerText = Math.round(d.pas/2160).toLocaleString('pt-BR')
                 if(p!==0){
                   valores[ii].innerText = p.pas
                 }
               }
               if(i == 32 && ii == 1){
-                valores[ii].innerText = Math.round(d.pesquisas)
+                valores[ii].innerText = Math.round(d.pesquisas).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = Math.round(p.pesquisas)
+                  valores[ii].innerText = Math.round(p.pesquisas).toLocaleString('pt-BR')
                 }
               }
               if(i == 34 && ii == 2){
-                valores[ii].innerText = Math.round(d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas)
+                valores[ii].innerText = Math.round(d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = Math.round(p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160)
+                  valores[ii].innerText = Math.round(p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160).toLocaleString('pt-BR')
                 }
               }
               if(i == 35 && ii == 1){
-                valores[ii].innerText = Math.round(d.receita - (d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))
+                valores[ii].innerText = Math.round(d.receita - (d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas)).toLocaleString('pt-BR')
                 if(p!==0){
-                  let estocagem = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
-                
+                  let estocagemi = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
+                  let estocagem = 0
+                  if(estocagemi > 0){
+                    estocagem = estocagemi*36
+                  }
                   function g(g) {
                   //console.log('g1: ' +g)
                   if(g > 0 ){
@@ -508,8 +566,9 @@ function Dre(props){
                       return 0
                     }
                   }
-                  console.log('p.insu1i+p.insu2i '+p.insu1i+p.insu2i)
-                  valores[ii].innerText = Math.round((p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)-d.custo_troca_insumos)-((p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160)))
+                  let jas = Number(p.insu1i)+Number(p.insu2i)
+                  console.log('p.insu1i+p.insu2i '+ jas)
+                  valores[ii].innerText = Math.round((p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)-d.custo_troca_insumos)-((p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160))).toLocaleString('pt-BR')
                 }
               }
               if(i == 36 && ii == 1){
@@ -520,8 +579,11 @@ function Dre(props){
                   valores[ii].innerText = 0
                 }
                 if(p!==0){
-                  let estocagem = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
-                
+                  let estocagemi = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
+                  let estocagem = 0
+                  if(estocagemi > 0){
+                    estocagem = estocagemi*36
+                  }
                   function g(g) {
                   //console.log('g1: ' +g)
                   if(g > 0 ){
@@ -567,22 +629,25 @@ function Dre(props){
                 }
                 //let estocagem = 0
                 if((p.insu1+p.insu2+p.insu1i+p.insu2i) - p.volume2+p.volume1 > 0){
-                  estocagem = Math.round((p.insu1+p.insu2+p.insu1i+p.insu2i) - p.volume2+p.volume1)*30
+                  estocagem = Math.round((p.insu1+p.insu2+p.insu1i+p.insu2i) - p.volume2+p.volume1)*36
                 }
                 
                 if(p!==0 && (Math.round((p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)-d.custo_troca_insumos)-((p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160)))) > 0){
                   
-                  
-                  console.log('p.insu1i+p.insu2i '+p.insu1i+p.insu2i)
-                  valores[ii].innerText = Math.round(0.3*Math.round((p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)-d.custo_troca_insumos)-((p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160))))
+                  let jas = Number(p.insu1i)+Number(p.insu2i)
+                  console.log('p.insu1i+p.insu2i '+ jas)
+                  valores[ii].innerText = Math.round(0.3*Math.round((p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)-d.custo_troca_insumos)-((p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160)))).toLocaleString('pt-BR')
                 }
               }
               }
               if(i == 37 && ii == 1){
-                valores[ii].innerText = Math.round((d.receita - (d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.95)
+                valores[ii].innerText = Math.round((d.receita - (d.estoque_inicial + d.custo_prestacao_servico + d.hora_extra + d.custo_troca_insumos + d.custo_estocagem - b.estoque) - (d.despesas_administrativas + d.salario_promotores + d.comissao + d.propaganda_institucional + d.propaganda_unitaria + d.depreciacao_de_maquinas + d.encargos_financiamento + d.salario_frota + d.manutencao_frota + d.depreciacao_de_veiculos + d.despesas_operacionais_n_planejadas + d.pas + d.pesquisas))*0.95).toLocaleString('pt-BR')
                 if(p!==0){
-                  let estocagem = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
-                
+                  let estocagemi = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
+                  let estocagem = 0
+                  if(estocagemi > 0){
+                    estocagem = estocagemi*36
+                  }
                   function g(g) {
                   //console.log('g1: ' +g)
                   if(g > 0 ){
@@ -625,12 +690,13 @@ function Dre(props){
                       return 0
                     }
                   }
-                  console.log('p.insu1i+p.insu2i '+p.insu1i+p.insu2i)
+                  let jas = Number(p.insu1i)+Number(p.insu2i)
+                  console.log('p.insu1i+p.insu2i '+ jas)
                   if(0 < Math.round((p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)-d.custo_troca_insumos)-((p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160)))){
-                  valores[ii].innerText = Math.round(0.7*Math.round((p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)-d.custo_troca_insumos)-((p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160))))
+                  valores[ii].innerText = Math.round(0.7*Math.round((p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)-d.custo_troca_insumos)-((p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160)))).toLocaleString('pt-BR')
                 }
                 else{
-                  valores[ii].innerText = Math.round((p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos)-((p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160)))
+                  valores[ii].innerText = Math.round((p.volume1*p.preco1+p.volume2*p.preco2 - (estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos)-((p.promotores*2160+(p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2) + p.propagandai + p.prop1 + p.prop2+ 2880 + p.emprestimo*0.08+p.frota*10800+p.frota*2400+p.pesquisas+p.pas*2160))).toLocaleString('pt-BR')
                 
                 }
               }

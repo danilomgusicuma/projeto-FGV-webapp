@@ -69,6 +69,7 @@ function Dre(props){
           "369"]
         let f = balanco.fluxo
         let p = balanco.planejado
+        let b = balanco.balanco_patrimonial
         if(document.getElementById('balancof') !== null){
         let linhas = document.getElementById('balancof').querySelector('tbody').querySelectorAll('tr')
         
@@ -79,43 +80,43 @@ function Dre(props){
           for(let ii = 0; ii < valores.length; ii++){
             //valores[ii].innerText = valores[ii].innerText + ' (' + i + ', ' + ii + ')'
             if(i == 0 && ii == 1){
-                valores[ii].innerText = Math.round(f.saldo_anterior)
+                valores[ii].innerText = Math.round(f.saldo_anterior).toLocaleString('pt-BR')
             }
             if(i == 1 && ii == 1){
-                valores[ii].innerText = Math.round(f.emprestimos_contratados)
+                valores[ii].innerText = Math.round(f.emprestimos_contratados).toLocaleString('pt-BR')
                 if(p !== 0){
-                  valores[ii].innerText = Math.round(p.emprestimo + dive)
+                  valores[ii].innerText = Math.round(p.emprestimo + dive).toLocaleString('pt-BR')
                 }
             }
             if(i == 2 && ii == 1){
-                valores[ii].innerText = Math.round(f.faturamento)
+                valores[ii].innerText = Math.round(b.contas_a_receber60).toLocaleString('pt-BR')
                 if(p !== 0){
-                  valores[ii].innerText = Math.round(p.volume1*p.preco1+p.volume2*p.preco2)
+                  valores[ii].innerText = Math.round(b.contas_a_receber60).toLocaleString('pt-BR')
                 }
             }
             if(i == 3 && ii == 1){
-                valores[ii].innerText = Math.round(f.veiculos_vendidos)
+                valores[ii].innerText = Math.round(f.veiculos_vendidos).toLocaleString('pt-BR')
             }
             if(i == 4 && ii == 1){
-                valores[ii].innerText = Math.round(f.depreciacao_de_veiculos)
+                valores[ii].innerText = Math.round(f.depreciacao_de_veiculos).toLocaleString('pt-BR')
                 if(p !== 0){
-                  valores[ii].innerText = Math.round(p.frota*2400)
+                  valores[ii].innerText = Math.round(p.frota*2400).toLocaleString('pt-BR')
                 }
               }
             if(i == 5 && ii == 1){
-                valores[ii].innerText = Math.round(f.depreciacao_de_maquinas)
+                valores[ii].innerText = Math.round(f.depreciacao_de_maquinas).toLocaleString('pt-BR')
                 if(p !== 0){
-                  valores[ii].innerText = Math.round(2880)
+                  valores[ii].innerText = Math.round(2880).toLocaleString('pt-BR')
                 }
               }
             if(i == 7 && ii == 2){
-                valores[ii].innerText = Math.round(f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos + f.emprestimos_contratados)
+                valores[ii].innerText = Math.round(b.contas_a_receber60 + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos + f.emprestimos_contratados).toLocaleString('pt-BR')
                 if(p !== 0){
-                  valores[ii].innerText = Math.round(p.volume1*p.preco1+p.volume2*p.preco2 + p.frota*2400 + 2880 + f.veiculos_vendidos + p.emprestimo+ dive)
+                  valores[ii].innerText = Math.round(b.contas_a_receber60 + p.frota*2400 + 2880 + f.veiculos_vendidos + p.emprestimo+ dive).toLocaleString('pt-BR')
                 }
               }
             if(i == 9 && ii == 1){
-                valores[ii].innerText = Math.round((-1)*f.custo_de_servico_prestado)
+                valores[ii].innerText = Math.round(f.custo_de_servico_prestado).toLocaleString('pt-BR')
                 if(p !== 0){
                   function checar(xx) {
                     if(xx !== 0 && balanco.servs[xx]){
@@ -138,64 +139,64 @@ function Dre(props){
                 }
               }
             if(i == 10 && ii == 1){
-                valores[ii].innerText = Math.round(f.veiculos_comprados)
+                valores[ii].innerText = Math.round(f.veiculos_comprados).toLocaleString('pt-BR')
             }
             if(i == 11 && ii == 1){
-                valores[ii].innerText = Math.round(f.maquinas)
+                valores[ii].innerText = Math.round(f.maquinas).toLocaleString('pt-BR')
             }
             if(i == 12 && ii == 1){
-                valores[ii].innerText = Math.round(f.tributos)
+                valores[ii].innerText = Math.round(f.tributos).toLocaleString('pt-BR')
             }
             if(i == 14 && ii == 2){
-                valores[ii].innerText = Math.round(f.promotores)
+                valores[ii].innerText = Math.round(f.promotores).toLocaleString('pt-BR')
                 if(p !== 0){
-                  valores[ii].innerText = Math.round(p.promotores*2160)
+                  valores[ii].innerText = Math.round(p.promotores*2160).toLocaleString('pt-BR')
                 }
               }
             if(i == 15 && ii == 2){
-                valores[ii].innerText = Math.round(f.propaganda)
+                valores[ii].innerText = Math.round(f.propaganda).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = Math.round(p.prop1+p.prop2+f.propaganda)
+                  valores[ii].innerText = Math.round(p.prop1+p.prop2+f.propaganda).toLocaleString('pt-BR')
                 }
               }
             if(i == 16 && ii == 2){
-                valores[ii].innerText = Math.round(2880)
+                valores[ii].innerText = Math.round(2880).toLocaleString('pt-BR')
             }
             if(i == 17 && ii == 2){
-                valores[ii].innerText = Math.round(f.pesquisas)
+                valores[ii].innerText = Math.round(f.pesquisas).toLocaleString('pt-BR')
             }
             if(i == 18 && ii == 2){
-                valores[ii].innerText = Math.round(f.pas)
+                valores[ii].innerText = Math.round(f.pas).toLocaleString('pt-BR')
               if(p!== 0){
-                valores[ii].innerText = Math.round(p.pas*2160)
+                valores[ii].innerText = Math.round(p.pas*2160).toLocaleString('pt-BR')
               }
               }
             if(i == 19 && ii == 2){
-                valores[ii].innerText = Math.round(f.uso_frota)
+                valores[ii].innerText = Math.round(f.uso_frota).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = Math.round(p.frota*10800)
+                  valores[ii].innerText = Math.round(p.frota*10800).toLocaleString('pt-BR')
                 }
             }
             if(i == 20 && ii == 2){
-                valores[ii].innerText = Math.round(f.despesas_operacionais_n_planejadas)
+                valores[ii].innerText = Math.round(f.despesas_operacionais_n_planejadas).toLocaleString('pt-BR')
             }
             if(i == 21 && ii == 2){
-                valores[ii].innerText = Math.round(f.despesas_administrativas)
+                valores[ii].innerText = Math.round(f.despesas_administrativas).toLocaleString('pt-BR')
             }
             if(i == 22 && ii == 2){
-                valores[ii].innerText = Math.round(f.encargos_financiamento)
+                valores[ii].innerText = Math.round(f.encargos_financiamento).toLocaleString('pt-BR')
               if(p!==0){
-                valores[ii].innerText = Math.round((p.emprestimo+ dive)*0.08)
+                valores[ii].innerText = Math.round((p.emprestimo+ dive)*0.08).toLocaleString('pt-BR')
               }
               }
             if(i == 24 && ii == 1){
-                valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento)
+                valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento).toLocaleString('pt-BR')
               if(p!== 0){
-                valores[ii].innerText = Math.round((p.emprestimo*0.08+ dive)+ p.promotores*2160+2880+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800)
+                valores[ii].innerText = Math.round((p.emprestimo*0.08+ dive)+ p.promotores*2160+2880+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800).toLocaleString('pt-BR')
               }
               }
             if(i == 25 && ii == 2){
-                valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + (-1)*f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos)            
+                valores[ii].innerText = Math.round(f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos).toLocaleString('pt-BR')            
                 function checar(xx) {
                   if(xx !== 0 && balanco.servs[xx]){
                     console.log(p.volume2*balanco.servs[xx][2])
@@ -214,14 +215,14 @@ function Dre(props){
                   }
                 }
                 if(p!== 0){
-                  valores[ii].innerText = Math.round((p.emprestimo+ dive)*0.08+p.promotores*2160+2880+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+ checar1(p.serv1)+checar(p.serv2)+f.veiculos_comprados)
+                  valores[ii].innerText = Math.round((p.emprestimo+ dive)*0.08+p.promotores*2160+2880+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+ checar1(p.serv1)+checar(p.serv2)+f.veiculos_comprados).toLocaleString('pt-BR')
                 }
               }
             if(i == 26 && ii == 1){
-                valores[ii].innerText = Math.round(f.emprestimos_contratados)
+                valores[ii].innerText = Math.round(f.emprestimos_contratados).toLocaleString('pt-BR')
             }
             if(i == 27 && ii == 3){
-                valores[ii].innerText = Math.round((f.faturamento + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos) - (f.promotores + f.depreciacao_de_maquinas + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + (-1)*f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos))
+                valores[ii].innerText = Math.round((b.contas_a_receber60 + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos) - (f.promotores + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + f.despesas_administrativas + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos)).toLocaleString('pt-BR')
                 function checar(xx) {
                   if(xx !== 0 && balanco.servs[xx]){
                     console.log(p.volume2*balanco.servs[xx][2])
@@ -240,7 +241,7 @@ function Dre(props){
                   }
                 }
                 if(p!==0){
-                valores[ii].innerText = Math.round((p.emprestimo+ dive+p.volume1*p.preco1+p.volume2*p.preco2 + p.frota*2400 + 2800 + f.veiculos_vendidos + f.emprestimos_contratados)+(-1)*(p.promotores*2160+2880+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+ checar1(p.serv1)+checar(p.serv2)+f.veiculos_comprados+(p.emprestimo+ dive)*0.08))
+                valores[ii].innerText = Math.round((f.saldo_anterior + p.emprestimo+ dive+b.contas_a_receber60 + p.frota*2400 + 2800 + f.veiculos_vendidos + f.emprestimos_contratados)+(-1)*(p.promotores*2160+2880+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+ checar1(p.serv1)+checar(p.serv2)+f.veiculos_comprados+(p.emprestimo+ dive)*0.08)).toLocaleString('pt-BR')
               }
               }
             
@@ -296,7 +297,7 @@ function Dre(props){
             </TableRow>
 
             <TableRow>
-              <TableCell>FATURAMENTO ($)</TableCell>
+              <TableCell>RECEBIMENTO DE CLIENTES ($)</TableCell>
               <TableCell></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>

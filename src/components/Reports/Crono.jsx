@@ -7,6 +7,7 @@ import React from 'react';
   import TableHead from '@material-ui/core/TableHead';
   import TableRow from '@material-ui/core/TableRow';
   import Paper from '@material-ui/core/Paper';
+  import Grid from '@material-ui/core/Grid';
 
 import socket from '../../connection';
 import { useEffect } from 'react';
@@ -46,7 +47,8 @@ useEffect(()=>{
     const classes = useStyles();
   
     return (
-      <TableContainer style={{ marginLeft: '0.8rem', marginTop: '0.8rem' }} component={Paper}>
+      <Grid item xs={false} sm={12} md={8}>
+      <TableContainer style={{ marginLeft: '0.8rem', marginTop: '1rem' }} component={Paper}>
         <Table className={classes.table} size="small" aria-label="spanning table" id="balancop">
           <TableHead>
             <TableRow style={{
@@ -94,6 +96,7 @@ useEffect(()=>{
           </TableBody>
         </Table>
       </TableContainer>
+      </Grid>
     );
       
 }

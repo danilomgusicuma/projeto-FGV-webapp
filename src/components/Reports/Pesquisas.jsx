@@ -8,6 +8,7 @@ import React from 'react';
   import TableRow from '@material-ui/core/TableRow';
   import Paper from '@material-ui/core/Paper';
   import {useParams} from 'react-router-dom';
+  import Grid from '@material-ui/core/Grid';
 
 import socket from '../../connection';
 import { useEffect, useState } from 'react';
@@ -38,7 +39,8 @@ useEffect(()=>{
     const classes = useStyles();
   
     return (
-      <TableContainer style={{ marginLeft: '0.8rem', marginTop: '0.8rem' }} component={Paper}>
+      <Grid m={10} item xs={false} sm={12} md={8}>
+      <TableContainer style={{ marginLeft: '0.8rem', marginTop: '1rem' }} component={Paper}>
         <Table className={classes.table} size="small" aria-label="spanning table" id="pesquisas">
           <TableHead>
             <TableRow style={{
@@ -80,6 +82,7 @@ useEffect(()=>{
           </TableBody>
         </Table>
       </TableContainer>
+      </Grid>
     );
       
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
   import { makeStyles } from '@material-ui/core/styles';
   import Table from '@material-ui/core/Table';
   import TableBody from '@material-ui/core/TableBody';
@@ -7,6 +7,8 @@ import React from 'react';
   import TableHead from '@material-ui/core/TableHead';
   import TableRow from '@material-ui/core/TableRow';
   import Paper from '@material-ui/core/Paper';
+  import Grid from '@material-ui/core/Grid';
+  import Chart from 'react-google-charts';
 
 import socket from '../../connection';
 import { useEffect } from 'react';
@@ -37,107 +39,107 @@ useEffect(()=>{
             //valores[ii].innerText = valores[ii].innerText + ` (` +i + ', ' + ii + `)`
           
           if(i == 0 && ii == 1){
-            valores[ii].innerText = Math.round(b.caixa)
+            valores[ii].innerText = Math.round(b.caixa).toLocaleString('pt-BR')
             if(Math.round(b.caixa) < 0){
               valores[ii].innerText = 0
               dive = dive + (-1)*Math.round(b.caixa)
             }
           }
           if(i == 0 && ii == 3){
-            valores[ii].innerText = Math.round(b.caixa)
+            valores[ii].innerText = Math.round(b.caixa).toLocaleString('pt-BR')
           }
           if(i == 1 && ii == 1){
-            valores[ii].innerText = Math.round(b.estoque)
+            valores[ii].innerText = Math.round(b.estoque).toLocaleString('pt-BR')
           }
           if(i == 1 && ii == 3){
-            valores[ii].innerText = Math.round(b.estoque)
+            valores[ii].innerText = Math.round(b.estoque).toLocaleString('pt-BR')
           }
           if(i == 2 && ii == 1){
-            valores[ii].innerText = Math.round(b.contas_a_receber60 + b.contas_a_receber120)
+            valores[ii].innerText = Math.round(b.contas_a_receber60 + b.contas_a_receber120).toLocaleString('pt-BR')
           }
           if(i == 3 && ii == 2){
-            valores[ii].innerText = Math.round(b.contas_a_receber60 + b.contas_a_receber120)
+            valores[ii].innerText = Math.round(b.contas_a_receber60 + b.contas_a_receber120).toLocaleString('pt-BR')
           } 
           if(i == 4 && ii == 1){
-            valores[ii].innerText = Math.round(b.contas_a_receber60)
+            valores[ii].innerText = Math.round(b.contas_a_receber60).toLocaleString('pt-BR')
           }    
           if(i == 5 && ii == 1){
-            valores[ii].innerText = Math.round(b.contas_a_receber120)
+            valores[ii].innerText = Math.round(b.contas_a_receber120).toLocaleString('pt-BR')
           }
           if(i == 7 && ii == 2){
-            valores[ii].innerText = Math.round(b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa)
+            valores[ii].innerText = Math.round(b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa).toLocaleString('pt-BR')
           }
           if(i == 9 && ii == 1){
-            valores[ii].innerText = Math.round(b.maquinas)
+            valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
           }
           if(i == 9 && ii == 3){
-            valores[ii].innerText = Math.round(b.maquinas)
+            valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
           }
           if(i == 10 && ii == 2){
-            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas)
+            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas).toLocaleString('pt-BR')
           }
           if(i == 11 && ii == 1){
-            valores[ii].innerText = Math.round(b.depreciacao_maquinas)
+            valores[ii].innerText = Math.round(b.depreciacao_maquinas).toLocaleString('pt-BR')
           }
           if(i == 12 && ii == 1){
-            valores[ii].innerText = Math.round(b.veiculos)
+            valores[ii].innerText = Math.round(b.veiculos).toLocaleString('pt-BR')
           }
           if(i == 13 && ii == 2){
-            valores[ii].innerText = Math.round(b.veiculos - b.depreciacao_veiculos)
+            valores[ii].innerText = Math.round(b.veiculos - b.depreciacao_veiculos).toLocaleString('pt-BR')
           }
           if(i == 14 && ii == 1){
-            valores[ii].innerText = Math.round(b.depreciacao_veiculos)
+            valores[ii].innerText = Math.round(b.depreciacao_veiculos).toLocaleString('pt-BR')
           }
           if(i == 16 && ii == 2){
-            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos)
+            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos).toLocaleString('pt-BR')
           }
           if(i == 17 && ii == 3){
-            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa)
+            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa).toLocaleString('pt-BR')
           }
           if(i == 19 && ii == 1){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior).toLocaleString('pt-BR')
           }
           if(i == 19 && ii == 3){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior).toLocaleString('pt-BR')
           }
           if(i == 20 && ii == 1){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual).toLocaleString('pt-BR')
           }
           if(i == 20 && ii == 3){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual).toLocaleString('pt-BR')
           }
           if(i == 21 && ii == 1){
-            valores[ii].innerText = Math.round(b.emprestimos+ dive)
+            valores[ii].innerText = Math.round(b.emprestimos+ dive).toLocaleString('pt-BR')
           }
           if(i == 21 && ii == 3){
-            valores[ii].innerText = Math.round(b.emprestimos + dive)
+            valores[ii].innerText = Math.round(b.emprestimos + dive).toLocaleString('pt-BR')
           }
           if(i == 23 && ii == 2){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual + b.tributos_a_pagar_anterior + b.emprestimos + dive)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual + b.tributos_a_pagar_anterior + b.emprestimos + dive).toLocaleString('pt-BR')
           }
           if(i == 25 && ii == 1){
-            valores[ii].innerText = Math.round(b.capial)
+            valores[ii].innerText = Math.round(b.capial).toLocaleString('pt-BR')
           }
           if(i == 25 && ii == 3){
-            valores[ii].innerText = Math.round(b.capial)
+            valores[ii].innerText = Math.round(b.capial).toLocaleString('pt-BR')
           }
           if(i == 27 && ii == 2){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849)
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849).toLocaleString('pt-BR')
           }
           if(i == 28 && ii == 1){
-            valores[ii].innerText = 2130849
+            valores[ii].innerText = (2883768).toLocaleString('pt-BR')
           }
           if(i == 29 && ii == 1){
-            valores[ii].innerText = Math.round(b.lucros_acumulados)
+            valores[ii].innerText = Math.round(b.lucros_acumulados).toLocaleString('pt-BR')
           }
           if(i == 30 && ii == 1){
             valores[ii].innerText = 0
           }
           if(i == 31 && ii == 2){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial)
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2883768 + b.capial).toLocaleString('pt-BR')
           }
           if(i == 32 && ii == 3){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual)
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2883768 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual).toLocaleString('pt-BR')
             }
 
            
@@ -284,7 +286,16 @@ useEffect(()=>{
   
       
   
-  
+  const [data, setData] = useState({
+      caixa: 300,
+      estoque: 100,
+      contas_a_receber: 150,
+      frota: 200,
+      maq: 1000,
+      lucro: 400,
+      divida: 150,
+      tributos: 50
+  })
   
   const useStyles = makeStyles({
     table: {
@@ -294,7 +305,9 @@ useEffect(()=>{
     const classes = useStyles();
   
     return (
-      <TableContainer style={{ marginLeft: '0.8rem', marginTop: '1rem' }} component={Paper}>
+      <Grid container spacing={2}>
+      <Grid item xs={12} sm={12} md={7}>
+        <TableContainer style={{ marginLeft: '0.8rem', marginTop: '1rem' }} component={Paper}>
         <Table className={classes.table} size="small" aria-label="spanning table" id="balancop">
           <TableHead>
             <TableRow style={{
@@ -516,6 +529,49 @@ useEffect(()=>{
           </TableBody>
         </Table>
       </TableContainer>
+      </Grid>
+      <Grid item xs={12} sm={12} md={2}>
+      <Chart style={{ marginLeft: '0.8rem', marginTop: '1rem' }}
+  width={'500px'}
+  height={'300px'}
+  chartType="PieChart"
+  loader={<div style={{ marginLeft: '0.8rem', marginTop: '1rem' }}>Carregando Distribuição dos Ativos</div>}
+  data={[
+    ['Task', 'Hours per Day'],
+    ['Caixa e Bancos', data.caixa],
+    ['Estoque', data.estoque],
+    ['Contas a receber', data.contas_a_receber],
+    ['Máquinas e Equipamentos', data.maq],
+    ['Veículos', data.frota],
+  ]}
+  options={{
+    title: 'Distribuição dos Ativos',
+    // Just add this option
+    is3D: true,
+  }}
+  rootProps={{ 'data-testid': '2' }}
+/>
+<Chart style={{ marginLeft: '0.8rem', marginTop: '1rem' }}
+  width={'500px'}
+  height={'300px'}
+  chartType="PieChart"
+  loader={<div style={{ marginLeft: '0.8rem', marginTop: '1rem' }}>Carregando Distribuição dos Passivos</div>}
+  data={[
+    ['Task', 'Hours per Day'],
+    ['Tributos a pagar', data.tributos],
+    ['Empréstimos', data.divida],
+    ['Capital', 18720000],
+    ['Lucros acumulados', data.lucro],
+  ]}
+  options={{
+    title: 'Distribuição dos Passivos',
+    // Just add this option
+    is3D: true,
+  }}
+  rootProps={{ 'data-testid': '2' }}
+/>
+      </Grid>
+      </Grid>
     );
       
 }

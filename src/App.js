@@ -41,8 +41,9 @@ function App() {
       if(feedback[0]==="danger" && feedback[1].includes('login negado para')){
         history.push('/select');
       }
-      if(feedback[0]==="danger" && feedback[1]==="voce precisa estar logado para puxar o state atual da simulação"){
+      if(feedback[0]==="danger" && feedback[1]==="É necessário estar logado para puxar os dados da simulação"){
         history.push('/select');
+        //window.location.reload()
       }
       notificationAlert.current.notificationAlert(options);
     })
@@ -62,9 +63,10 @@ function App() {
         closeButton: false,
       }
        history.push('/select');
-      
+       //window.location.reload()
       notificationAlert.current.notificationAlert(options);
     })
+    socket.on('recarregar', () => {window.location.reload()})
   },[history])
 
   return (

@@ -40,6 +40,9 @@ import Reports from '../Reports/Reports';
 import Pes from '../Reports/Pesquisas'
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
+import Timer from 'react-compound-timer'
+import SaveIcon from '@material-ui/icons/Save';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
 import { Route, Link, useHistory, useLocation, useParams } from 'react-router-dom'
 
@@ -112,6 +115,8 @@ function Game(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [downloadModal, setDownloadModal] = useState(false);
   const [round, setRound] = useState();
+
+  setTimeout(function(){ window.location.reload() }, 1800000);
 
   const history = useHistory();
   const location = useLocation();
@@ -197,13 +202,7 @@ function Game(props) {
       </List>
       <Divider />
       <List>
-      <Link to={`/${type}/game/decisions`}>
-        <ListItem button>
-          <ListItemIcon><HistoryIcon/></ListItemIcon>
-          <ListItemText primary="Decisões" />
-        </ListItem>
-
-        </Link>
+      
         <Link to={`/${type}/game/pesquisas`}>
         <ListItem button>
           <ListItemIcon><DraftsIcon /></ListItemIcon>
@@ -213,7 +212,7 @@ function Game(props) {
 
         <ListItem onClick={()=>{setDownloadModal(true)}} button>
           <ListItemIcon><PieChartIcon/></ListItemIcon>
-          <ListItemText primary="Demonstrativos" />
+          <ListItemText primary="Relatórios" />
         </ListItem>
         <a target="_blank" href="http://api.desafiosdegestao.com.br:3000/assets/sazonalidade.xlsx">
         <ListItem button>
@@ -278,12 +277,27 @@ function Game(props) {
           <Typography variant="h6" noWrap>
             Desafiosdegestao 
           </Typography>
+          <Timer marginLeft='auto'
+          initialTime={30*60000}
+          direction="backward"
+          marginLeft='auto'
+>
+          {() => (
+              <React.Fragment>
+                  <h4 style={{color: 'Yellow'}}>.  [<Timer.Minutes />:<Timer.Seconds /> até a sessão expirar]</h4>
+              </React.Fragment>
+          )}
+          </Timer>
+          
           <Button onClick={()=>{socket.emit('salvar')}} color="inherit" className={classes.toolbarButton}> 
             Salvar
           </Button>
+          <SaveIcon/>
+          
           <Button color="inherit" onClick={()=>{socket.emit('resetar')}}> 
             Resetar Jogada
           </Button>
+          <RotateLeftIcon/>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
