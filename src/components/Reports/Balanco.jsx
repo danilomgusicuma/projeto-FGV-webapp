@@ -24,12 +24,19 @@ useEffect(()=>{
       socket.on('balancos', balanco => {
       console.log("balancos", balanco.balanco_patrimonial)
       if(balanco.balanco_patrimonial){
-        let cel_bimestre = document.getElementById('balancop').querySelector('thead').querySelectorAll('tr')[0].querySelectorAll('th')[1]
-        cel_bimestre.innerText = 'Bimestre: ' + balanco.turno
         
-        let b = balanco.balanco_patrimonial 
+       
+        let b = balanco.balanco_patrimonial
+        let p = balanco.planejado 
         //update(balanco.balanco_patrimonial)
         if(document.getElementById('balancop') !== null){
+          let cel_bimestre = document.getElementById('balancop').querySelector('thead').querySelectorAll('tr')[0].querySelectorAll('th')[1]
+        if(p==0){
+          cel_bimestre.innerText = 'Bimestre: ' + balanco.turno
+        }
+        else{
+          cel_bimestre.innerText = '(Balanço projetado) '+' Bimestre: ' + balanco.turno
+        }
         let linhas = document.getElementById('balancop').querySelector('tbody').querySelectorAll('tr')
         console.log(linhas)
         let dive = 0
@@ -46,7 +53,12 @@ useEffect(()=>{
             }
           }
           if(i == 0 && ii == 3){
-            valores[ii].innerText = Math.round(b.caixa).toLocaleString('pt-BR')
+            if(b.caixa > 0){
+              valores[ii].innerText = Math.round(b.caixa).toLocaleString('pt-BR')
+            }
+            else{
+              valores[ii].innerText = 0
+            }
           }
           if(i == 1 && ii == 1){
             valores[ii].innerText = Math.round(b.estoque).toLocaleString('pt-BR')
@@ -67,7 +79,12 @@ useEffect(()=>{
             valores[ii].innerText = Math.round(b.contas_a_receber120).toLocaleString('pt-BR')
           }
           if(i == 7 && ii == 2){
-            valores[ii].innerText = Math.round(b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa).toLocaleString('pt-BR')
+            if(b.caixa > 0){
+              valores[ii].innerText = Math.round(b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa).toLocaleString('pt-BR')
+            }
+            else{
+              valores[ii].innerText = Math.round(b.contas_a_receber120 + b.contas_a_receber60 + b.estoque).toLocaleString('pt-BR')
+            }
           }
           if(i == 9 && ii == 1){
             valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
@@ -77,9 +94,15 @@ useEffect(()=>{
           }
           if(i == 10 && ii == 2){
             valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas).toLocaleString('pt-BR')
+            if(p!==0){
+              valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas - 2880).toLocaleString('pt-BR')
+            }
           }
           if(i == 11 && ii == 1){
             valores[ii].innerText = Math.round(b.depreciacao_maquinas).toLocaleString('pt-BR')
+            if(p!==0){
+              valores[ii].innerText = Math.round(b.depreciacao_maquinas+2880).toLocaleString('pt-BR')
+            }
           }
           if(i == 12 && ii == 1){
             valores[ii].innerText = Math.round(b.veiculos).toLocaleString('pt-BR')
@@ -92,9 +115,25 @@ useEffect(()=>{
           }
           if(i == 16 && ii == 2){
             valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos).toLocaleString('pt-BR')
+            if(p!==0){
+              valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas - 2880 + b.veiculos - b.depreciacao_veiculos).toLocaleString('pt-BR')
+            }
           }
           if(i == 17 && ii == 3){
-            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa).toLocaleString('pt-BR')
+            if(b.caixa > 0){
+              valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa).toLocaleString('pt-BR')
+            }
+            else{
+              valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque).toLocaleString('pt-BR')
+            }
+            if(p!==0){
+              if(b.caixa > 0){
+                valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas - 2880 + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa).toLocaleString('pt-BR')
+              }
+              else{
+                valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas - 2880 + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque).toLocaleString('pt-BR')
+              }
+            }
           }
           if(i == 19 && ii == 1){
             valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior).toLocaleString('pt-BR')
@@ -127,7 +166,7 @@ useEffect(()=>{
             valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849).toLocaleString('pt-BR')
           }
           if(i == 28 && ii == 1){
-            valores[ii].innerText = (2883768).toLocaleString('pt-BR')
+            valores[ii].innerText = (2130849).toLocaleString('pt-BR')
           }
           if(i == 29 && ii == 1){
             valores[ii].innerText = Math.round(b.lucros_acumulados).toLocaleString('pt-BR')
@@ -140,7 +179,10 @@ useEffect(()=>{
           }
           if(i == 32 && ii == 3){
             valores[ii].innerText = Math.round(b.lucros_acumulados + 2883768 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual).toLocaleString('pt-BR')
+            if(p!==0){
+              valores[ii].innerText = Math.round(b.lucros_acumulados + 2883768 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual - 2880).toLocaleString('pt-BR')
             }
+          }
 
            
           
@@ -160,6 +202,7 @@ useEffect(()=>{
         let b = props.balanco        
         //update(balanco.balanco_patrimonial)
         if(document.getElementById('balancop') !== null){
+          
         let linhas = document.getElementById('balancop').querySelector('tbody').querySelectorAll('tr')
         console.log(linhas)
         let dive = 0
@@ -176,100 +219,115 @@ useEffect(()=>{
             }
           }
           if(i == 0 && ii == 3){
-            valores[ii].innerText = Math.round(b.caixa)
+            if(dive == 0){
+              valores[ii].innerText = Math.round(b.caixa).toLocaleString('pt-BR')
+            }
+            else{
+              valores[ii].innerText = 0
+            }
           }
           if(i == 1 && ii == 1){
-            valores[ii].innerText = Math.round(b.estoque)
+            valores[ii].innerText = Math.round(b.estoque).toLocaleString('pt-BR')
           }
           if(i == 1 && ii == 3){
-            valores[ii].innerText = Math.round(b.estoque)
+            valores[ii].innerText = Math.round(b.estoque).toLocaleString('pt-BR')
           }
           if(i == 2 && ii == 1){
-            valores[ii].innerText = Math.round(b.contas_a_receber60 + b.contas_a_receber120)
+            valores[ii].innerText = Math.round(b.contas_a_receber60 + b.contas_a_receber120).toLocaleString('pt-BR')
           }
           if(i == 3 && ii == 2){
-            valores[ii].innerText = Math.round(b.contas_a_receber60 + b.contas_a_receber120)
+            valores[ii].innerText = Math.round(b.contas_a_receber60 + b.contas_a_receber120).toLocaleString('pt-BR')
           } 
           if(i == 4 && ii == 1){
-            valores[ii].innerText = Math.round(b.contas_a_receber60)
+            valores[ii].innerText = Math.round(b.contas_a_receber60).toLocaleString('pt-BR')
           }    
           if(i == 5 && ii == 1){
-            valores[ii].innerText = Math.round(b.contas_a_receber120)
+            valores[ii].innerText = Math.round(b.contas_a_receber120).toLocaleString('pt-BR')
           }
           if(i == 7 && ii == 2){
-            valores[ii].innerText = Math.round(b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa)
+            if(b.caixa > 0){
+              valores[ii].innerText = Math.round(b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa).toLocaleString('pt-BR')
+            }
+            else{
+              valores[ii].innerText = Math.round(b.contas_a_receber120 + b.contas_a_receber60 + b.estoque).toLocaleString('pt-BR')
+            }
           }
           if(i == 9 && ii == 1){
-            valores[ii].innerText = Math.round(b.maquinas)
+            valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
           }
           if(i == 9 && ii == 3){
-            valores[ii].innerText = Math.round(b.maquinas)
+            valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
           }
           if(i == 10 && ii == 2){
-            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas)
+            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas).toLocaleString('pt-BR')
           }
           if(i == 11 && ii == 1){
-            valores[ii].innerText = Math.round(b.depreciacao_maquinas)
+            valores[ii].innerText = Math.round(b.depreciacao_maquinas).toLocaleString('pt-BR')
           }
           if(i == 12 && ii == 1){
-            valores[ii].innerText = Math.round(b.veiculos)
+            valores[ii].innerText = Math.round(b.veiculos).toLocaleString('pt-BR')
           }
           if(i == 13 && ii == 2){
-            valores[ii].innerText = Math.round(b.veiculos - b.depreciacao_veiculos)
+            valores[ii].innerText = Math.round(b.veiculos - b.depreciacao_veiculos).toLocaleString('pt-BR')
           }
           if(i == 14 && ii == 1){
-            valores[ii].innerText = Math.round(b.depreciacao_veiculos)
+            valores[ii].innerText = Math.round(b.depreciacao_veiculos).toLocaleString('pt-BR')
           }
           if(i == 16 && ii == 2){
-            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos)
+            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos).toLocaleString('pt-BR')
           }
           if(i == 17 && ii == 3){
-            valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa)
+            if(b.caixa > 0){
+              valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque + b.caixa).toLocaleString('pt-BR')
+            }
+            else{
+              valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas + b.veiculos - b.depreciacao_veiculos + b.contas_a_receber120 + b.contas_a_receber60 + b.estoque).toLocaleString('pt-BR')
+            }
           }
           if(i == 19 && ii == 1){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior).toLocaleString('pt-BR')
           }
           if(i == 19 && ii == 3){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_anterior).toLocaleString('pt-BR')
           }
           if(i == 20 && ii == 1){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual).toLocaleString('pt-BR')
           }
           if(i == 20 && ii == 3){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual).toLocaleString('pt-BR')
           }
           if(i == 21 && ii == 1){
-            valores[ii].innerText = Math.round(b.emprestimos+ dive)
+            valores[ii].innerText = Math.round(b.emprestimos+ dive).toLocaleString('pt-BR')
           }
           if(i == 21 && ii == 3){
-            valores[ii].innerText = Math.round(b.emprestimos + dive)
+            valores[ii].innerText = Math.round(b.emprestimos + dive).toLocaleString('pt-BR')
           }
           if(i == 23 && ii == 2){
-            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual + b.tributos_a_pagar_anterior + b.emprestimos + dive)
+            valores[ii].innerText = Math.round(b.tributos_a_pagar_atual + b.tributos_a_pagar_anterior + b.emprestimos + dive).toLocaleString('pt-BR')
           }
           if(i == 25 && ii == 1){
-            valores[ii].innerText = Math.round(b.capial)
+            valores[ii].innerText = Math.round(b.capial).toLocaleString('pt-BR')
           }
           if(i == 25 && ii == 3){
-            valores[ii].innerText = Math.round(b.capial)
+            valores[ii].innerText = Math.round(b.capial).toLocaleString('pt-BR')
           }
           if(i == 27 && ii == 2){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849)
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849).toLocaleString('pt-BR')
           }
           if(i == 28 && ii == 1){
-            valores[ii].innerText = 2130849
+            valores[ii].innerText = (2130849).toLocaleString('pt-BR')
           }
           if(i == 29 && ii == 1){
-            valores[ii].innerText = Math.round(b.lucros_acumulados)
+            valores[ii].innerText = Math.round(b.lucros_acumulados).toLocaleString('pt-BR')
           }
           if(i == 30 && ii == 1){
             valores[ii].innerText = 0
           }
           if(i == 31 && ii == 2){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial)
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial).toLocaleString('pt-BR')
           }
           if(i == 32 && ii == 3){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual)
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual - 2880).toLocaleString('pt-BR')
             }
 
            
