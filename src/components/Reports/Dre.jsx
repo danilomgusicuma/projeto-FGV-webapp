@@ -435,7 +435,7 @@ function Dre(props){
               }
               }
               if(i == 18 && ii == 3){
-                valores[ii].innerText = d.comissao
+                valores[ii].innerText = balanco.comissao
                 if(p!==0){
                   valores[ii].innerText = p.comissao
                 }
@@ -517,7 +517,7 @@ function Dre(props){
                 }
               }
               if(i == 31 && ii == 3){
-                valores[ii].innerText = Math.round(d.pas/2160).toLocaleString('pt-BR')
+                valores[ii].innerText = Math.round((d.pas-50400)/2160).toLocaleString('pt-BR')
                 if(p!==0){
                   valores[ii].innerText = p.pas
                 }

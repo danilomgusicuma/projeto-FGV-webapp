@@ -35,7 +35,7 @@ useEffect(()=>{
           cel_bimestre.innerText = 'Bimestre: ' + balanco.turno
         }
         else{
-          cel_bimestre.innerText = '(Balanço projetado) '+' Bimestre: ' + balanco.turno
+          cel_bimestre.innerText = 'Balanço Atual'
         }
         let linhas = document.getElementById('balancop').querySelector('tbody').querySelectorAll('tr')
         console.log(linhas)

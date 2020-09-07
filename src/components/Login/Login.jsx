@@ -76,7 +76,7 @@ export default function Login(props) {
       props.history.push(`/${type}/game/manual`)
     })
     return(()=>{
-      socket.off('login-aprovado')
+      socket.off('login-client-aprovado')
     })
   }, [props.history, type])
 

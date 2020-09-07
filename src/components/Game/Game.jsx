@@ -116,7 +116,9 @@ function Game(props) {
   const [downloadModal, setDownloadModal] = useState(false);
   const [round, setRound] = useState();
 
-  setTimeout(function(){ window.location.reload() }, 1800000);
+  setTimeout(function(){ 
+    //window.location.reload() 
+  }, 1800000);
 
   const history = useHistory();
   const location = useLocation();
@@ -127,7 +129,6 @@ function Game(props) {
     socket.on('final-turno',()=>{
       console.log("final-turno")
       socket.emit('puxar-state');
-
     })
     socket.on('update', state => {
       setGame(state)

@@ -59,9 +59,8 @@ function Reports (props){
       </Grid>
     {tipo2.map((ativo,ce) => {
           if(ativo !== 'vazio'){
-
+            console.log('ativo (teste): ' + ativo)
           return (
-            
               <Balanco ativo={'sim'} balanco={ativo} turnob={turno2}/>
             
           )

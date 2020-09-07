@@ -88,7 +88,8 @@ function Dre(props){
             //valores[ii].innerText = valores[ii].innerText + ' (' + i + ', ' + ii + ')'
             if(i == 0 && ii == 1){
                 valores[ii].innerText = Math.round(f.saldo_anterior).toLocaleString('pt-BR')
-            }
+                
+              }
             if(i == 1 && ii == 1){
                 valores[ii].innerText = Math.round(f.emprestimos_contratados).toLocaleString('pt-BR')
                 if(p !== 0){
@@ -189,7 +190,7 @@ function Dre(props){
                 valores[ii].innerText = Math.round(f.tributos).toLocaleString('pt-BR')
             }
             if(i == 14 && ii == 2){
-                valores[ii].innerText = Math.round(f.promotores).toLocaleString('pt-BR')
+                valores[ii].innerText = Math.round(f.promotores - d.comissao).toLocaleString('pt-BR')
                 if(p !== 0){
                   valores[ii].innerText = Math.round(p.promotores*2160).toLocaleString('pt-BR')
                 }
@@ -241,14 +242,14 @@ function Dre(props){
               valores[ii].innerText = '(**) essas despesas não tem valor de caixa' 
             }
             if(i == 24 && ii == 1){
-                valores[ii].innerText = Math.round(d.comissao + f.promotores + ((b.veiculos/57600)*2400 + 2880) + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento).toLocaleString('pt-BR')
+                valores[ii].innerText = Math.round(f.promotores + ((b.veiculos/57600)*2400 + 2880) + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento).toLocaleString('pt-BR')
               if(p!== 0){
                 valores[ii].innerText = Math.round(((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))+(p.emprestimo + dive)*0.08+ p.promotores*2160+2880+p.frota*2400+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+720000).toLocaleString('pt-BR')
               }
               
               }
             if(i == 25 && ii == 2){
-                valores[ii].innerText = Math.round(d.comissao + f.promotores + ((b.veiculos/57600)*2400 + 2880) + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos).toLocaleString('pt-BR')            
+                valores[ii].innerText = Math.round(f.promotores + ((b.veiculos/57600)*2400 + 2880) + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos).toLocaleString('pt-BR')            
                
                 
                 if(p!==0){
@@ -309,7 +310,7 @@ function Dre(props){
                 valores[ii].innerText = Math.round(f.emprestimos_contratados).toLocaleString('pt-BR')
             }
             if(i == 27 && ii == 3){
-                valores[ii].innerText = Math.round((f.saldo_anterior + f.contas_a_receber_recebidas + ((b.veiculos/57600)*2400 + 2880) + f.veiculos_vendidos) - (((b.veiculos/57600)*2400 + 2880) + d.comissao + f.promotores + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos)).toLocaleString('pt-BR')
+                valores[ii].innerText = Math.round((f.saldo_anterior + f.contas_a_receber_recebidas + ((b.veiculos/57600)*2400 + 2880) + f.veiculos_vendidos) - (((b.veiculos/57600)*2400 + 2880) + f.promotores + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos)).toLocaleString('pt-BR')
                 function checar(xx) {
                   if(xx !== 0 && balanco.servs[xx]){
                     console.log(p.volume2*balanco.servs[xx][2])
