@@ -44,6 +44,8 @@ import Timer from 'react-compound-timer'
 import SaveIcon from '@material-ui/icons/Save';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
+import Grid from '@material-ui/core/Grid';
+
 import { Route, Link, useHistory, useLocation, useParams } from 'react-router-dom'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -115,6 +117,8 @@ function Game(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [downloadModal, setDownloadModal] = useState(false);
   const [round, setRound] = useState();
+  const [bi, setBi] = useState('-')
+  
 
   setTimeout(function(){ 
     //window.location.reload() 
@@ -132,6 +136,8 @@ function Game(props) {
     })
     socket.on('update', state => {
       setGame(state)
+      setBi(state[30])
+      console.log(state[30])
     return ()=>{
       socket.off('update');
       socket.off('final-turno');
@@ -184,13 +190,27 @@ function Game(props) {
       <div className={classes.toolbar}>
         <h1 className={classes.h1}><img style={{width:'60px', height:'60px'}} src='http://api.desafiosdegestao.com.br:3000/assets/logo.png' alt="Desafios de Gestão"/></h1>
       </div>
-      <Divider />
+      
+      <Grid
+  container
+  spacing={0}
+  direction="column"
+  alignItems="center"
+  justify="center"
+>
+
+  <Grid style={{ color: 'green' }}>Bimestre {bi}</Grid>
+      </Grid>
+      
       <List>
           <Link to={`/${type}/game/inputs`}>
             <ListItem button>
               <ListItemIcon><PlayCircleOutlineIcon/></ListItemIcon>
               <ListItemText primary={"Simulação"} />
+            
+
             </ListItem>
+            <Divider />
           </Link>
         {sidebarComponents.map((sidebarComponent, index) => (
           <Link to={sidebarComponent.path} key={index}>

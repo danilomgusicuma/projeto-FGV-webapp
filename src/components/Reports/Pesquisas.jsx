@@ -39,8 +39,8 @@ useEffect(()=>{
     const classes = useStyles();
   
     return (
-      <Grid m={10} item xs={false} sm={12} md={8}>
-      <TableContainer style={{ marginLeft: '0.8rem', marginTop: '1rem' }} component={Paper}>
+      <Grid m={10} item xs={false} sm={12}> 
+          <TableContainer  component={Paper}>
         <Table className={classes.table} size="small" aria-label="spanning table" id="pesquisas">
           <TableHead>
             <TableRow style={{

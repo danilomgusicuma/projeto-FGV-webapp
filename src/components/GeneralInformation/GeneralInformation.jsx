@@ -175,6 +175,7 @@ function GeneralInformation(props){
         </DialogContent>
       </Dialog>
       <Grid container spacing={2}>
+        
         <Grid item xs={12} sm={12} md={12}>
           <Paper className={classes.paper}>
             <h3>Propaganda Institucional</h3>

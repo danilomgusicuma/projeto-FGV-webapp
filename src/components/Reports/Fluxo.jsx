@@ -399,7 +399,7 @@ function Dre(props){
 
 
   return (
-    <TableContainer style={{ marginLeft: '0.8rem', marginTop: '1rem' }} component={Paper}>
+    <TableContainer  component={Paper}>
       <Table className={classes.table} size="small" aria-label="spanning table" id="balancof">
         <TableHead>
           <TableRow style={{

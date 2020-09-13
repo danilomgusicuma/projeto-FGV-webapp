@@ -37,7 +37,7 @@ useEffect(()=>{
 
   
     return (
-      <TableContainer style={{ marginLeft: '0.8rem', marginTop: '0.8rem' }} component={Paper}>
+      <TableContainer component={Paper}>
         <Table className={classes.table} size="small" aria-label="spanning table" id="decisions">
           <TableHead>
             <TableRow style={{
