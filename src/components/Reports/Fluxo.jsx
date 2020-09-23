@@ -76,7 +76,7 @@ function Dre(props){
           cel_bimestre.innerText = 'Bimestre: ' + balanco.turno
         }
         else{
-          cel_bimestre.innerText = '(Balanço projetado) '+' Bimestre: ' + balanco.turno
+          cel_bimestre.innerText = '(Fluxo projetado) '+' Bimestre: ' + balanco.turno
         }
         let linhas = document.getElementById('balancof').querySelector('tbody').querySelectorAll('tr')
         
@@ -93,7 +93,7 @@ function Dre(props){
             if(i == 1 && ii == 1){
                 valores[ii].innerText = Math.round(f.emprestimos_contratados).toLocaleString('pt-BR')
                 if(p !== 0){
-                  valores[ii].innerText = Math.round(p.emprestimo + dive).toLocaleString('pt-BR')
+                  valores[ii].innerText = Math.round(dive).toLocaleString('pt-BR')
                 }
             }
             if(i == 2 && ii == 1){
@@ -123,7 +123,7 @@ function Dre(props){
             if(i == 7 && ii == 2){
                 valores[ii].innerText = Math.round(f.contas_a_receber_recebidas + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos + f.emprestimos_contratados).toLocaleString('pt-BR')
                 if(p !== 0){
-                  valores[ii].innerText = Math.round(b.contas_a_receber60 + p.frota*2400 + 2880 + f.veiculos_vendidos + p.emprestimo+ dive).toLocaleString('pt-BR')
+                  valores[ii].innerText = Math.round(b.contas_a_receber60 + p.frota*2400 + 2880 + f.veiculos_vendidos + dive).toLocaleString('pt-BR')
                 }
               }
             if(i == 9 && ii == 1){
@@ -197,9 +197,7 @@ function Dre(props){
               }
             if(i == 15 && ii == 2){
                 valores[ii].innerText = Math.round(f.propaganda).toLocaleString('pt-BR')
-                if(p!==0){
-                  valores[ii].innerText = Math.round(p.prop1+p.prop2+f.propaganda).toLocaleString('pt-BR')
-                }
+                
               }
             if(i == 16 && ii == 2){
                 valores[ii].innerText = Math.round((b.veiculos/57600)*2400 + 2880).toLocaleString('pt-BR')
@@ -244,7 +242,7 @@ function Dre(props){
             if(i == 24 && ii == 1){
                 valores[ii].innerText = Math.round(f.promotores + ((b.veiculos/57600)*2400 + 2880) + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento).toLocaleString('pt-BR')
               if(p!== 0){
-                valores[ii].innerText = Math.round(((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))+(p.emprestimo + dive)*0.08+ p.promotores*2160+2880+p.frota*2400+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+720000).toLocaleString('pt-BR')
+                valores[ii].innerText = Math.round(((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))+(p.emprestimo + dive)*0.08+ p.promotores*2160+2880+p.frota*2400+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+720000).toLocaleString('pt-BR')
               }
               
               }
@@ -303,14 +301,24 @@ function Dre(props){
                   }
                   //valores[ii].innerText = Math.round((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos).toLocaleString('pt-BR')
                 
-                  valores[ii].innerText = Math.round(((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))+(p.emprestimo + dive)*0.08+ p.promotores*2160+2880+p.frota*2400+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos+720000)).toLocaleString('pt-BR')
+                  valores[ii].innerText = Math.round(((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))+(p.emprestimo + dive)*0.08+ p.promotores*2160+2880+p.frota*2400+f.propaganda+p.pas*2160 + f.veiculos_comprados + f.pesquisas+p.frota*10800+((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos+720000)).toLocaleString('pt-BR')
                 }
               }
-            if(i == 26 && ii == 1){
-                valores[ii].innerText = Math.round(f.emprestimos_contratados).toLocaleString('pt-BR')
-            }
-            if(i == 27 && ii == 3){
-                valores[ii].innerText = Math.round((f.saldo_anterior + f.contas_a_receber_recebidas + ((b.veiculos/57600)*2400 + 2880) + f.veiculos_vendidos) - (((b.veiculos/57600)*2400 + 2880) + f.promotores + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos)).toLocaleString('pt-BR')
+              let t_entradas = 1
+              let t_saidas = 2
+              if(i == 26 && ii == 1){
+                let saa = Math.round((f.saldo_anterior + f.contas_a_receber_recebidas + ((b.veiculos/57600)*2400 + 2880) + f.veiculos_vendidos) - (((b.veiculos/57600)*2400 + 2880) + f.promotores + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos))
+                if(saa < 0){
+                  valores[ii].innerText = '(+) ' + (saa*(-1) - f.emprestimos_contratados).toLocaleString('pt-BR')
+                }
+                else{
+                  if(saa > f.emprestimos_contratados && f.emprestimos_contratados > 0){
+                    valores[ii].innerText =  '(-) ' + Math.round(f.emprestimos_contratados).toLocaleString('pt-BR')
+                  }
+                  else{
+                    valores[ii].innerText = 0
+                  }
+                }
                 function checar(xx) {
                   if(xx !== 0 && balanco.servs[xx]){
                     console.log(p.volume2*balanco.servs[xx][2])
@@ -380,8 +388,115 @@ function Dre(props){
                     //valores[ii].innerText = Math.round((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos).toLocaleString('pt-BR')
                   
                     //valores[ii].innerText = Math.round(((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))+(p.emprestimo + dive)*0.08+ p.promotores*2160+2880+p.frota*2400+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos)).toLocaleString('pt-BR')
+                let sa = f.saldo_anterior+(b.contas_a_receber60 + p.frota*2400 + 2880 + f.veiculos_vendidos + dive) - (((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))+720000+(p.emprestimo + dive)*0.08+ p.promotores*2160+2880+p.frota*2400+f.propaganda+p.pas*2160 + f.veiculos_comprados +f.pesquisas+p.frota*10800+((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos))
+                if(sa < 0){
+                  valores[ii].innerText ='(+) ' + (Math.round(sa)*(-1)).toLocaleString('pt-BR')  
+                }
+                else{
+                  if(sa > p.emprestimo + dive && p.emprestimo + dive > 0){
+                    valores[ii].innerText ='(-) ' + Math.round(p.emprestimo + dive).toLocaleString('pt-BR')
+                  }
+                  else{
+                    valores[ii].innerText = 0
+                  }
+                }
+              }
+              }
+            if(i == 27 && ii == 3){
+                let saa = Math.round((f.saldo_anterior + f.contas_a_receber_recebidas + ((b.veiculos/57600)*2400 + 2880) + f.veiculos_vendidos) - (((b.veiculos/57600)*2400 + 2880) + f.promotores + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos))
+                if(saa < 0){
+                  valores[ii].innerText = 0 
+                }
+                else{
+                  if(saa > f.emprestimos_contratados && f.emprestimos_contratados > 0){
+                    valores[ii].innerText = Math.round(saa - f.emprestimos_contratados).toLocaleString('pt-BR')
+                  }
+                  else{
+                    valores[ii].innerText = Math.round(saa).toLocaleString('pt-BR')
+                  }
+                }
+                function checar(xx) {
+                  if(xx !== 0 && balanco.servs[xx]){
+                    console.log(p.volume2*balanco.servs[xx][2])
+                  return p.volume2*balanco.servs[xx][2]
+                  }
+                  else{
+                    return 0
+                  }
+                }
+                function checar1(xx) {
+                  if(xx !== 0 && balanco.servs[xx]){
+                  return p.volume1*balanco.servs[xx][2]
+                  }
+                  else{
+                    return 0
+                  }
+                }
+                if(p!==0){
+                    let estocagemi = (g(p.insu1)+g(p.insu2)+g(p.insu1i)+g(p.insu2i)) - (g(p.volume2)+g(p.volume1))
+                    let estocagem = 0
+                    if(estocagemi > 0){
+                      estocagem = estocagemi*36
+                    }
                   
-                valores[ii].innerText = Math.round(f.saldo_anterior+(b.contas_a_receber60 + p.frota*2400 + 2880 + f.veiculos_vendidos + p.emprestimo+ dive) - (((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))+720000+(p.emprestimo + dive)*0.08+ p.promotores*2160+2880+p.frota*2400+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos))).toLocaleString('pt-BR')
+                    function g(g) {
+                    //console.log('g1: ' +g)
+                    if(g > 0 ){
+                      //console.log('g: ' +g)
+                      return Number(g)
+                    }
+                    else{
+                      return 0
+                    }
+                    }
+                    let hora_e = 0
+          
+                    if(g(p.volume1) - (g(p.insu1)+g(p.insu1i)) > 0 || g(p.volume2) - (g(p.insu2)+g(p.insu2i) > 0)){
+                      let par2 = 0
+                      let par1 = 0
+                      par2 = (g(p.volume2) - (g(p.insu2i) + g(p.insu2)))
+                      if(par2 > 0 && p.serv2 !== 0){
+                        par2 = par2*balanco.servs[p.serv2][2]*0.2 
+                      }
+                      else{
+                        par2 = 0
+                      }
+                      par1 = (g(p.volume1) - (g(p.insu1i) + g(p.insu1)))
+                      console.log(par1)
+                      if(par1 > 0 && p.serv1 !== 0){
+                        par1 = par1*balanco.servs[p.serv1][2]*0.2 
+                      }
+                      else{
+                        par1 = 0
+                      }
+                      console.log("par2: " +par2)
+                      console.log("par1: " +par1)
+                      hora_e = Math.round(par1+par2)
+                    }
+                    function check3(a) {
+                      if(a){
+                        return a[2]
+                      }
+                      else{
+                        return 0
+                      }
+                    }
+                    //valores[ii].innerText = Math.round((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos).toLocaleString('pt-BR')
+                  
+                    //valores[ii].innerText = Math.round(((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))+(p.emprestimo + dive)*0.08+ p.promotores*2160+2880+p.frota*2400+p.prop1+p.prop2+f.propaganda+p.pas*2160 + f.pesquisas+p.frota*10800+((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos)).toLocaleString('pt-BR')
+              
+                let sa = f.saldo_anterior+(b.contas_a_receber60 + p.frota*2400 + 2880 + f.veiculos_vendidos + dive) - (((p.comissao.slice(0,p.comissao.length-1))*0.01*(p.volume1*p.preco1+p.volume2*p.preco2))+720000+(p.emprestimo + dive)*0.08+ p.promotores*2160+2880+p.frota*2400+f.propaganda+p.pas*2160 + f.veiculos_comprados +f.pesquisas+p.frota*10800+((estocagem + hora_e + check3(balanco.servs[p.serv1])*p.volume1+check3(balanco.servs[p.serv2])*p.volume2)+d.custo_troca_insumos))
+                if(sa < 0){
+                  valores[ii].innerText = 0 
+                }
+                else{
+                  if(sa > p.emprestimo + dive && p.emprestimo + dive > 0){
+                    valores[ii].innerText = Math.round(sa - p.emprestimo - dive).toLocaleString('pt-BR')
+                  }
+                  else{
+                    valores[ii].innerText = Math.round(sa).toLocaleString('pt-BR')
+                  }
+                }
               }
               }
             
@@ -391,6 +506,7 @@ function Dre(props){
         
       }
     });
+    
     return () => {socket.off('balancos')}
   },[])
 
@@ -580,7 +696,7 @@ function Dre(props){
               <TableCell align="center" style={{fontWeight: "bold"}}>54800</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>FINANCIAMENTO / ADIANTAMENTO PARA OPERAÇÕES ($)</TableCell>
+              <TableCell> (+) FINANCIAMENTO / (-) PAGAMENTO DE EMPRÉSTIMOS ($)</TableCell>
               <TableCell></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>

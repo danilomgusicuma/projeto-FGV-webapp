@@ -197,6 +197,7 @@ useEffect(()=>{
       
       
       });
+      
     }
     else{
         let b = props.balanco        
@@ -389,7 +390,7 @@ useEffect(()=>{
           <TableBody>
             
               <TableRow>
-                <TableCell>CAIXA E BANCOS</TableCell>
+                <TableCell >CAIXA E BANCOS</TableCell>
                 <TableCell align="right">18703</TableCell>
                 <TableCell align="right"></TableCell>
                 <TableCell align="right">18703</TableCell>
@@ -397,7 +398,7 @@ useEffect(()=>{
 
               
               <TableRow>
-                <TableCell>INFRAESTRUTURA -
+                <TableCell >INFRAESTRUTURA -
                    INSUMOS JÁ DISPONÍVEIS ($)</TableCell>
                 <TableCell align="right">18703</TableCell>
                 <TableCell align="right"></TableCell>

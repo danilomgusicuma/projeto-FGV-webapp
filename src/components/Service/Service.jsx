@@ -90,7 +90,7 @@ const Service = (props) => {
         onChange={(event)=>{setRoundData({...roundData, resourcesAmount:event.target.value})}}
         placeholder='# Quantidade de insumos a serem comprados'
         onBlur={()=>{socket.emit('comprar-servico',[props.service[8], roundData.resourcesAmount])}}
-        onFocus={()=>{socket.emit('comprar-servico',[props.service[8],0])}}
+        
       />
       <label className={classes.label}>Alterar Valor do Serviço</label>
       <Input

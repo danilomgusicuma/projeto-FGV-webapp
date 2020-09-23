@@ -117,7 +117,7 @@ function Game(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [downloadModal, setDownloadModal] = useState(false);
   const [round, setRound] = useState();
-  const [bi, setBi] = useState('-')
+
   
 
   setTimeout(function(){ 
@@ -136,7 +136,6 @@ function Game(props) {
     })
     socket.on('update', state => {
       setGame(state)
-      setBi(state[30])
       console.log(state[30])
     return ()=>{
       socket.off('update');
@@ -199,7 +198,7 @@ function Game(props) {
   justify="center"
 >
 
-  <Grid style={{ color: 'green' }}>Bimestre {bi}</Grid>
+  <Grid style={{ color: 'green' }}>Bimestre {game[30]}</Grid>
       </Grid>
       
       <List>
@@ -230,11 +229,12 @@ function Game(props) {
           <ListItemText primary="Pesquisas Contratadas" />
         </ListItem>
         </Link>
-
-        <ListItem onClick={()=>{setDownloadModal(true)}} button>
+        <Link to={`/${type}/game/reports/1`}>
+        <ListItem button>
           <ListItemIcon><PieChartIcon/></ListItemIcon>
           <ListItemText primary="Relatórios" />
         </ListItem>
+        </Link>
         <a target="_blank" href="http://api.desafiosdegestao.com.br:3000/assets/sazonalidade.xlsx">
         <ListItem button>
             <ListItemIcon><CachedIcon/></ListItemIcon>

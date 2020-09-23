@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import socket from '../../connection';
 
-socket.emit('teste', 'teste01')
+//socket.emit('teste', 'teste01')
 
 
 const useStyles = makeStyles(theme => ({

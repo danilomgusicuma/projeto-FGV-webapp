@@ -38,10 +38,11 @@ function Reports (props){
       }
       console.log('setTurnos('+arr+')')
       setTurnos(arr)
-    })
+    });
+    socket.on('repuxar-b', () => {socket.emit('puxar-balancos', turnoa)})
     socket.emit('puxar-balancos', turnoa)
 
-    return () => {socket.off('update')}
+    return () => {socket.off('update');socket.off('repuxar-b')}
     
 
   }, [turnoa])
