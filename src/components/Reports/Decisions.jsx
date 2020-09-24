@@ -22,40 +22,40 @@ useEffect(()=>{
       let decisions = c.deci
       if(document.getElementById('decisions') !== null && decisions){
         document.getElementById('decisions').querySelector('thead').querySelectorAll('tr')[0].querySelectorAll('th')[1].innerText = '(Bimestre ' + c.turno+')'
-        if(decisions.servico_1){
+       
         document.getElementById('servico_1').innerText = 'Serviço ' + decisions.servico_1
-        }if(decisions.servico_2){
+        
         document.getElementById('servico_2').innerText = 'Serviço ' + decisions.servico_2
-        }if(decisions.preco_1){
-        document.getElementById('preco_1').innerText = decisions.preco_1
-        }if(decisions.preco_2){
-        document.getElementById('preco_2').innerText = decisions.preco_2
-        }if(decisions.planejado_1){
+        
+        document.getElementById('preco_1').innerText = Math.round(decisions.preco_1)
+        
+        document.getElementById('preco_2').innerText = Math.round(decisions.preco_2)
+        
         document.getElementById('planejado_1').innerText = decisions.planejado_1
-        }if(decisions.planejado_2){
+        
         document.getElementById('planejado_2').innerText = decisions.planejado_2
-        }if(decisions.compras_1){
+        
         document.getElementById('compras_1').innerText = decisions.compras_1
-        }if(decisions.compras_2){
+        
         document.getElementById('compras_2').innerText = decisions.compras_2
-        }if(decisions.propaganda_1){
+        
         document.getElementById('propaganda_1').innerText = decisions.propaganda_1
-        }if(decisions.propaganda_2){
+        
         document.getElementById('propaganda_2').innerText = decisions.propaganda_2
-        }if(decisions.institucional){
+        
         document.getElementById('institucional').innerText = decisions.institucional
-        }if(decisions.comissao){
+        
         document.getElementById('comissao').innerText = decisions.comissao
-        }if(decisions.frota){
+        
         document.getElementById('frota').innerText = decisions.frota
-        }if(decisions.pas){
+        
         document.getElementById('pas').innerText = decisions.pas
-      }}
+      }
     }
     //setTabela(decisions.deci)
     });
     return () => {socket.off('balancos')}
-  },[])
+  },[props.round])
   
       
   
