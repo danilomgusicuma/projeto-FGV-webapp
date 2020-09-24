@@ -203,7 +203,8 @@ useEffect(()=>{
         let b = props.balanco        
         //update(balanco.balanco_patrimonial)
         if(document.getElementById('balancop') !== null){
-          
+          let cel_bimestre = document.getElementById('balancop').querySelector('thead').querySelectorAll('tr')[0].querySelectorAll('th')[1]
+          cel_bimestre.innerText = 'Bimestre ' + props.turno
         let linhas = document.getElementById('balancop').querySelector('tbody').querySelectorAll('tr')
         console.log(linhas)
         let dive = 0
@@ -341,7 +342,7 @@ useEffect(()=>{
       
     }
     return () => {socket.off('balancos')}
-  },[])
+  },[props])
   
       
   

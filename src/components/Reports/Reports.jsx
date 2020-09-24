@@ -27,6 +27,7 @@ function Reports (props){
   const classes = useStyles();
   const [turnos, setTurnos] = useState([1,2])
   const [gamb, setGamb] = useState(0)
+  const [magic, setMagic] = useState(1)
 
   useEffect(()=>{
     socket.emit('puxar-state');
@@ -45,7 +46,11 @@ function Reports (props){
     return () => {socket.off('update');socket.off('repuxar-b')}
     
 
-  }, [turnoa])
+  }, [turnoa, magic])
+  function gamb2(tt) {
+    setTurnoa(tt)
+    setMagic(Math.random()*10)
+  }
   
 
   
@@ -60,10 +65,10 @@ function Reports (props){
   alignItems="center">
           {turnos.map((t) => {
             if(t!==turnos.length){
-              return <Button variant="contained" color="primary" onClick={() => setTurnoa(t)}>Bimetre {t}</Button>
+              return <Button variant="contained" color="primary" onClick={() => gamb2(t)}>Bimetre {t}</Button>
             }
             else{
-              return <Button variant="outlined" color="primary" onClick={() => setTurnoa(t)}>Bimetre {t}</Button>
+              return <Button variant="outlined" color="primary" onClick={() => gamb2(t)}>Bimetre {t}</Button>
             }
           })}
           

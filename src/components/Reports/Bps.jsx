@@ -19,8 +19,8 @@ const useStyles = makeStyles(theme => ({
 function Reports (props){
 
   const [tipo, setTipo] = useState(['vazio'])
-  const [tipo2, setTipo2] = useState(['vazio'])
-  const [turno2, setTurno2] = useState(0)
+  const [tipo2, setTipo2] = useState(false)
+  const [turnoc, setTurnoc] = useState('-')
   const {round} = useParams();
   const classes = useStyles();
 
@@ -28,11 +28,14 @@ function Reports (props){
     socket.emit('puxar-bp-geral');
     socket.on('bp-geral', balanco => {
       setTipo(balanco)
-      setTurno2(balanco.turno)
     })
+    return () => {socket.off('bp-geral')}
 
-  })
-
+  },[])
+  function gamb(a) {
+    setTipo2(a.balanco_patrimonial);
+    setTurnoc(a.turno)
+  }
   
 
   return(
@@ -44,12 +47,12 @@ function Reports (props){
         
         if(ativo !== 'vazio'){
           return ( 
-          <Button onClick={() => setTipo2([ativo.balanco_patrimonial])}>{ativo.cooperativa}</Button>
+          <Button onClick={() => gamb(ativo)}>{ativo.cooperativa} - Bimestre: { ativo.turno}</Button>
           )
         }
         else{
           return (
-            <Button>Informação indisponiel para o turno atual</Button>
+            <Button onClick={() => {alert('Os balanços da concorrencia apenas se tornarão públicos após o segundo bimestre')}}>Informação indisponiel para o turno atual</Button>
             
           )
         }
@@ -57,17 +60,8 @@ function Reports (props){
       })} 
       </ButtonGroup> 
       </Grid>
-    {tipo2.map((ativo,ce) => {
-          if(ativo !== 'vazio'){
-            console.log('ativo (teste): ' + ativo)
-          return (
-              <Balanco ativo={'sim'} balanco={ativo} turnob={turno2}/>
-            
-          )
-
-          }
-         
-        })}
+  
+      {tipo2 ? <Balanco ativo={'sim'} turno={turnoc} balanco={tipo2}/> : <h1></h1>}
     
       
       </Grid>

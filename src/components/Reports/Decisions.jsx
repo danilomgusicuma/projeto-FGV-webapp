@@ -16,18 +16,51 @@ function Balanco(props) {
 
 
 useEffect(()=>{
-    socket.emit('puxar-deci');
-    socket.on('deci', decisions => {
-    console.log("balancos", decisions)
-    setRows(decisions)
+    socket.emit('puxar-balancos', props.round);
+    socket.on('balancos', c => {
+    if(c){
+      let decisions = c.deci
+      if(document.getElementById('decisions') !== null && decisions){
+        document.getElementById('decisions').querySelector('thead').querySelectorAll('tr')[0].querySelectorAll('th')[1].innerText = '(Bimestre ' + c.turno+')'
+        if(decisions.servico_1){
+        document.getElementById('servico_1').innerText = 'Serviço ' + decisions.servico_1
+        }if(decisions.servico_2){
+        document.getElementById('servico_2').innerText = 'Serviço ' + decisions.servico_2
+        }if(decisions.preco_1){
+        document.getElementById('preco_1').innerText = decisions.preco_1
+        }if(decisions.preco_2){
+        document.getElementById('preco_2').innerText = decisions.preco_2
+        }if(decisions.planejado_1){
+        document.getElementById('planejado_1').innerText = decisions.planejado_1
+        }if(decisions.planejado_2){
+        document.getElementById('planejado_2').innerText = decisions.planejado_2
+        }if(decisions.compras_1){
+        document.getElementById('compras_1').innerText = decisions.compras_1
+        }if(decisions.compras_2){
+        document.getElementById('compras_2').innerText = decisions.compras_2
+        }if(decisions.propaganda_1){
+        document.getElementById('propaganda_1').innerText = decisions.propaganda_1
+        }if(decisions.propaganda_2){
+        document.getElementById('propaganda_2').innerText = decisions.propaganda_2
+        }if(decisions.institucional){
+        document.getElementById('institucional').innerText = decisions.institucional
+        }if(decisions.comissao){
+        document.getElementById('comissao').innerText = decisions.comissao
+        }if(decisions.frota){
+        document.getElementById('frota').innerText = decisions.frota
+        }if(decisions.pas){
+        document.getElementById('pas').innerText = decisions.pas
+      }}
+    }
+    //setTabela(decisions.deci)
     });
-    return () => {socket.off('deci')}
+    return () => {socket.off('balancos')}
   },[])
   
       
   
   
-  const [rows, setRows] = useState([])
+  //const [tabela, setTabela] = useState({servico_1: 0, servico_2: 0, preco_1: 0, preco_2: 0, planejado_1: 0, planejado_2: 0, compras_1: 0, compras_2: 0, propaganda_1: 0, propaganda_2: 0, institucional: 0, comissao: 0, frota: 0, pas: 0})
   const useStyles = makeStyles({
     table: {
       minWidth: 700,
@@ -44,36 +77,81 @@ useEffect(()=>{
             backgroundColor: '#3f51b5',
             height: 5
         }}>
-              <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={3}>
+              <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={2}>
                 Registro de Ações
+              </TableCell>
+              <TableCell style={{fontSize: 20, color: 'White'}} align="center" colSpan={2}>
+                Bimestre
               </TableCell>
              
             </TableRow>
             </TableHead>
+            
             <TableBody>
             <TableRow style={{
             backgroundColor: '#A8A8A8'
         }}>
-              <TableCell>Ação Realizada</TableCell>
-              <TableCell align="right">Autor da Ação</TableCell>
-              <TableCell align="right">Data de modificação</TableCell>
+              <TableCell align="center" id='servico_1'>Serviço "1"</TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right" id='servico_2'>Serviço "2"</TableCell>
+              <TableCell align="right"></TableCell>
            
             </TableRow>
-            {}
-            {rows.map((linhas,num) => {
-          
-
-          return (
             <TableRow>
-              <TableCell>{linhas.acao}</TableCell>
-              <TableCell align="right">{linhas.autor}</TableCell>
-              <TableCell align="right">{linhas.data}</TableCell>
+            <TableCell align="left">Preço ofertado ($)</TableCell>
+              <TableCell align="left" id='preco_1'>-</TableCell>
+              <TableCell align="center">Preço ofertado ($)</TableCell>
+              <TableCell align="center" id='preco_2'>-</TableCell>
             </TableRow>
-          )
-
-          
-          
-        })}
+            <TableRow>
+            <TableCell align="left">Previsão de Atendimentos (#)</TableCell>
+              <TableCell align="left" id='planejado_1'>-</TableCell>
+              <TableCell align="center" >Previsão de Atendimentos (#)</TableCell>
+              <TableCell align="center" id='planejado_2'>-</TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell align="left">Contratação de Insumos (#)</TableCell>
+              <TableCell align="left" id='compras_1'>-</TableCell>
+              <TableCell align="center">Contratação de Insumos (#)</TableCell>
+              <TableCell align="center" id='compras_2'>-</TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell align="left">Investimento em Propaganda ($)</TableCell>
+              <TableCell align="left" id='propaganda_1'>-</TableCell>
+              <TableCell align="center">Investimento em Propaganda ($)</TableCell>
+              <TableCell align="center" id='propaganda_2'>-</TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell align="right"></TableCell>
+            <TableCell align="left">Propaganda Institucional ($)</TableCell>
+            <TableCell align="left" id='institucional'>-</TableCell>
+            <TableCell align="center"></TableCell>
+              
+            </TableRow>
+            <TableRow>
+            <TableCell align="right"></TableCell>
+            <TableCell align="left">Comissão (%)</TableCell>
+            <TableCell align="left" id='comissao'>-</TableCell>
+            <TableCell align="center"></TableCell>
+              
+            </TableRow>
+            <TableRow>
+            <TableCell align="right"></TableCell>
+            <TableCell align="left">Frota (#)</TableCell>
+            <TableCell align="left" id='frota'>-</TableCell>
+            <TableCell align="center"></TableCell>
+              
+            </TableRow>
+            <TableRow>
+            <TableCell align="right"></TableCell>
+            <TableCell align="left">Postos Avançados (#)</TableCell>
+            <TableCell align="left" id='pas'>-</TableCell>
+            <TableCell align="center"></TableCell>
+              
+            </TableRow>
+            
+            
+            
             
          
             

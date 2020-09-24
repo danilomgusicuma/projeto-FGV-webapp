@@ -43,7 +43,7 @@ function Dre(props){
           cel_bimestre.innerText = 'Bimestre: ' + balanco.turno
         }
         else{
-          cel_bimestre.innerText = '(Demonstração projetado) '+' Bimestre: ' + balanco.turno
+          cel_bimestre.innerText = '(Demonstração projetada) '+' Bimestre: ' + balanco.turno
         } 
         let linhas = document.getElementById('balancod').querySelector('tbody').querySelectorAll('tr')
         let cel_servicos = document.getElementById('balancod').querySelector('thead').querySelectorAll('tr')[1].querySelectorAll('th')[3]

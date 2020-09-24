@@ -43,6 +43,7 @@ import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
 import Timer from 'react-compound-timer'
 import SaveIcon from '@material-ui/icons/Save';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -117,7 +118,7 @@ function Game(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [downloadModal, setDownloadModal] = useState(false);
   const [round, setRound] = useState();
-
+  
   
 
   setTimeout(function(){ 
@@ -171,12 +172,6 @@ function Game(props) {
       icon: <EventNoteIcon/>,
     },
     {
-      path:`/${type}/game/news`,
-      label:'HSG news',
-      component: News,
-      icon: <AnnouncementIcon/>,
-    },
-    {
       path:`/${type}/game/bps`,
       label:'Balanços do mercado',
       component: Bps,
@@ -198,14 +193,17 @@ function Game(props) {
   justify="center"
 >
 
-  <Grid style={{ color: 'green' }}>Bimestre {game[30]}</Grid>
+  <Grid style={{ color: 'green' }}>Bimestre {game[30]} </Grid>
+  
+
       </Grid>
       
       <List>
+
           <Link to={`/${type}/game/inputs`}>
             <ListItem button>
-              <ListItemIcon><PlayCircleOutlineIcon/></ListItemIcon>
-              <ListItemText primary={"Simulação"} />
+              <ListItemIcon><PlayCircleOutlineIcon color="primary"/></ListItemIcon>
+              <Typography color='primary' variant="h6" noWrap>Simulação</Typography>
             
 
             </ListItem>
@@ -219,6 +217,13 @@ function Game(props) {
             </ListItem>
           </Link>
         ))}
+        
+    <Link to={`/${type}/game/news`}>
+        <ListItem button>
+          <ListItemIcon><AnnouncementIcon /></ListItemIcon>
+          <Typography noWrap>{location.pathname.includes(`hsg`) ? `HSG News` : `CBG News`}</Typography>
+        </ListItem>
+        </Link>
       </List>
       <Divider />
       <List>
@@ -247,6 +252,10 @@ function Game(props) {
             <ListItemText primary="Passo a Passo (.xlsx)" />
           </ListItem>
         </a>
+      <Link to={`/${type}/login`} style={{ color: 'red' }}>
+        <ListItem button><ListItemIcon style={{ color: 'red' }}><ExitToAppIcon/></ListItemIcon><Typography color='red' variant="h6" noWrap>Desconectar</Typography>
+  </ListItem>
+  </Link>
         
       </List>
     </div>
@@ -358,6 +367,7 @@ function Game(props) {
         <Route path="/:type/game/reports/:round" component={Reports}/>
         <Route path='/:type/game/decisions' component={Deci}/>
         <Route path='/:type/game/pesquisas' component={Pes}/>
+        <Route path='/:type/game/news' component={News}/>
 
         
         {returnSidebarComponents(sidebarComponents)}
