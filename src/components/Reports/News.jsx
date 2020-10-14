@@ -55,7 +55,7 @@ if(show){
   return(
     <div style={{margin:'0 80px'}}>
     <Paper className={classes.paper}>
-  <Typography variant="h4" className={classes.title}>{location.pathname.includes(`hsg`) ? <img src='http://localhost:3000/assets/cabe_h.png' alt="Desafios de Gestão"/> : <img src='http://localhost:3000/assets/cabe_c.png' alt="Desafios de Gestão"/>}</Typography>
+  <Typography variant="h4" className={classes.title}>{location.pathname.includes(`hsg`) ? <img src='http://api.desafiosdegestao.com.br:3000/assets/cabe_h.png' alt="Desafios de Gestão"/> : <img src='http://api.desafiosdegestao.com.br:3000/assets/cabe_c.png' alt="Desafios de Gestão"/>}</Typography>
     
     <Typography variant="h4" className={classes.title}>{location.pathname.includes(`hsg`) ? `HSG News T2` : `CBG News T2`}</Typography>
     <br/>
@@ -74,7 +74,7 @@ if(show){
     
     <Typography variant="h5">PARA REFLEXÃO</Typography>
     <br/>
-    <Typography variant="h4" className={classes.title}><img src='http://localhost:3000/assets/reflex.png' alt="Desafios de Gestão"/></Typography>
+    <Typography variant="h4" className={classes.title}><img src='http://api.desafiosdegestao.com.br:3000/assets/reflex.png' alt="Desafios de Gestão"/></Typography>
     <Typography variant="h6">PORTFÓLIO DE SERVIÇOS</Typography>
     <List>
       <ListItem>

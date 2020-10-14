@@ -25,7 +25,7 @@ function Reports (props){
   const {round} = useParams();
   const [turnoa, setTurnoa] = useState(1)
   const classes = useStyles();
-  const [turnos, setTurnos] = useState([1,2])
+  const [turnos, setTurnos] = useState([1])
   const [gamb, setGamb] = useState(0)
   const [magic, setMagic] = useState(1)
 

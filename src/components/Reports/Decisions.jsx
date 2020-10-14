@@ -27,29 +27,35 @@ useEffect(()=>{
         
         document.getElementById('servico_2').innerText = 'Serviço ' + decisions.servico_2
         
-        document.getElementById('preco_1').innerText = Math.round(decisions.preco_1)
+        document.getElementById('preco_1').innerText = Math.round(decisions.preco_1).toLocaleString('pt-BR')
         
-        document.getElementById('preco_2').innerText = Math.round(decisions.preco_2)
+        document.getElementById('preco_2').innerText = Math.round(decisions.preco_2).toLocaleString('pt-BR')
         
-        document.getElementById('planejado_1').innerText = decisions.planejado_1
+        document.getElementById('planejado_1').innerText = decisions.planejado_1.toLocaleString('pt-BR')
         
-        document.getElementById('planejado_2').innerText = decisions.planejado_2
+        document.getElementById('planejado_2').innerText = decisions.planejado_2.toLocaleString('pt-BR')
         
-        document.getElementById('compras_1').innerText = decisions.compras_1
+        document.getElementById('compras_1').innerText = decisions.compras_1.toLocaleString('pt-BR')
         
-        document.getElementById('compras_2').innerText = decisions.compras_2
+        document.getElementById('compras_2').innerText = decisions.compras_2.toLocaleString('pt-BR')
         
-        document.getElementById('propaganda_1').innerText = decisions.propaganda_1
+        document.getElementById('propaganda_1').innerText = decisions.propaganda_1.toLocaleString('pt-BR')
         
-        document.getElementById('propaganda_2').innerText = decisions.propaganda_2
+        document.getElementById('propaganda_2').innerText = decisions.propaganda_2.toLocaleString('pt-BR')
         
-        document.getElementById('institucional').innerText = decisions.institucional
+        document.getElementById('institucional').innerText = decisions.institucional.toLocaleString('pt-BR')
         
         document.getElementById('comissao').innerText = decisions.comissao
         
         document.getElementById('frota').innerText = decisions.frota
-        
-        document.getElementById('pas').innerText = decisions.pas
+        let ppas = 0
+        if(decisions.pas > 0){
+          ppas = '+'+decisions.pas
+        }
+        else{
+          ppas = decisions.pas
+        }
+        document.getElementById('pas').innerText = ppas
       }
     }
     //setTabela(decisions.deci)

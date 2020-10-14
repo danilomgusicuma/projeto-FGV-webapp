@@ -513,7 +513,7 @@ function Dre(props){
               if(i == 31 && ii == 1){
                 valores[ii].innerText = Math.round(d.pas).toLocaleString('pt-BR')
                 if(p!==0){
-                  valores[ii].innerText = p.pas*2160
+                  valores[ii].innerText = (p.pas*2160).toLocaleString('pt-BR')
                 }
               }
               if(i == 31 && ii == 3){
@@ -751,16 +751,16 @@ function Dre(props){
             <TableCell></TableCell>
             <TableCell align="right"></TableCell>
             <TableCell align="right">Tipos de serviço:</TableCell>
-            <TableCell align="right">147</TableCell>
+            <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>REEMBOLSO TOTAL</TableCell>
-              <TableCell style={{fontWeight: "bold"}}>96708</TableCell>
+              <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right">$ Preço Médio</TableCell>
-              <TableCell align="right">609</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
 
             
@@ -768,26 +768,26 @@ function Dre(props){
               <TableCell></TableCell>
               <TableCell></TableCell>
               <TableCell align="right">Atendimentos</TableCell>
-              <TableCell align="right">1876</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
 
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>(-) Custo dos serviços prestados (CSP)</TableCell>
               <TableCell></TableCell>
-              <TableCell align="right">Custo 147</TableCell>
-              <TableCell align="right">288</TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell></TableCell>
               <TableCell></TableCell>
-              <TableCell align="right">Custo 159</TableCell>
-              <TableCell align="right">308</TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>CAPACIDADE INSTALADA INICIAL DE PRESTAÇÃO DE SERVIÇOS</TableCell>
               <TableCell></TableCell>
               <TableCell align="right">Estoque de Insumos inicial</TableCell>
-              <TableCell align="right">988</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>CUSTO DE PRESTAÇÃO DOS SERVIÇOS</TableCell>
@@ -799,7 +799,7 @@ function Dre(props){
               <TableCell>CUSTO DE ESTOCAGEM ($36/unit)</TableCell>
               <TableCell></TableCell>
               <TableCell align="right">Total não utilizado</TableCell>
-              <TableCell align="right">403</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>CUSTO DE ALTERAÇÃO DE TIPO DE SERVIÇO</TableCell>
@@ -869,7 +869,7 @@ function Dre(props){
               <TableCell style={{fontWeight: "bold"}}>PROMOTORES</TableCell>
               <TableCell></TableCell>
               <TableCell align="right"># Promotores</TableCell>
-              <TableCell align="right">40</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>SALÁRIOS</TableCell>
@@ -881,7 +881,7 @@ function Dre(props){
               <TableCell>COMISSÕES</TableCell>
               <TableCell></TableCell>
               <TableCell align="right">$ Salário Unitário</TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align="right">2.160</TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>PROPAGANDA</TableCell>
@@ -905,7 +905,7 @@ function Dre(props){
               <TableCell style={{fontWeight: "bold"}}>DEPRECIAÇÃO DE MÁQUINAS / EQUIPAMENTOS</TableCell>
               <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right">Período depreciação máquinas (ANOS)</TableCell>
-              <TableCell align="right">192000</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>ENCARGOS SOBRE FINANCIAMENTOS</TableCell>
@@ -917,13 +917,13 @@ function Dre(props){
               <TableCell style={{fontWeight: "bold"}}>TRANSPORTE</TableCell>
               <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right"># Motoristas</TableCell>
-              <TableCell align="right">10</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>SALÁRIOS</TableCell>
               <TableCell></TableCell>
               <TableCell align="right">Salário Unitário</TableCell>
-              <TableCell align="right">4800</TableCell>
+              <TableCell align="right">4.800</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>LUBRIFICAÇÃO E MANUTENÇÃO</TableCell>
@@ -935,7 +935,7 @@ function Dre(props){
               <TableCell>DEPRECIAÇÃO DE VEÍCULOS</TableCell>
               <TableCell></TableCell>
               <TableCell align="right">Valor do Veículo</TableCell>
-              <TableCell align="right">57600</TableCell>
+              <TableCell align="right">57.600</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>FROTA DE TERCEIROS</TableCell>
@@ -953,19 +953,19 @@ function Dre(props){
               <TableCell style={{fontWeight: "bold"}}>POSTOS AVANÇADOS DE ATENDIMENTO</TableCell>
               <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right"># Postos</TableCell>
-              <TableCell align="right">30</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>PESQUISA DE MERCADO</TableCell>
               <TableCell style={{fontWeight: "bold"}}></TableCell>
               <TableCell align="right">Custo Unitário</TableCell>
-              <TableCell align="right">2160</TableCell>
+              <TableCell align="right">2.160</TableCell>
             </TableRow>
             <TableRow>
               <TableCell></TableCell>
               <TableCell></TableCell>
               <TableCell align="right">Custo Fixo</TableCell>
-              <TableCell align="right">50400</TableCell>
+              <TableCell align="right">50.400</TableCell>
             </TableRow>
             <TableRow style={{
             backgroundColor: '#A8A8A8'

@@ -247,7 +247,7 @@ function Dre(props){
               
               }
             if(i == 25 && ii == 2){
-                valores[ii].innerText = Math.round(f.promotores + ((b.veiculos/57600)*2400 + 2880) + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos).toLocaleString('pt-BR')            
+                valores[ii].innerText = Math.round(f.promotores + ((b.veiculos/57600)*2400 + 2880) + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos*2).toLocaleString('pt-BR')            
                
                 
                 if(p!==0){
@@ -403,7 +403,7 @@ function Dre(props){
               }
               }
             if(i == 27 && ii == 3){
-                let saa = Math.round((f.saldo_anterior + f.contas_a_receber_recebidas + ((b.veiculos/57600)*2400 + 2880) + f.veiculos_vendidos) - (((b.veiculos/57600)*2400 + 2880) + f.promotores + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos))
+                let saa = Math.round((f.saldo_anterior + f.contas_a_receber_recebidas + ((b.veiculos/57600)*2400 + 2880) + f.veiculos_vendidos) - (((b.veiculos/57600)*2400 + 2880) + f.promotores + f.propaganda + f.pesquisas + f.pas + f.uso_frota + f.despesas_operacionais_n_planejadas + 720000 + f.encargos_financiamento + f.custo_de_servico_prestado + f.veiculos_comprados + f.maquinas + f.tributos*2))
                 if(saa < 0){
                   valores[ii].innerText = 0 
                 }
@@ -687,13 +687,13 @@ function Dre(props){
             </TableRow>
             <TableRow>
               <TableCell>Total Despesas Operacionais</TableCell>
-              <TableCell align="center">60794</TableCell>
+              <TableCell align="center"></TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>Total Saídas</TableCell>
               <TableCell align="center"></TableCell>
-              <TableCell align="center" style={{fontWeight: "bold"}}>54800</TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}></TableCell>
             </TableRow>
             <TableRow>
               <TableCell> (+) FINANCIAMENTO / (-) PAGAMENTO DE EMPRÉSTIMOS ($)</TableCell>

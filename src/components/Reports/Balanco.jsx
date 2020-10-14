@@ -30,6 +30,7 @@ useEffect(()=>{
         let p = balanco.planejado 
         //update(balanco.balanco_patrimonial)
         if(document.getElementById('balancop') !== null){
+          
           let cel_bimestre = document.getElementById('balancop').querySelector('thead').querySelectorAll('tr')[0].querySelectorAll('th')[1]
         if(p==0){
           cel_bimestre.innerText = 'Bimestre: ' + balanco.turno
@@ -90,7 +91,7 @@ useEffect(()=>{
             valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
           }
           if(i == 9 && ii == 3){
-            valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
+            //valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
           }
           if(i == 10 && ii == 2){
             valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas).toLocaleString('pt-BR')
@@ -169,18 +170,18 @@ useEffect(()=>{
             valores[ii].innerText = (2130849).toLocaleString('pt-BR')
           }
           if(i == 29 && ii == 1){
-            valores[ii].innerText = Math.round(b.lucros_acumulados).toLocaleString('pt-BR')
+            valores[ii].innerText = Math.round(b.lucros_acumulados - 2880*balanco.turno).toLocaleString('pt-BR')
           }
           if(i == 30 && ii == 1){
             valores[ii].innerText = 0
           }
           if(i == 31 && ii == 2){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2883768 + b.capial).toLocaleString('pt-BR')
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial - 2880*balanco.turno).toLocaleString('pt-BR')
           }
           if(i == 32 && ii == 3){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2883768 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual).toLocaleString('pt-BR')
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual - 2880*balanco.turno).toLocaleString('pt-BR')
             if(p!==0){
-              valores[ii].innerText = Math.round(b.lucros_acumulados + 2883768 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual - 2880).toLocaleString('pt-BR')
+              valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual - 2880*balanco.turno).toLocaleString('pt-BR')
             }
           }
 
@@ -190,6 +191,29 @@ useEffect(()=>{
        
           
         }
+
+        function positivo(x) {
+          if(x !== undefined){
+            if(x < 0){
+              return 0 
+            }
+            else{
+              return x
+            }
+          }
+          
+        }
+        setData({
+          caixa: positivo(b.caixa),
+          estoque: positivo(b.estoque),
+          contas_a_receber: positivo(b.contas_a_receber120) + positivo(b.contas_a_receber60),
+          frota: positivo(b.veiculos),
+          maq: positivo(b.maquinas) - positivo(b.depreciacao_maquinas),
+          lucro: positivo(b.lucros_acumulados) + 2130849,
+          divida: positivo(b.emprestimos) + positivo(dive),
+          tributos: positivo(b.tributos_a_pagar_anterior) + positivo(b.tributos_a_pagar_atual)
+        })
+
         }
       }
       
@@ -203,6 +227,7 @@ useEffect(()=>{
         let b = props.balanco        
         //update(balanco.balanco_patrimonial)
         if(document.getElementById('balancop') !== null){
+          
           let cel_bimestre = document.getElementById('balancop').querySelector('thead').querySelectorAll('tr')[0].querySelectorAll('th')[1]
           cel_bimestre.innerText = 'Bimestre ' + props.turno
         let linhas = document.getElementById('balancop').querySelector('tbody').querySelectorAll('tr')
@@ -258,7 +283,7 @@ useEffect(()=>{
             valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
           }
           if(i == 9 && ii == 3){
-            valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
+            //valores[ii].innerText = Math.round(b.maquinas).toLocaleString('pt-BR')
           }
           if(i == 10 && ii == 2){
             valores[ii].innerText = Math.round(b.maquinas - b.depreciacao_maquinas).toLocaleString('pt-BR')
@@ -320,16 +345,16 @@ useEffect(()=>{
             valores[ii].innerText = (2130849).toLocaleString('pt-BR')
           }
           if(i == 29 && ii == 1){
-            valores[ii].innerText = Math.round(b.lucros_acumulados).toLocaleString('pt-BR')
+            valores[ii].innerText = Math.round(b.lucros_acumulados - 2880*props.turno).toLocaleString('pt-BR')
           }
           if(i == 30 && ii == 1){
             valores[ii].innerText = 0
           }
           if(i == 31 && ii == 2){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial).toLocaleString('pt-BR')
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial - 2880*props.turno).toLocaleString('pt-BR')
           }
           if(i == 32 && ii == 3){
-            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual - 2880).toLocaleString('pt-BR')
+            valores[ii].innerText = Math.round(b.lucros_acumulados + 2130849 + b.capial + b.emprestimos + dive + b.tributos_a_pagar_anterior + b.tributos_a_pagar_atual - 2880*props.turno).toLocaleString('pt-BR')
             }
 
            
@@ -338,6 +363,27 @@ useEffect(()=>{
        
           
         }
+        function positivo(x) {
+          if(x !== undefined){
+            if(x < 0){
+              return 0 
+            }
+            else{
+              return x
+            }
+          }
+          
+        }
+        setData({
+          caixa: positivo(b.caixa),
+          estoque: positivo(b.estoque),
+          contas_a_receber: positivo(b.contas_a_receber120) + positivo(b.contas_a_receber60),
+          frota: positivo(b.veiculos),
+          maq: positivo(b.maquinas) - positivo(b.depreciacao_maquinas),
+          lucro: positivo(b.lucros_acumulados) + 2130849,
+          divida: positivo(b.emprestimos) + positivo(dive),
+          tributos: positivo(b.tributos_a_pagar_anterior) + positivo(b.tributos_a_pagar_atual)
+        })
         }
       
     }
@@ -347,10 +393,10 @@ useEffect(()=>{
       
   
   const [data, setData] = useState({
-      caixa: 300,
-      estoque: 100,
-      contas_a_receber: 150,
-      frota: 200,
+      caixa: 250,
+      estoque: 250,
+      contas_a_receber: 250,
+      frota: 250,
       maq: 1000,
       lucro: 400,
       divida: 150,
@@ -392,23 +438,23 @@ useEffect(()=>{
             
               <TableRow>
                 <TableCell >CAIXA E BANCOS</TableCell>
-                <TableCell align="right">18703</TableCell>
                 <TableCell align="right"></TableCell>
-                <TableCell align="right">18703</TableCell>
+                <TableCell align="right"></TableCell>
+                <TableCell align="right"></TableCell>
               </TableRow>
 
               
               <TableRow>
                 <TableCell >INFRAESTRUTURA -
                    INSUMOS JÁ DISPONÍVEIS ($)</TableCell>
-                <TableCell align="right">18703</TableCell>
                 <TableCell align="right"></TableCell>
-                <TableCell align="right">18703</TableCell>
+                <TableCell align="right"></TableCell>
+                <TableCell align="right"></TableCell>
               </TableRow>
 
               <TableRow>
                 <TableCell>CONTAS A RECEBER</TableCell>
-                <TableCell align="right">2000</TableCell>
+                <TableCell align="right"></TableCell>
                 <TableCell align="right"></TableCell>
                 <TableCell align="right"></TableCell>
               </TableRow>
@@ -417,16 +463,16 @@ useEffect(()=>{
             <TableRow>
               <TableCell rowSpan={3} />
               <TableCell colSpan={2}>Subtotal</TableCell>
-              <TableCell align="right">2000</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>60 dias</TableCell>
-              <TableCell align="center">1000</TableCell>
+              <TableCell align="center"></TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>120 dias</TableCell>
-              <TableCell align="center">1000</TableCell>
+              <TableCell align="center"></TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
             <TableRow>
@@ -437,7 +483,7 @@ useEffect(()=>{
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>TOTAL (Ativo Circulante)</TableCell>
               <TableCell align="rigth"></TableCell>
-              <TableCell align="center" style={{fontWeight: "bold"}}>402000</TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}></TableCell>
             </TableRow>
             <TableRow style={{
             backgroundColor: '#A8A8A8'
@@ -449,34 +495,34 @@ useEffect(()=>{
             </TableRow>
             <TableRow>
               <TableCell>MÁQUINAS E EQUIPAMENTOS</TableCell>
-              <TableCell align="right">17280000</TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell rowSpan={2} />
               <TableCell colSpan={2}>Subtotal</TableCell>
-              <TableCell align="right">17280000</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>(-) DEPRECIAÇÃO DE MAQUINAS/EQUIPAMENTOS($)</TableCell>
-              <TableCell align="center">1000</TableCell>
+              <TableCell align="center"></TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>VEÍCULOS</TableCell>
-              <TableCell align="right">17280000</TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell rowSpan={2} />
               <TableCell colSpan={2}>Subtotal</TableCell>
-              <TableCell align="right">1680000</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>(-) DEPRECIAÇÃO DE VEÍCULOS ($)</TableCell>
-              <TableCell align="rigth">402000</TableCell>
+              <TableCell align="rigth"></TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
             <TableRow>
@@ -487,13 +533,13 @@ useEffect(()=>{
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>TOTAL (Ativo Permanente)</TableCell>
               <TableCell align="rigth"></TableCell>
-              <TableCell align="center" style={{fontWeight: "bold"}}>400035</TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}></TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>Ativo Total</TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
-              <TableCell align="right" style={{fontWeight: "bold"}}>246969</TableCell>
+              <TableCell align="right" style={{fontWeight: "bold"}}></TableCell>
             </TableRow>
             
             
@@ -507,19 +553,19 @@ useEffect(()=>{
             </TableRow>
             <TableRow>
               <TableCell>TRIBUTOS A PAGAR - EXERCÍCIO ANTERIOR ($)</TableCell>
-              <TableCell align="right">913221</TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>TRIBUTOS A PAGAR - DESTE EXERCÍCIO ($)</TableCell>
-              <TableCell align="right">0</TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>FINANCIAMENTO DA OPERAÇÕES (EMPRÉSTIMOS) ($)</TableCell>
-              <TableCell align="right">28800</TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
@@ -531,7 +577,7 @@ useEffect(()=>{
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>TOTAL (Passivo Circulante)</TableCell>
               <TableCell align="rigth"></TableCell>
-              <TableCell align="center" style={{fontWeight: "bold"}}>28920270</TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}></TableCell>
             </TableRow>
             
             <TableRow style={{
@@ -544,7 +590,7 @@ useEffect(()=>{
             </TableRow>
             <TableRow>
               <TableCell>CAPITAL</TableCell>
-              <TableCell align="right">18720000</TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
@@ -557,33 +603,33 @@ useEffect(()=>{
             <TableRow>
               <TableCell rowSpan={5} />
               <TableCell colSpan={2}>Subtotal</TableCell>
-              <TableCell align="right">1680000</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>ANO X0 ($)</TableCell>
-              <TableCell align="rigth">2130849</TableCell>
+              <TableCell align="rigth"></TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>ANO X1 ($)</TableCell>
-              <TableCell align="rigth">0</TableCell>
+              <TableCell align="rigth"></TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell>ANO X2 ($)</TableCell>
-              <TableCell align="rigth">0</TableCell>
+              <TableCell align="rigth"></TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>TOTAL (Patrimônio Liquido)</TableCell>
               <TableCell align="rigth"></TableCell>
-              <TableCell align="center" style={{fontWeight: "bold"}}>230230920</TableCell>
+              <TableCell align="center" style={{fontWeight: "bold"}}></TableCell>
             </TableRow>
             <TableRow>
               <TableCell style={{fontWeight: "bold"}}>Passivo Total</TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
-              <TableCell align="right" style={{fontWeight: "bold"}}>246969</TableCell>
+              <TableCell align="right" style={{fontWeight: "bold"}}></TableCell>
             </TableRow>
             
           </TableBody>
