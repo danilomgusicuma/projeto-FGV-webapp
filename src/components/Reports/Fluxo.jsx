@@ -118,7 +118,7 @@ function Dre(props){
                 }
               }
             if(i == 6 && ii == 0){
-              valores[ii].innerText = '(*) contabilizados como entradas para compensar essas despesas'
+              valores[ii].innerText = '(*) contabilizados como entradas para compensar despesas sem valor de caixa'
             } 
             if(i == 7 && ii == 2){
                 valores[ii].innerText = Math.round(f.contas_a_receber_recebidas + f.depreciacao_de_veiculos + f.depreciacao_de_maquinas + f.veiculos_vendidos + f.emprestimos_contratados).toLocaleString('pt-BR')
