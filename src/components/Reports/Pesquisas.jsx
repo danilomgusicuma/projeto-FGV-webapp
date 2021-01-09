@@ -13,7 +13,7 @@ import React from 'react';
 
 import socket from '../../connection';
 import { useEffect, useState } from 'react';
-import { SettingsSystemDaydreamTwoTone } from '@material-ui/icons';
+import { SearchRounded, SettingsSystemDaydreamTwoTone } from '@material-ui/icons';
 
 function Balanco(props) {
     
@@ -198,6 +198,12 @@ export default Balanco;
 
 
 
-
-
-
+/*
+)I would like to 0try to se see how many0 words can i chartType
+0000000000000i can type 40 words pwer SearchRounded
+i can type 100 words per second as we speak so i dont nedd me oral voice to comuniate what i mean
+i can type 100 words per second as we speak so i dont nedd me oral voice to comuni
+000bef0o0re the robot can enven finishing telling whatr i a wriot ing 0 so i now think this is a better wa0y  to cpommunicate to you becaouse in this way I can 00translate what I am ral0ireally 00felling 0about 0y ou me dear loe . Ass Asss Busrgues I can see you  iu nn the dark my son so I can go to mi homnedont start now tanlk to me wh0en i aim goin to listen to you ininthisdidiireallyndiididirelayneed topressspewace to000000000000000000talke0bea0cucde0000000if0000000ifi00couldbeableto000000000000wr00it0e0s00omethome i can go to you wh ow do you ask me? well in wa0ys y0ou could even think about , beac0use your 0litle ha0rqere
+can make you 0achieve about the real cocnern ab00000w0hy0000000000000000000000000000000000000000000000000002100000000000000000000o00000000000000000000000000000000000000000000000000000000000000w0hatishappeningwouldyoutrytoaskb0u0t00t0he000000very00instatnof this momento is granteede by all soete of great concuions around the 0m0y0 imaginnation?:000000000000000000000000000000000000000000000000                 00000      ifi00coudificouldbeabletowritesentencesinthiswayiwouldtypemuchfasterrthyeonlything htatneedsto000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ooooooooooogus00000gustavo0000000902193021930912039210390219301290391212312091203903921092310932100000999100000000000000000000000ithin00000000000000000000000000000000000000000000000000000000000000000000000099999999990000000000000000000000000000000000000000000000
+0 eu estou testando esse teclado porque ele nao para de digitar 0 em segunecia 0 0 0 09 0 0 0 0 como que pode 0 eu consiugo 0 digitar 0 como um 0 ser humano 0 n0o0rmal 0 0 por ceqnto dos 0 mamiferos que esxcistem nos 0 paises 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000--000000000000000000000000000000000000000000000000000000000iiuu0000000000000000000000000000000000000000000000000000000009890000000000000000009 aff acho que 0 00000000000000000000000000000000000000000000000
+*/
