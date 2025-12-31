@@ -21,7 +21,7 @@
     "react-normalize": "^0.4.4",
     "react-notification-alert": "0.0.12",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.0",
+    "react-scripts": "^5.0.1",
     "react-select": "^3.1.0",
     "reactstrap": "^8.4.1",
     "socket.io": "^2.3.0",
